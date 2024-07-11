@@ -5,7 +5,11 @@ const productSchema = mongoose.Schema({
   productId: {
     type: String,
     required: [true, "A product must have unique ID"],
-    unique: true,
+    unique: [true, "A productId should be unique "],
+  },
+  creatorID: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   name: {
     type: String,
@@ -23,6 +27,10 @@ const productSchema = mongoose.Schema({
       required: [true, "A product must have a category"],
     },
   ],
+  quantity: {
+    type: Number,
+    default: 1,
+  },
   description: {
     type: String,
     required: [true, "A product must have a description"],
@@ -48,6 +56,7 @@ const productSchema = mongoose.Schema({
   },
   oldPrice: {
     type: Number,
+    // set: () => this.newPrice * 0.85,
   },
   coverImage: {
     type: String,
@@ -58,6 +67,11 @@ const productSchema = mongoose.Schema({
       type: String,
     },
   ],
+  status: {
+    type: String,
+    enum: ["Pending", "Verified"],
+    default: "Pending",
+  },
   reviews: [
     {
       type: mongoose.Schema.ObjectId,

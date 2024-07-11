@@ -2,8 +2,7 @@ import Product from "../models/product.model.js";
 
 export const GetAllProducts = async (req, res) => {
   try {
-    console.log("Get all Products");
-    const Products = await Product.find();
+    const Products = await Product.find({ status: "Verified" });
 
     res.status(200).json({
       data: Products,
@@ -53,10 +52,11 @@ export const GetSingleProduct = async (req, res) => {
 
 export const PostProduct = async (req, res) => {
   try {
+    const creatorID = req.user._id;
     const {
-      productId,
       name,
       category,
+      quantity,
       description,
       detail,
       condition,
@@ -65,12 +65,6 @@ export const PostProduct = async (req, res) => {
       tags,
     } = req.body;
 
-    const ExistedProductID = await Product.findOne({ productId });
-    if (ExistedProductID) {
-      return res
-        .status(400)
-        .json({ error: "ProductId already used for other product" });
-    }
     const ExistedProductName = await Product.findOne({ name });
     if (ExistedProductName) {
       return res
@@ -78,10 +72,15 @@ export const PostProduct = async (req, res) => {
         .json({ error: "Product name already used for other product" });
     }
 
+    const ProductList = await Product.find();
+    console.log(ProductList[ProductList.length - 1].productId);
+
     const newProduct = new Product({
-      productId,
+      productId: 1 + Number(ProductList[ProductList.length - 1].productId),
       name,
+      creatorID,
       category,
+      quantity,
       description,
       detail,
       condition,
@@ -114,12 +113,15 @@ export const EditProduct = async (req, res) => {
       productId,
       name,
       category,
+      quantity,
       description,
       detail,
       condition,
       newPrice,
+      oldPrice,
       coverImage,
       tags,
+      images,
     } = req.body;
 
     const ExistedProductID = await Product.findOne({
@@ -144,15 +146,21 @@ export const EditProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       selectedProduct._id,
       {
-        productId: productId || selectedProduct.productId,
-        name: name || selectedProduct.name,
-        category: category || selectedProduct.category,
-        description: description || selectedProduct.description,
-        detail: detail || selectedProduct.detail,
-        condition: condition || selectedProduct.condition,
-        newPrice: newPrice || selectedProduct.newPrice,
-        coverImage: coverImage || selectedProduct.coverImage,
-        tags: tags || selectedProduct.tags,
+        productId,
+        name,
+        category,
+        quantity,
+        description,
+        detail,
+        condition,
+        newPrice,
+        oldPrice,
+        coverImage,
+        tags,
+        images,
+      },
+      {
+        new: true,
       }
     );
 
