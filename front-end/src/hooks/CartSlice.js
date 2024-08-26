@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import secureLocalStorage from "react-secure-storage";
 
 const initialState = {
-  cart: JSON.parse(localStorage.getItem("cartStored")),
+  cart: secureLocalStorage.getItem("cartStored") || [],
 };
 
 const cartSlice = createSlice({

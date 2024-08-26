@@ -6,7 +6,7 @@ function CartItem({ item }) {
   const { productId, name, quantity, totalPrice } = item;
   return (
     <li className="py-3 sm:flex sm:items-center sm:justify-between">
-      <p>
+      <p className="mb-2 sm:mb-0">
         {quantity}&times; {name}
       </p>
       <div className="flex items-center justify-between sm:gap-6">

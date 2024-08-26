@@ -7,7 +7,7 @@ import { getCart } from "../hooks/CartSlice";
 function Home() {
   const cart = useSelector(getCart);
   const { allproducts } = useDocteraContext();
-
+  // console.log(allproducts.length);
   return (
     <div className="mx-auto md:max-w-4xl xl:max-w-7xl">
       <p className="text-2xl font-bold">Home Page</p>

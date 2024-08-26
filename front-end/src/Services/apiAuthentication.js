@@ -1,6 +1,8 @@
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { DocteraContext } from "../context/Doctera.Context";
+import secureLocalStorage from "react-secure-storage";
+import { NavbarContext } from "../context/Navbar.context";
 
 export const SignUpApi = () => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +25,10 @@ export const SignUpApi = () => {
         throw new Error(Signupdata.error);
       }
 
-      localStorage.setItem("logged-user", JSON.stringify(Signupdata.data));
+      secureLocalStorage.setItem(
+        "logged-user",
+        JSON.stringify(Signupdata.data)
+      );
       toast.success("Account Created successfully");
     } catch (error) {
       toast.error(error.message);
@@ -36,7 +41,7 @@ export const SignUpApi = () => {
 };
 
 export const LoginApi = () => {
-  const { setLoggedUser } = useContext(DocteraContext);
+  const { setLoggedUser } = useContext(NavbarContext);
   const [loading, setLoading] = useState(false);
 
   const LoginHook = async (userInputs) => {
@@ -57,7 +62,7 @@ export const LoginApi = () => {
         throw new Error(LoginData.error);
       }
 
-      localStorage.setItem("logged-user", JSON.stringify(LoginData.data));
+      secureLocalStorage.setItem("logged-user", LoginData.data);
       setLoggedUser(LoginData.data);
       toast.success("Logged in successfully");
     } catch (error) {
@@ -72,7 +77,7 @@ export const LoginApi = () => {
 
 export const LogoutApi = () => {
   const [loading, setLoading] = useState(false);
-  const { setLoggedUser } = useContext(DocteraContext);
+  const { setLoggedUser } = useContext(NavbarContext);
   const logoutHook = async () => {
     setLoading(true);
     try {
@@ -80,7 +85,7 @@ export const LogoutApi = () => {
         `${import.meta.env.VITE_API_URL}/api/auth/logout`
       );
 
-      localStorage.removeItem("logged-user");
+      secureLocalStorage.removeItem("logged-user");
       setLoggedUser(null);
     } catch (error) {
       toast.error(error.message);

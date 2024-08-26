@@ -16,7 +16,6 @@ function Login() {
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(inputs);
       await LoginHook(inputs);
     } catch (error) {}
   };

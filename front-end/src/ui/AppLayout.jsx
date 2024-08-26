@@ -3,23 +3,31 @@ import NavBar from "./Navbar";
 import { Outlet } from "react-router-dom";
 import { GetAllProducts } from "../Services/apiProducts";
 import Sidebar from "./Sidebar";
-import { useDocteraContext } from "../context/Doctera.Context";
+import DocteraContextProvider from "../context/Doctera.Context";
+import secureLocalStorage from "react-secure-storage";
+import { useNavbarContext } from "../context/Navbar.context";
+import ScrollToTop from "./ScrollToTop";
 
 function AppLayout() {
-  const { sideBar, setSideBar } = useDocteraContext();
+  const { sideBar, setSideBar } = useNavbarContext();
   return (
-    <div className="grid grid-rows-[auto_1fr_auto]">
-      {sideBar && <Sidebar />}
-      <NavBar />
-      <div className="px-2 sm:px-3 ">
-        <Outlet />
+    <DocteraContextProvider>
+      <div className="grid grid-rows-[auto_1fr_auto]">
+        {sideBar && <Sidebar />}
+        <NavBar />
+        <div className="px-2 sm:px-3 ">
+          <Outlet />
+        </div>
+        <ScrollToTop />
       </div>
-    </div>
+    </DocteraContextProvider>
   );
 }
 
 export async function loader() {
-  if (localStorage.getItem("products")) return localStorage.getItem("products");
+  if (secureLocalStorage.getItem("products")) {
+    return secureLocalStorage.getItem("products");
+  }
   const AllProducts = await GetAllProducts();
   return AllProducts;
 }

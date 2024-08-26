@@ -25,11 +25,12 @@ import {
   useDocteraContext,
 } from "./context/Doctera.Context.jsx";
 import CreateOrder from "./features/Order/CreateOrder.jsx";
+import { NavbarContext } from "./context/Navbar.context.jsx";
 
 library.add(faEye, faEyeSlash);
 
 function App() {
-  const { loggedUser } = useContext(DocteraContext);
+  const { loggedUser } = useContext(NavbarContext);
 
   const router = createBrowserRouter([
     {
@@ -79,7 +80,6 @@ function App() {
       ],
     },
   ]);
-  const { sideBar, setSideBar } = useDocteraContext();
 
   return (
     <div>

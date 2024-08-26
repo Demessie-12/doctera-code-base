@@ -30,6 +30,7 @@ function Product() {
     const newItem = {
       productId,
       name: product.name,
+      coverImage: product.coverImage,
       quantity: 1,
       unitPrice: product.newPrice,
       totalPrice: product.newPrice,
@@ -55,6 +56,7 @@ function Product() {
             {product.images.length > 0 &&
               product.images.map((links) => (
                 <img
+                  key={links}
                   src={links}
                   className={` h-20 sm:h-24 w-auto ${
                     selectedImage !== links

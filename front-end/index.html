@@ -5,7 +5,65 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link rel="stylesheet" href="./src/index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Doctera</title>
+
+    <!-- script for rendering map -->
+    <script>
+      function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 16,
+          center: { lat: 9.047599, lng: 38.727651 },
+        });
+
+        document.getElementById("getAddress").addEventListener("click", () => {
+          // Try HTML5 geolocation.
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude,
+                };
+
+                let infoWindow = new google.maps.InfoWindow({
+                  content: '<h1 style="color:red;">Your Location</h1>',
+                });
+                infoWindow.setPosition(pos);
+                infoWindow.open(map);
+
+                var marker = new google.maps.Marker({
+                  position: pos,
+                  map: map,
+                  icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+                  title: "Your Location",
+                });
+
+                marker.addListener("click", function () {
+                  infoWindow.open(map, marker);
+                });
+
+                map.setCenter(pos);
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter());
+              }
+            );
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+          }
+        });
+      }
+
+      window.initMap = initMap;
+    </script>
+
+    <!-- script to prevent API key checking -->
+    <script
+      src="https://cdn.jsdelivr.net/gh/somanchiu/Keyless-Google-Maps-API@v6.7/mapsJavaScriptAPI.js"
+      async
+      defer
+    ></script>
   </head>
   <body>
     <div id="root"></div>

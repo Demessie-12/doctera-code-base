@@ -5,13 +5,14 @@ import "./index.css";
 import DocteraContextProvider from "./context/Doctera.Context.jsx";
 import { Provider } from "react-redux";
 import store from "./store.js";
+import NavbarContextProvider from "./context/Navbar.context.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
-      <DocteraContextProvider>
+      <NavbarContextProvider>
         <App />
-      </DocteraContextProvider>
+      </NavbarContextProvider>
     </Provider>
   </React.StrictMode>
 );

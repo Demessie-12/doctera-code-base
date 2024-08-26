@@ -3,9 +3,10 @@ import { useDocteraContext } from "../context/Doctera.Context";
 import { IoCloseOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import StarIcon from "./../Assets/star_icon.png";
+import { useNavbarContext } from "../context/Navbar.context";
 
 function Sidebar() {
-  const { sideBar, setSideBar } = useDocteraContext();
+  const { sideBar, setSideBar } = useNavbarContext();
 
   const sideCatagories = [
     {

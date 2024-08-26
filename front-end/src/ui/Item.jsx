@@ -14,7 +14,6 @@ function Item(props) {
       <Link
         to={`/product/${item.productId}_${item.slug}`}
         className="block w-full lg:max-w-64 xl:w-full"
-        onClick={() => window.scrollTo(0, 0)}
       >
         <img
           src={item.coverImage}

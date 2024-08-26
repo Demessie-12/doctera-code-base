@@ -19,6 +19,8 @@ import { DocteraContext, useDocteraContext } from "../context/Doctera.Context";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getCart, getTotalCartQuantity } from "../hooks/CartSlice";
 import { useSelector } from "react-redux";
+import secureLocalStorage from "react-secure-storage";
+import { NavbarContext, useNavbarContext } from "../context/Navbar.context";
 
 const navigation = [
   { name: "Discount", to: "/c/discount" },
@@ -32,15 +34,15 @@ function classNames(...classes) {
 }
 
 export default function NavBar() {
-  // adding cart item to localstorage
+  // adding cart item to secureLocalStorage
   const cart = useSelector(getCart);
-  localStorage.setItem("cartStored", JSON.stringify(cart));
+  secureLocalStorage.setItem("cartStored", cart);
 
   const location = useLocation();
   const navigate = useNavigate();
-  const { loggedUser, setLoggedUser } = useContext(DocteraContext);
+  const { loggedUser, setLoggedUser } = useContext(NavbarContext);
 
-  const { sideBar, setSideBar } = useDocteraContext();
+  const { sideBar, setSideBar } = useNavbarContext();
 
   const QuantityInCart = useSelector(getTotalCartQuantity);
   const isCartEmpty = QuantityInCart === 0;
@@ -77,7 +79,6 @@ export default function NavBar() {
                     <Link
                       key={item.name}
                       to={item.to}
-                      onClick={() => window.scrollTo(0, 0)}
                       className={classNames(
                         location.pathname == item.to
                           ? "bg-gray-900 text-white"
@@ -150,7 +151,7 @@ export default function NavBar() {
                         to="/"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                         onClick={() => {
-                          localStorage.removeItem("logged-user");
+                          secureLocalStorage.removeItem("logged-user");
                           setLoggedUser(null);
                         }}
                       >
