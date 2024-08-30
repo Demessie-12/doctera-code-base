@@ -9,6 +9,7 @@
 
     <!-- script for rendering map -->
     <script>
+      let ClientDistance = 0;
       function initMap() {
         const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 16,
@@ -20,28 +21,143 @@
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
               (position) => {
+                // save client current position
                 const pos = {
                   lat: position.coords.latitude,
                   lng: position.coords.longitude,
                 };
 
+                /* Add marker to client position
+                
                 let infoWindow = new google.maps.InfoWindow({
                   content: '<h1 style="color:red;">Your Location</h1>',
                 });
                 infoWindow.setPosition(pos);
                 infoWindow.open(map);
-
                 var marker = new google.maps.Marker({
                   position: pos,
                   map: map,
                   icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
                   title: "Your Location",
                 });
-
                 marker.addListener("click", function () {
                   infoWindow.open(map, marker);
                 });
 
+              */
+                const bounds = new google.maps.LatLngBounds();
+                const markersArray = [];
+                // const map = new google.maps.Map(
+                //   document.getElementById("map"),
+                //   {
+                //     center: { lat: 55.53, lng: 9.4 },
+                //     zoom: 10,
+                //   }
+                // );
+                // initialize services
+                const geocoder = new google.maps.Geocoder();
+                const service = new google.maps.DistanceMatrixService();
+                // build request
+                const origin1 = { lat: 9.047599, lng: 38.727651 };
+                const destinationB = { lat: pos.lat, lng: pos.lng };
+                const request = {
+                  origins: [origin1],
+                  destinations: [destinationB],
+                  travelMode: google.maps.TravelMode.DRIVING,
+                  unitSystem: google.maps.UnitSystem.METRIC,
+                  avoidHighways: false,
+                  avoidTolls: false,
+                };
+
+                // put request on page
+                // document.getElementById("request").innerText = JSON.stringify(
+                //   request,
+                //   null,
+                //   2
+                // );
+                // get distance matrix response
+                service.getDistanceMatrix(request).then((response) => {
+                  // put response
+                  // document.getElementById("response").innerText =
+                  //   JSON.stringify(response, null, 2);
+
+                  // Save distance and duration to order form distance
+                  document.getElementById("distance").value =
+                    response.rows[0].elements[0].distance.text;
+                  document.getElementById("duration").value =
+                    response.rows[0].elements[0].duration.text;
+                  console.log(
+                    response.rows[0].elements[0].distance.text,
+                    response.rows[0].elements[0].duration.text
+                  );
+                  const distance = response.rows[0].elements[0].distance.text;
+                  ClientDistance = Number(
+                    distance.slice(0, distance.indexOf(" "))
+                  );
+
+                  // show on map
+                  const originList = response.originAddresses;
+                  const destinationList = response.destinationAddresses;
+
+                  deleteMarkers(markersArray);
+
+                  const showGeocodedAddressOnMap = (asDestination) => {
+                    const handler = ({ results }) => {
+                      map.fitBounds(
+                        bounds.extend(results[0].geometry.location)
+                      );
+                      markersArray.push(
+                        new google.maps.Marker({
+                          map,
+                          position: results[0].geometry.location,
+                          label: asDestination ? "D" : "O",
+                          // icon:
+                          //   asDestination &&
+                          //   "https://play-lh.googleusercontent.com/5WifOWRs00-sCNxCvFNJ22d4xg_NQkAODjmOKuCQqe57SjmDw8S6VOSLkqo6fs4zqis",
+                          title: asDestination ? "Your Location" : "Our Store",
+                        })
+                      );
+                    };
+                    return handler;
+                  };
+
+                  for (let i = 0; i < originList.length; i++) {
+                    const results = response.rows[i].elements;
+
+                    geocoder
+                      .geocode({ address: originList[i] })
+                      .then(showGeocodedAddressOnMap(false));
+
+                    for (let j = 0; j < results.length; j++) {
+                      geocoder
+                        .geocode({ address: destinationList[j] })
+                        .then(showGeocodedAddressOnMap(true));
+                    }
+                  }
+                });
+
+                // add infowindows to markes
+                for (let i = 0; i < markersArray.length; i++) {
+                  const infoWindow = new google.maps.InfoWindow({
+                    content: '<h1 style="color:red;">Your Location</h1>',
+                  });
+                  // infoWindow.setPosition(markersArray[i].position);
+                  // infoWindow.open(map);
+                  markersArray[i].addListener("click", function () {
+                    infoWindow.open(map, markersArray[i]);
+                  });
+                }
+
+                // delete markers function
+                function deleteMarkers(markersArray) {
+                  for (let i = 0; i < markersArray.length; i++) {
+                    markersArray[i].setMap(null);
+                  }
+
+                  markersArray = [];
+                }
+
+                // center map to client position
                 map.setCenter(pos);
               },
               () => {

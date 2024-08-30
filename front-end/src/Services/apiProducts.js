@@ -13,6 +13,3 @@ export async function GetAllProducts() {
 
   return data;
 }
-
-// should place in order Api
-export async function createOrder() {}

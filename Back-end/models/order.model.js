@@ -11,9 +11,21 @@ const orderSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    customerName: {
+      type: String,
+      minLength: 3,
+      required: [true, "An order must have defined customer"],
+    },
+    customerPhoneNo: {
+      type: Number,
+      minLength: 10,
+      maxlength: 13,
+      required: [true, "An order must have defined customer"],
+    },
     products: [
       {
-        productId: Number,
+        productId: String,
+        coverImage: String,
         price: Number,
         quantity: Number,
         totalPrice: Number,

@@ -1,30 +1,37 @@
 import Order from "../models/order.model.js";
+import Product from "../models/product.model.js";
 
 export const CreateOrder = async (req, res) => {
   try {
-    const {
-      customerID,
-      products,
-      totalPrice,
-      dateOfDelivery,
-      status,
-      address,
-      ipLocation,
-      reviews,
-    } = req.body;
+    const { customerID, customer, phone, cart, address, position } = req.body;
+    var cartPrice = [];
 
     const NumberOfOrders = await Order.find();
+    const Products = await Product.find();
+    await cart.map((CartItem, i) => {
+      const SingleProduct = Products.find(
+        (element) => element.productId == CartItem.productId
+      );
+      const productPrice = CartItem.quantity * SingleProduct.newPrice;
+      cartPrice.push(productPrice);
+      return productPrice;
+    });
+
+    var date = new Date();
+    // add  day based on address
+    const transportDate = address.includes("Addis Ababa") ? 1 : 2;
+    date.setDate(date.getDate() + transportDate);
 
     const newOrder = await new Order({
       orderId: 11000 + NumberOfOrders.length,
-      customerID,
-      products,
-      totalPrice,
-      dateOfDelivery,
-      status,
+      // customerID,
+      customerName: customer,
+      customerPhoneNo: Number(phone),
+      products: cart,
+      totalPrice: cartPrice.reduce((sum, item) => sum + item, 0),
+      dateOfDelivery: date,
       address,
-      ipLocation,
-      reviews,
+      ipLocation: position.split(", "),
     });
 
     newOrder.save();

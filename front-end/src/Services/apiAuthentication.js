@@ -19,7 +19,7 @@ export const SignUpApi = () => {
         }
       );
 
-      const LoginData = await res.json();
+      const Signupdata = await res.json();
 
       if (Signupdata.error) {
         throw new Error(Signupdata.error);

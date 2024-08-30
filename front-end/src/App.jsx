@@ -26,6 +26,8 @@ import {
 } from "./context/Doctera.Context.jsx";
 import CreateOrder from "./features/Order/CreateOrder.jsx";
 import { NavbarContext } from "./context/Navbar.context.jsx";
+import { action as createOrderAction } from "./features/Order/CreateOrder.jsx";
+import OrderItem from "./features/Order/OrderItem.jsx";
 
 library.add(faEye, faEyeSlash);
 
@@ -64,6 +66,11 @@ function App() {
         {
           path: "/order/new",
           element: <CreateOrder />,
+          action: createOrderAction,
+        },
+        {
+          path: "/order/:orderId",
+          element: <OrderItem />,
         },
         {
           path: "/search",

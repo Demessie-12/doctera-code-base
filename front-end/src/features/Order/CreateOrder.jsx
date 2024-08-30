@@ -7,7 +7,6 @@ import {
   useActionData,
   useNavigation,
 } from "react-router-dom";
-import { createOrder } from "./../../Services/apiProducts";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
@@ -22,6 +21,7 @@ import store from "./../../store.js";
 import { fetchAddress } from "../../hooks/UserSlice.js";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import MapfromHtml from "./MapfromHtml.jsx";
+import { CreateOrderHook } from "../../Services/apiOrder.js";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -43,19 +43,17 @@ function CreateOrder() {
     error: errorAddress,
   } = useSelector((state) => state.user);
 
+  const [place, city, country] = address.split(", ");
+
   const isLoadingAddress = addressStatus === "loading";
 
-  const [withPriority, setWithPriority] = useState(false);
   const [showDetail, setShowDetail] = useState(false);
-  const [shippingPrice, setShippingPrice] = useState();
+  const [shippingPrice, setShippingPrice] = useState(ClientDistance * 20);
   const [showShippingDetail, setShowShippingDetail] = useState(false);
 
   const cart = useSelector(getCart);
   const totalCartPrice = useSelector(getTotalCartPrice);
   const totalCartQuantity = useSelector(getTotalCartQuantity);
-
-  const priorityPrice = withPriority ? totalCartPrice * 0.2 : 0;
-  const totalPrice = totalCartPrice + priorityPrice;
 
   if (!cart.length) return <EmptyCart />;
 
@@ -104,7 +102,7 @@ function CreateOrder() {
             <div>
               <button
                 className="text-blue-700 font-semibold"
-                onClick={() => setShippingPrice(true)}
+                onClick={() => console.log(ClientDistance, shippingPrice)}
               >
                 Have a promo code?
               </button>
@@ -115,44 +113,48 @@ function CreateOrder() {
             </div>
             <div className="flex justify-between">
               <p>Shipping</p>
-              {shippingPrice ? (
-                <p className="font-semibold">{shippingPrice} Birr</p>
-              ) : (
-                <div className="relative flex gap-2">
+              <div className="relative flex gap-2">
+                {address ? (
+                  <p className="font-semibold">
+                    {city === "Addis Ababa" ? ClientDistance * 20 : "300"} Birr
+                  </p>
+                ) : (
                   <p>Based on your location</p>
-                  <span>
-                    <InformationCircleIcon
-                      className="h-7"
-                      onClick={() => {
-                        setShowShippingDetail(true);
-                        setTimeout(() => {
-                          setShowShippingDetail(false);
-                        }, 5000);
-                      }}
-                    />
-                  </span>
-                  <div
-                    className={`absolute bottom-8 right-5 flex-col bg-white p-2 w-64 rounded rounded-lg" ${
-                      showShippingDetail ? "flex" : "hidden"
-                    }`}
-                  >
-                    <p>
-                      <span className="font-semibold text-center">
-                        In addis ababa -
-                      </span>
-                      30 Birr per Km
-                    </p>
-                    <p>
-                      <span className="font-semibold">Remote Area - </span>{" "}
-                      fixed 300 Birr
-                    </p>
-                  </div>
+                )}
+                <span>
+                  <InformationCircleIcon
+                    className="h-7"
+                    onClick={() => {
+                      setShowShippingDetail(true);
+                      setTimeout(() => {
+                        setShowShippingDetail(false);
+                      }, 5000);
+                    }}
+                  />
+                </span>
+                <div
+                  className={`absolute bottom-8 right-5 flex-col bg-white p-2 w-64 rounded rounded-lg" ${
+                    showShippingDetail ? "flex" : "hidden"
+                  }`}
+                >
+                  <p>
+                    <span className="font-semibold text-center">
+                      In addis ababa -
+                    </span>
+                    20 Birr per Km
+                  </p>
+                  <p>
+                    <span className="font-semibold">Remote Area - </span> fixed
+                    300 Birr
+                  </p>
                 </div>
-              )}
+              </div>
             </div>
             <div className="flex justify-between pt-2 border-t border-gray-400">
               <p className="font-semibold">Total</p>
-              <p className="font-bold">2120 Birr</p>
+              <p className="font-bold">
+                {totalCartPrice + ClientDistance * 20} Birr
+              </p>
             </div>
           </div>
         </div>
@@ -173,6 +175,7 @@ function CreateOrder() {
                   type="text"
                   name="customer"
                   defaultValue={username}
+                  minLength="3"
                   required
                 />
               </div>
@@ -185,6 +188,8 @@ function CreateOrder() {
                   className="input w-full  h-9 pl-2 rounded-xl"
                   type="tel"
                   name="phone"
+                  minLength="10"
+                  maxLength="13"
                   required
                 />
                 {formErrors?.phone && (
@@ -202,9 +207,10 @@ function CreateOrder() {
                   type="text"
                   name="address"
                   disabled={isLoadingAddress}
-                  defaultValue={address}
+                  placeholder="Please Click This Button ➡"
+                  value={address || ""}
                   required
-                  className="input w-full h-9 pl-2 rounded-xl"
+                  className="input w-full h-9 pl-2 rounded-xl rounded-r-3xl"
                 />
                 {addressStatus === "error" &&
                   (toast.error("Please allow Location access"),
@@ -224,6 +230,11 @@ function CreateOrder() {
                     onClick={(e) => {
                       e.preventDefault();
                       dispatch(fetchAddress());
+                      // to render checkout section after updating distance value
+                      setShowShippingDetail(true);
+                      setTimeout(() => {
+                        setShowShippingDetail(false);
+                      }, 5000);
                     }}
                   >
                     Get Position
@@ -232,22 +243,10 @@ function CreateOrder() {
               )}
             </div>
 
-            <div className="mb-10 flex items-center gap-2">
-              <input
-                type="checkbox"
-                name="priority"
-                id="priority"
-                className="h-6 w-6 accent-gray-800 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2"
-                value={withPriority}
-                onChange={(e) => setWithPriority(e.target.checked)}
-              />
-              <label htmlFor="priority" className="font-medium">
-                Want to yo give your order priority?
-              </label>
-            </div>
-
             <div>
               <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+              <input type="hidden" name="distance" id="distance" />
+              <input type="hidden" name="duration" id="duration" />
               <input
                 type="hidden"
                 name="position"
@@ -264,7 +263,7 @@ function CreateOrder() {
               >
                 {isSubmitting
                   ? "Placing Order..."
-                  : `Order Now ${totalPrice} Birr`}
+                  : `Order Now ${totalCartPrice + ClientDistance * 20} Birr`}
               </button>
               <Link
                 to="/cart"
@@ -276,7 +275,16 @@ function CreateOrder() {
           </Form>
         </div>
       </div>
-      <div className="block">
+      <div className="block w-full">
+        {ClientDistance > 0 && (
+          <h2 className="flex w-full mx-auto justify-center z-10 bg-white py-3 text-red-600  rounded-lg font-bold">
+            Your address is
+            <span className=" text-blue-900">
+              &nbsp;{ClientDistance} Km&nbsp;
+            </span>
+            away from our store.
+          </h2>
+        )}
         <MapfromHtml />{" "}
       </div>
     </div>
@@ -290,8 +298,9 @@ export async function action({ request }) {
   const order = {
     ...data,
     cart: JSON.parse(data.cart),
-    priority: data.priority,
   };
+
+  console.log(order);
 
   const errors = {};
   if (!isValidPhone(order.phone))
@@ -300,10 +309,11 @@ export async function action({ request }) {
 
   if (Object.keys(errors).length > 0) return errors;
 
-  const newOrder = await createOrder(order);
+  const newOrder = await CreateOrderHook(order);
   store.dispatch(clearItem());
+  console.log(newOrder);
 
-  return redirect(`/order/${newOrder.id}`);
+  return redirect(`/order/${newOrder.orderId}`);
 
   // return null;
 }

@@ -37,6 +37,7 @@ export const GetProductsByCategory = async (req, res) => {
 export const GetSingleProduct = async (req, res) => {
   try {
     const { ProductID } = req.params;
+    console.log(ProductID);
     const SingleProduct = await Product.findOne({ productId: ProductID });
     if (!SingleProduct)
       return res
