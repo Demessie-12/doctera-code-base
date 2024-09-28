@@ -8,6 +8,13 @@ import { useNavbarContext } from "../context/Navbar.context";
 function Sidebar() {
   const { sideBar, setSideBar } = useNavbarContext();
 
+  const navigation = [
+    { name: "New", to: "/c/Brand_New" },
+    { name: "Discount", to: "/c/discount" },
+    { name: "Used", to: "/c/Used" },
+    { name: "Popular", to: "/c/popular" },
+  ];
+
   const sideCatagories = [
     {
       name: "Stethoscopes",
@@ -45,7 +52,7 @@ function Sidebar() {
     },
   ];
   return (
-    <div className="flex no-doc-scroll fixed inset-0 w-dvw h-dvh z-50">
+    <div className="flex no-doc-scroll fixed inset-0 w-dvw h-dvh z-50 overflow-y-auto">
       <div className=" bg-gray-200 z-30 w-4/5 min-[480px]:w-3/5 sm:w-80 h-full min-h-dvh overflow-y-auto">
         <div className="flex fixed top-0 items-center justify-center bg-gray-900 mx-auto w-4/5 min-[480px]:w-3/5 sm:w-80 h-16">
           <p className=" text-white font-bold text-2xl">Menu</p>
@@ -57,29 +64,19 @@ function Sidebar() {
           </div>
         </div>
         <div className="mt-16 bg-fixed">
-          <div className="flex flex-col sm:hidden w-full pb-2 shadow-lg rounded-b-xl bg-gray-900  text-white">
-            <Link
-              to="/c/New-Arrival"
-              className="pb-1 ml-5 font-semibold text-lg  w-fit"
-              onClick={() => setSideBar(false)}
-            >
-              New Arrival
-            </Link>
-            <Link
-              to="/c/discount"
-              className="pb-1 ml-8 font-semibold text-lg  w-fit"
-              onClick={() => setSideBar(false)}
-            >
-              Discount
-            </Link>
-            <Link
-              to="c/popular"
-              className="flex gap-1 pb-1 ml-11 font-semibold text-lg  w-fit"
-              onClick={() => setSideBar(false)}
-            >
-              <img src={StarIcon} className="w-5 h-6 align-middle" />
-              Popular
-            </Link>
+          <div className=" bg-gradient-to-b from-gray-900 to-gray-200">
+            <div className="grid grid-cols-2 gap-1 sm:hidden mx-auto w-2/3 min-w-52 py-2 shadow-lg rounded-b-xl bg-gradient-to-b from-gray-900 to-blue-900  text-yellow-300">
+              {navigation.map((nav, i) => (
+                <Link
+                  key={i}
+                  to={nav.to}
+                  className="pb-1 ml-5 font-semibold text-lg  w-fit"
+                  onClick={() => setSideBar(false)}
+                >
+                  {nav.name}
+                </Link>
+              ))}
+            </div>
           </div>
           <div className="flex-col space-y-1 pt-4 mx-2 sm:mx-4 ">
             {sideCatagories.map((category) => (
@@ -98,10 +95,19 @@ function Sidebar() {
             ))}
           </div>
         </div>
+        <div className="flex flex-col mt-7 w-full bg-gray-900 text-center text-yellow-300">
+          <div></div>
+          <p>h</p>
+          <p>
+            <Link className="py-2 px-3 border border-gray-300  rounded-xl">
+              Sign in
+            </Link>
+          </p>
+        </div>
       </div>
 
       <div
-        className="fixed right-0 min-h-dvh h-full w-2/5 sm:w-full bg-black bg-opacity-70 z-10"
+        className="absolute right-0 min-h-dvh h-full w-2/5 sm:w-full bg-black bg-opacity-70 z-10"
         onClick={() => setSideBar(false)}
       ></div>
     </div>

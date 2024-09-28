@@ -4,17 +4,20 @@ import slugify from "slugify";
 const productSchema = mongoose.Schema({
   productId: {
     type: String,
-    required: [true, "A product must have unique ID"],
+    required: [true, "A product must have ID"],
     unique: [true, "A productId should be unique "],
   },
-  creatorID: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+  creator: {
+    type: String,
+    required: [true, "A product must have CreatorID"],
+  },
+  creatorPhone: {
+    type: Number,
+    required: true,
   },
   name: {
     type: String,
     required: [true, "A product must have a name"],
-    unique: true,
     minLength: 3,
     trim: true,
   },

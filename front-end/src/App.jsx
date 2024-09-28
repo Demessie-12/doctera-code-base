@@ -13,7 +13,6 @@ import Category from "./Pages/Category.jsx";
 import Product from "./Pages/Product.jsx";
 import Cart from "./Pages/Cart.jsx";
 import Order from "./Pages/Order.jsx";
-import Search from "./Pages/Search.jsx";
 import Profile from "./Pages/Profile.jsx";
 import Admin from "./Pages/Admin.jsx";
 
@@ -28,6 +27,11 @@ import CreateOrder from "./features/Order/CreateOrder.jsx";
 import { NavbarContext } from "./context/Navbar.context.jsx";
 import { action as createOrderAction } from "./features/Order/CreateOrder.jsx";
 import OrderItem from "./features/Order/OrderItem.jsx";
+import OrderDetail, {
+  loader as OrderLoader,
+} from "./features/Order/OrderDetail.jsx";
+import SearchResult from "./features/Search/SearchResult.jsx";
+// import SearchResult from "./Pages/SearchResult.jsx";
 
 library.add(faEye, faEyeSlash);
 
@@ -64,17 +68,22 @@ function App() {
           element: <Cart />,
         },
         {
+          path: "/order",
+          element: <Order />,
+        },
+        {
           path: "/order/new",
           element: <CreateOrder />,
           action: createOrderAction,
         },
         {
           path: "/order/:orderId",
-          element: <OrderItem />,
+          element: <OrderDetail />,
+          loader: OrderLoader,
         },
         {
-          path: "/search",
-          element: <Search />,
+          path: "/search/:searchName",
+          element: <SearchResult />,
         },
         {
           path: "/profile",

@@ -17,10 +17,13 @@
         });
 
         document.getElementById("getAddress").addEventListener("click", () => {
+          console.log("Change in getAddress");
           // Try HTML5 geolocation.
           if (navigator.geolocation) {
+            console.log(" 23 Change in getAddress");
             navigator.geolocation.getCurrentPosition(
               (position) => {
+                console.log("27 Change in getAddress");
                 // save client current position
                 const pos = {
                   lat: position.coords.latitude,
@@ -76,7 +79,9 @@
                 //   2
                 // );
                 // get distance matrix response
+                console.log("61 Change in getAddress");
                 service.getDistanceMatrix(request).then((response) => {
+                  console.log(" 83 Change in getAddress");
                   // put response
                   // document.getElementById("response").innerText =
                   //   JSON.stringify(response, null, 2);
@@ -102,6 +107,7 @@
                   deleteMarkers(markersArray);
 
                   const showGeocodedAddressOnMap = (asDestination) => {
+                    console.log(" 109Change in getAddress");
                     const handler = ({ results }) => {
                       map.fitBounds(
                         bounds.extend(results[0].geometry.location)
@@ -159,12 +165,14 @@
 
                 // center map to client position
                 map.setCenter(pos);
-              },
-              () => {
-                handleLocationError(true, infoWindow, map.getCenter());
+                console.log("2 Change in getAddress");
               }
+              // () => {
+              //   handleLocationError(true, infoWindow, map.getCenter());
+              // }
             );
           } else {
+            console.log(" 3 Change in getAddress");
             // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
           }

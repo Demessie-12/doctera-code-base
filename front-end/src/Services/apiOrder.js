@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 
 export const CreateOrderHook = async (orderData) => {
   try {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+    const res = await fetch("/api/orders", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ ...orderData }),
@@ -20,4 +20,15 @@ export const CreateOrderHook = async (orderData) => {
   } catch (error) {
     toast.error(error.message);
   }
+};
+
+export const GetOrderHook = async (orderId) => {
+  console.log("get hook runned");
+  const res = await fetch(`/api/orders/${orderId}`);
+  console.log("get hook finished");
+
+  if (!res.ok) throw Error("Failed to get Order");
+
+  const { data } = await res.json();
+  return data;
 };

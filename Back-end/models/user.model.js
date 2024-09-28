@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  prorilePic: {
+    type: String,
+    required: true,
+  },
   username: {
     type: String,
     required: true,
@@ -29,7 +33,6 @@ const userSchema = new mongoose.Schema({
   phoneNumber: {
     type: Number,
     required: true,
-    minlength: 10,
   },
   role: {
     type: String,

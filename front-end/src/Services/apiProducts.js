@@ -2,7 +2,7 @@ import { useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 export async function GetAllProducts() {
-  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/products`);
+  const res = await fetch("/api/products");
 
   if (!res.ok) throw Error("Failed to get products");
 

@@ -25,6 +25,7 @@ const orderSchema = mongoose.Schema(
     products: [
       {
         productId: String,
+        name: String,
         coverImage: String,
         price: Number,
         quantity: Number,
@@ -41,7 +42,7 @@ const orderSchema = mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Successfully delivered", "On delivery", "Waiting"],
+      enum: ["Delivered", "On delivery", "Waiting"],
       default: "Waiting",
     },
     address: String,

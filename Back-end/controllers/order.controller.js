@@ -47,7 +47,9 @@ export const GetSingleOrder = async (req, res) => {
   try {
     const { orderId } = req.params;
     const singleOrder = await Order.findOne({ orderId }).select([
-      "-address",
+      "-_id",
+      "-customerName",
+      "-customerPhoneNo",
       "-ipLocation",
     ]);
 

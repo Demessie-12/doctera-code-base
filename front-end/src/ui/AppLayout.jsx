@@ -7,17 +7,19 @@ import DocteraContextProvider from "../context/Doctera.Context";
 import secureLocalStorage from "react-secure-storage";
 import { useNavbarContext } from "../context/Navbar.context";
 import ScrollToTop from "./ScrollToTop";
+import Footer from "./Footer";
 
 function AppLayout() {
   const { sideBar, setSideBar } = useNavbarContext();
   return (
     <DocteraContextProvider>
-      <div className="grid grid-rows-[auto_1fr_auto]">
+      <div className="min-h-dvh grid grid-rows-[auto_1fr_auto]">
         {sideBar && <Sidebar />}
         <NavBar />
         <div className="px-2 sm:px-3 ">
           <Outlet />
         </div>
+        <Footer />
         <ScrollToTop />
       </div>
     </DocteraContextProvider>

@@ -1,32 +1,26 @@
 import {
   Disclosure,
-  DisclosureButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuItems,
 } from "@headlessui/react";
-import {
-  Bars3Icon,
-  BellIcon,
-  ChartBarIcon,
-  ShoppingCartIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 import { useContext, useState } from "react";
 import { IoCart } from "react-icons/io5";
-import { DocteraContext, useDocteraContext } from "../context/Doctera.Context";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getCart, getTotalCartQuantity } from "../hooks/CartSlice";
 import { useSelector } from "react-redux";
 import secureLocalStorage from "react-secure-storage";
 import { NavbarContext, useNavbarContext } from "../context/Navbar.context";
+import Search from "./Search";
+import { LogoutApi } from "../Services/apiAuthentication";
 
 const navigation = [
   { name: "Discount", to: "/c/discount" },
-  { name: "New Arrival", to: "/c/New-Arrival" },
+  { name: "New", to: "/c/Brand_New" },
+  { name: "Used", to: "/c/Used" },
   { name: "Popular", to: "/c/popular" },
-  { name: "For you", to: "/" },
 ];
 
 function classNames(...classes) {
@@ -43,6 +37,15 @@ export default function NavBar() {
   const { loggedUser, setLoggedUser } = useContext(NavbarContext);
 
   const { sideBar, setSideBar } = useNavbarContext();
+
+  const { loading, logoutHook } = LogoutApi();
+
+  const handleLogout = async (e) => {
+    try {
+      e.preventDefault();
+      await logoutHook();
+    } catch (error) {}
+  };
 
   const QuantityInCart = useSelector(getTotalCartQuantity);
   const isCartEmpty = QuantityInCart === 0;
@@ -73,9 +76,9 @@ export default function NavBar() {
                   />
                 </Link>
               </div>
-              <div className="hidden sm:ml-3 md:ml-5 sm:block">
-                <div className="flex space-x-4">
-                  {navigation.map((item) => (
+              <div className="hidden sm:ml-2 md:ml-5 sm:block">
+                <div className="flex space-x-2 lg:space-x-4">
+                  {navigation.map((item, i) => (
                     <Link
                       key={item.name}
                       to={item.to}
@@ -83,7 +86,9 @@ export default function NavBar() {
                         location.pathname == item.to
                           ? "bg-gray-900 text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "md:text-lg rounded-md px-3 py-2 text-sm font-medium transition"
+                        `text-lg md:text-lg rounded-md px-2 py-2  font-medium transition ${
+                          i > 2 && "sm:hidden md:flex"
+                        }`
                       )}
                     >
                       {item.name}
@@ -92,7 +97,8 @@ export default function NavBar() {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-2 flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-2">
+            <div className="absolute inset-y-0 right-2 flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-5 sm:pr-1 md:pr-2">
+              <Search />
               <button
                 type="button"
                 onClick={() => navigate("/cart")}
@@ -121,7 +127,11 @@ export default function NavBar() {
                       <span className="sr-only">Open user menu</span>
                       <img
                         alt=""
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={
+                          secureLocalStorage.getItem("logged-user")
+                            .prorilePic ||
+                          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        }
                         className="h-9 w-9 rounded-full"
                       />
                     </MenuButton>
@@ -150,10 +160,7 @@ export default function NavBar() {
                       <Link
                         to="/"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
-                        onClick={() => {
-                          secureLocalStorage.removeItem("logged-user");
-                          setLoggedUser(null);
-                        }}
+                        onClick={handleLogout}
                       >
                         Sign out{" "}
                       </Link>

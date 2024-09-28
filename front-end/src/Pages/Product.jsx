@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, getCurrentQuantityById } from "../hooks/CartSlice.js";
 import UpdateItemQuantity from "../features/Cart/UpdateItemQuantity.jsx";
 import DeleteItem from "../features/Cart/DeleteItem.jsx";
+import { SlCallOut } from "react-icons/sl";
 
 function Product() {
   const dispatch = useDispatch();
@@ -104,6 +105,15 @@ function Product() {
               : product.newPrice.toFixed(2) * 1.2
           }`}</p>
           <p className="font-bold ">{`${product.newPrice} Birr`}</p>
+        </div>
+        <div className="Price flex text-xl">
+          <p className="font-bold capitalize mr-2">Contact:</p>
+          <a href={`tel:${product.creatorPhone || "0900763647"}`}>
+            <p className="inline-flex rounded-full bg-blue-700 text-sm font-semibold uppercase tracking-wide text-white hover:bg-blue-400 hover:text-black focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-2 disabled:cursor-not-allowed px-2 py-1 sm:px-3 sm:py-2">
+              <SlCallOut className="pt-1 h-fit " /> &nbsp;{" "}
+              {product.creatorPhone || "0900763647"}
+            </p>
+          </a>
         </div>
         <div>
           {isInCart ? (

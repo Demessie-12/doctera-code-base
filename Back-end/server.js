@@ -14,11 +14,41 @@ const app = express();
 
 dotenv.config();
 app.use(express.json());
-app.use(cors());
 app.use(cookieParser());
+// app.use(
+//   cors({
+//     origin: "http://localhost:5173", // Change to your frontend's URL
+//     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+//   })
+// );
+// app.use(
+//   cors({
+//     origin: "https://localhost:5173/",
+//     credentials: true,
+//   })
+// );
+
+if (process.env.NODE_ENV === "production") {
+  app.use(
+    cors({
+      origin: "https://xyz.onrender.com", // Doctera website
+      credentials: true,
+    })
+  );
+}
 
 app.get("/", (req, res) => {
   res.send("Hello World from server");
+});
+
+app.use((req, res, next) => {
+  res.set({
+    "Access-Control-Allow-Origin": "http://localhost:5173",
+    "Access-Control-Allow-Credentials": true,
+    "Access-Control-Allow-Methods": "*",
+  });
+
+  next();
 });
 
 app.use("/api/auth", authRoutes);

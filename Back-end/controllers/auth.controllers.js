@@ -34,6 +34,10 @@ export const signupUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // generate profilePic from https://avatar-placeholder.iran.liara.run/
+    const boyprofilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
+    const girlprofilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`;
+
     const newUser = new User({
       fullname,
       username,
@@ -41,22 +45,22 @@ export const signupUser = async (req, res) => {
       password: hashedPassword,
       email,
       phoneNumber,
+      prorilePic: gender === "male" ? boyprofilePic : girlprofilePic,
     });
 
     if (newUser) {
-      generateTokenAndSetCookie(newUser._id, res);
       await newUser.save();
 
+      generateTokenAndSetCookie(newUser._id, res); // for deployment
       res.status(201).json({
         data: {
-          _id: newUser._id,
           fullname: newUser.fullname,
           username: newUser.username,
           gender: newUser.gender,
-          password: newUser.password,
           email: newUser.email,
           phoneNumber: newUser.phoneNumber,
           role: newUser.role,
+          prorilePic: newUser.prorilePic,
         },
       });
     } else {
@@ -81,14 +85,15 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ error: "Invalid email or password" });
     }
 
-    generateTokenAndSetCookie(user._id, res);
+    generateTokenAndSetCookie(user._id, res); // for deployment
 
     res.status(200).json({
       data: {
-        _id: user._id,
         email: user.email,
         fullname: user.fullname,
         username: user.username,
+        phoneNumber: user.phoneNumber,
+        prorilePic: user.prorilePic,
       },
     });
   } catch (error) {

@@ -22,6 +22,8 @@ import { fetchAddress } from "../../hooks/UserSlice.js";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import MapfromHtml from "./MapfromHtml.jsx";
 import { CreateOrderHook } from "../../Services/apiOrder.js";
+import OrderItem from "./OrderItem.jsx";
+import { useDocteraContext } from "../../context/Doctera.Context.jsx";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -36,12 +38,12 @@ function CreateOrder() {
   const formErrors = useActionData();
   const dispatch = useDispatch();
   const {
-    username,
     status: addressStatus,
     position,
     address,
     error: errorAddress,
   } = useSelector((state) => state.user);
+  const { loggedUser } = useDocteraContext();
 
   const [place, city, country] = address.split(", ");
 
@@ -56,6 +58,7 @@ function CreateOrder() {
   const totalCartQuantity = useSelector(getTotalCartQuantity);
 
   if (!cart.length) return <EmptyCart />;
+  // console.log(loggedUser);
 
   return (
     <div>
@@ -78,24 +81,12 @@ function CreateOrder() {
                 </button>
               </div>
               <div
-                className={`flex flex-col gap-2 transition mb-2 ${
+                className={`flex flex-col gap-2 transition duration-500 mb-2 ${
                   showDetail ? "block" : "hidden"
                 }`}
               >
                 {cart.map((item) => (
-                  <li
-                    key={item.name}
-                    className="py-3 flex items-center justify-between  pl-3 sm:pl-5 md:pl-7 pr-3 bg-white"
-                  >
-                    <div className="flex gap-2 ">
-                      <img src={item.coverImage} className="h-8" alt="" />
-                      <p className="capitalize">{item.name}</p>
-                    </div>
-                    <p>
-                      {item.quantity} x {item.unitPrice}
-                    </p>
-                    <p className="text-sm font-bold">{item.totalPrice} Birr</p>
-                  </li>
+                  <OrderItem item={item} />
                 ))}
               </div>
             </div>
@@ -174,7 +165,7 @@ function CreateOrder() {
                   className="input w-full h-9 pl-2 rounded-xl"
                   type="text"
                   name="customer"
-                  defaultValue={username}
+                  defaultValue={loggedUser?.fullname}
                   minLength="3"
                   required
                 />
@@ -188,6 +179,7 @@ function CreateOrder() {
                   className="input w-full  h-9 pl-2 rounded-xl"
                   type="tel"
                   name="phone"
+                  defaultValue={loggedUser?.phoneNumber}
                   minLength="10"
                   maxLength="13"
                   required
@@ -208,7 +200,8 @@ function CreateOrder() {
                   name="address"
                   disabled={isLoadingAddress}
                   placeholder="Please Click This Button ➡"
-                  value={address || ""}
+                  defaultValue={address || ""}
+                  // value={address || ""}
                   required
                   className="input w-full h-9 pl-2 rounded-xl rounded-r-3xl"
                 />
@@ -280,6 +273,7 @@ function CreateOrder() {
           <h2 className="flex w-full mx-auto justify-center z-10 bg-white py-3 text-red-600  rounded-lg font-bold">
             Your address is
             <span className=" text-blue-900">
+              {/* space &nbsp; */}
               &nbsp;{ClientDistance} Km&nbsp;
             </span>
             away from our store.
@@ -313,9 +307,12 @@ export async function action({ request }) {
   store.dispatch(clearItem());
   console.log(newOrder);
 
-  return redirect(`/order/${newOrder.orderId}`);
+  setTimeout(() => {
+    console.log("redirected");
+    window.location = `/order/${newOrder.orderId}`;
+  }, 0.001);
 
-  // return null;
+  return null;
 }
 
 export default CreateOrder;

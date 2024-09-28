@@ -59,10 +59,16 @@ function Signup() {
                 name="fullname"
                 type="text"
                 value={inputs.fullname}
-                minLength={5}
-                onChange={(e) =>
-                  setInputs({ ...inputs, fullname: e.target.value })
-                }
+                onChange={(e) => {
+                  setInputs({ ...inputs, fullname: e.target.value });
+                  inputs.username.length < 4 &&
+                    setInputs({
+                      ...inputs,
+                      fullname: e.target.value,
+                      username: e.target.value,
+                    });
+                  console.log("fullname changed");
+                }}
                 required
                 autoComplete="fullname"
                 className="block mt-2
@@ -81,12 +87,12 @@ function Signup() {
                 id="username"
                 name="username"
                 type="text"
+                // defaultValue={inputs.fullname}
                 value={inputs.username}
-                minLength={3}
-                onChange={(e) =>
-                  setInputs({ ...inputs, username: e.target.value })
-                }
-                required
+                onChange={(e) => {
+                  setInputs({ ...inputs, username: e.target.value });
+                  console.log("username changed");
+                }}
                 className="block mt-2 w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 bg-gray-300 ring-1 ring-inset ring-gray-300"
               />
             </div>
@@ -103,8 +109,7 @@ function Signup() {
                 name="phoneNumber"
                 type="tel"
                 value={inputs.phoneNumber}
-                minLength={10}
-                maxLength={13}
+                // required
                 onChange={(e) =>
                   setInputs({ ...inputs, phoneNumber: e.target.value })
                 }

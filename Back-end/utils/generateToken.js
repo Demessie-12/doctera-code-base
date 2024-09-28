@@ -4,11 +4,13 @@ const generateTokenAndSetCookie = (userId, res) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "15d",
   });
-
   res.cookie("jwt", token, {
-    maxAge: 15 * 24 * 60 * 60 * 1000, // time in miliSecond
-    sameSite: "strict",
+    maxAge: 15 * 24 * 60 * 60 * 1000, // ms
+    // httpOnly: true, // prevent XSS attacks cross-site scripting attack
+    sameSite: "strict", // CSRF attacks cross-site request forgery attack
+    secure: false,
   });
+  return token; // only for localhost
 };
 
 export default generateTokenAndSetCookie;

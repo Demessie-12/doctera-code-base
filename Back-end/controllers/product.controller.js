@@ -53,7 +53,9 @@ export const GetSingleProduct = async (req, res) => {
 
 export const PostProduct = async (req, res) => {
   try {
-    const creatorID = req.user._id;
+    const creator = req.user.username;
+    const creatorPhone = req.user.phoneNumber;
+
     const {
       name,
       category,
@@ -66,20 +68,13 @@ export const PostProduct = async (req, res) => {
       tags,
     } = req.body;
 
-    const ExistedProductName = await Product.findOne({ name });
-    if (ExistedProductName) {
-      return res
-        .status(400)
-        .json({ error: "Product name already used for other product" });
-    }
-
     const ProductList = await Product.find();
-    console.log(ProductList[ProductList.length - 1].productId);
 
     const newProduct = new Product({
       productId: 1 + Number(ProductList[ProductList.length - 1].productId),
       name,
-      creatorID,
+      creator,
+      creatorPhone,
       category,
       quantity,
       description,
@@ -133,15 +128,6 @@ export const EditProduct = async (req, res) => {
       return res
         .status(400)
         .json({ error: "ProductId already used for other product" });
-    }
-    const ExistedProductName = await Product.findOne({
-      name,
-      _id: { $ne: selectedProduct._id },
-    });
-    if (ExistedProductName) {
-      return res
-        .status(400)
-        .json({ error: "Product name already used for other product" });
     }
 
     const updatedProduct = await Product.findByIdAndUpdate(
