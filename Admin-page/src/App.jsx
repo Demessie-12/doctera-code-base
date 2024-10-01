@@ -3,12 +3,13 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import "./App.css";
 import AppLayout from "./AppLayout";
-import Home from "../../front-end/src/Pages/Home";
 import Product from "./pages/Product";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
+import Home from "./pages/Home";
+
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,7 +27,12 @@ function App() {
     },
   ]);
 
-  return <div></div>;
+  return (
+    <div>
+      <RouterProvider router={router} />
+      <Toaster />
+    </div>
+  );
 }
 
 export default App;
