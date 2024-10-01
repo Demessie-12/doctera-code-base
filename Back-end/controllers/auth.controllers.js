@@ -45,7 +45,7 @@ export const signupUser = async (req, res) => {
       password: hashedPassword,
       email,
       phoneNumber,
-      prorilePic: gender === "male" ? boyprofilePic : girlprofilePic,
+      profilePic: gender === "male" ? boyprofilePic : girlprofilePic,
     });
 
     if (newUser) {
@@ -60,7 +60,7 @@ export const signupUser = async (req, res) => {
           email: newUser.email,
           phoneNumber: newUser.phoneNumber,
           role: newUser.role,
-          prorilePic: newUser.prorilePic,
+          profilePic: newUser.profilePic,
         },
       });
     } else {
@@ -93,7 +93,7 @@ export const loginUser = async (req, res) => {
         fullname: user.fullname,
         username: user.username,
         phoneNumber: user.phoneNumber,
-        prorilePic: user.prorilePic,
+        profilePic: user.profilePic,
       },
     });
   } catch (error) {

@@ -60,9 +60,13 @@ function SearchResult() {
           {allproducts
             .map((product) => {
               if (
-                product.name
+                (product.name
                   .toLocaleLowerCase()
-                  .includes(searchName.toLocaleLowerCase()) &
+                  .includes(searchName.toLocaleLowerCase()) ||
+                  product.productId
+                    .toLocaleLowerCase()
+                    .includes(searchName.toLocaleLowerCase())) &
+                // Filter search
                 (filterObject.condition.length > 0
                   ? filterObject.condition.includes(product.condition)
                   : true) &

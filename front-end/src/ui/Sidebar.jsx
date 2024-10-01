@@ -6,7 +6,7 @@ import StarIcon from "./../Assets/star_icon.png";
 import { useNavbarContext } from "../context/Navbar.context";
 
 function Sidebar() {
-  const { sideBar, setSideBar } = useNavbarContext();
+  const { sideBar, setSideBar, loggedUser, setLoggedUser } = useNavbarContext();
 
   const navigation = [
     { name: "New", to: "/c/Brand_New" },
@@ -54,7 +54,7 @@ function Sidebar() {
   return (
     <div className="flex no-doc-scroll fixed inset-0 w-dvw h-dvh z-50 overflow-y-auto">
       <div className=" bg-gray-200 z-30 w-4/5 min-[480px]:w-3/5 sm:w-80 h-full min-h-dvh overflow-y-auto">
-        <div className="flex fixed top-0 items-center justify-center bg-gray-900 mx-auto w-4/5 min-[480px]:w-3/5 sm:w-80 h-16">
+        <div className="flex fixed top-0 items-center justify-center bg-gradient-to-b from-gray-900 to-gray-700 mx-auto w-4/5 min-[480px]:w-3/5 sm:w-80 h-16">
           <p className=" text-white font-bold text-2xl">Menu</p>
           <div
             className="absolute top-1 right-1 rounded-full text-red-600 text-4xl p-2 cursor-pointer hover:bg-white hover:text-black"
@@ -64,8 +64,8 @@ function Sidebar() {
           </div>
         </div>
         <div className="mt-16 bg-fixed">
-          <div className=" bg-gradient-to-b from-gray-900 to-gray-200">
-            <div className="grid grid-cols-2 gap-1 sm:hidden mx-auto w-2/3 min-w-52 py-2 shadow-lg rounded-b-xl bg-gradient-to-b from-gray-900 to-blue-900  text-yellow-300">
+          <div className=" bg-gradient-to-b from-gray-700 to-gray-200">
+            <div className="grid grid-cols-2 gap-1 sm:hidden mx-auto w-2/3 min-w-52 py-2 shadow-lg rounded-b-xl bg-gradient-to-b from-gray-700 to-blue-900  text-yellow-300">
               {navigation.map((nav, i) => (
                 <Link
                   key={i}
@@ -95,12 +95,20 @@ function Sidebar() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col mt-7 w-full bg-gray-900 text-center text-yellow-300">
-          <div></div>
-          <p>h</p>
-          <p>
-            <Link className="py-2 px-3 border border-gray-300  rounded-xl">
-              Sign in
+        <div className="flex flex-col mt-7 pt-3 w-full bg-gray-900 text-center text-yellow-300">
+          <div className="flex justify-between px-5 sm:px-10">
+            <a href="tel:251900763647">+251900763647</a>
+            <Link to={"/contact"} onClick={() => setSideBar(false)}>
+              Contact Us
+            </Link>
+          </div>
+          <p className="h-16 align-middle py-5">
+            <Link
+              to={loggedUser ? "/profile" : "/login"}
+              onClick={() => setSideBar(false)}
+              className="py-1.5 px-3 border border-gray-300 text-white rounded-xl"
+            >
+              {loggedUser ? "Go to profile" : "Sign in"}
             </Link>
           </p>
         </div>

@@ -7,20 +7,23 @@ const orderSchema = mongoose.Schema(
       required: [true, "An order must have unique ID"],
       unique: true,
     },
-    customerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+    customerUsername: {
+      type: String,
+      required: [
+        true,
+        "An order must have defined customer username or unknown",
+      ],
     },
     customerName: {
       type: String,
       minLength: 3,
-      required: [true, "An order must have defined customer"],
+      required: [true, "An order must have defined customer Name"],
     },
     customerPhoneNo: {
       type: Number,
       minLength: 10,
       maxlength: 13,
-      required: [true, "An order must have defined customer"],
+      required: [true, "An order must have defined customer Phone Number"],
     },
     products: [
       {

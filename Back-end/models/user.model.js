@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  prorilePic: {
+  profilePic: {
     type: String,
     required: true,
   },
@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
   },
   companyName: {
     type: String,
+  },
+  orders: {
+    type: mongoose.Types.ObjectId,
+    ref: "Order",
   },
 });
 

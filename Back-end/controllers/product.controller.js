@@ -2,7 +2,9 @@ import Product from "../models/product.model.js";
 
 export const GetAllProducts = async (req, res) => {
   try {
-    const Products = await Product.find({ status: "Verified" });
+    const Products = await Product.find({ status: "Verified" }).populate(
+      "reviews"
+    );
 
     res.status(200).json({
       data: Products,
@@ -70,8 +72,15 @@ export const PostProduct = async (req, res) => {
 
     const ProductList = await Product.find();
 
+    // Get number form last Product from A096 => 96
+    const lastProductIdNo = Number(
+      ProductList[ProductList.length - 1].productId.substring(1)
+    );
+    // First plus 1 and Add 0 in prefix then add letter A
+    const productId = "A" + (lastProductIdNo + 1).toString().padStart(3, "0");
+
     const newProduct = new Product({
-      productId: 1 + Number(ProductList[ProductList.length - 1].productId),
+      productId,
       name,
       creator,
       creatorPhone,

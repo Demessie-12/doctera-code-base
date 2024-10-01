@@ -8,6 +8,7 @@ import connectToMongoDB from "./db/connectToMongoDB.js";
 import productRoutes from "./routes/product.routes.js";
 import adminRoutes from "./routes/admin.routes.js";
 import orderRoutes from "./routes/order.routes.js";
+import reviewRoutes from "./routes/review.route.js";
 import { checkLogin, restrictTo } from "./middleware/authController.js";
 
 const app = express();
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/reviews", reviewRoutes);
 app.use("/api/admin", checkLogin, restrictTo("admin", "owner"), adminRoutes);
 
 app.listen(5005, () => {

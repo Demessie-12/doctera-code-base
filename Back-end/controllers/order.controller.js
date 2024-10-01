@@ -1,12 +1,13 @@
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
+import User from "../models/user.model.js";
 
 export const CreateOrder = async (req, res) => {
   try {
-    const { customerID, customer, phone, cart, address, position } = req.body;
+    const { customer, phone, cart, address, position } = req.body;
     var cartPrice = [];
 
-    const NumberOfOrders = await Order.find();
+    const AllOrders = await Order.find();
     const Products = await Product.find();
     await cart.map((CartItem, i) => {
       const SingleProduct = Products.find(
@@ -22,9 +23,23 @@ export const CreateOrder = async (req, res) => {
     const transportDate = address.includes("Addis Ababa") ? 1 : 2;
     date.setDate(date.getDate() + transportDate);
 
+    // If user is logged in add username to order
+    const token = req.cookies.jwt;
+    let decoded;
+    let user;
+    if (token) {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    }
+
+    if (decoded) {
+      user = await User.findById(decoded.userId).select("-password");
+    }
+
+    const customerUsername = user.username || "Unknown";
+
     const newOrder = await new Order({
-      orderId: 11000 + NumberOfOrders.length,
-      // customerID,
+      orderId: 11000 + AllOrders.length,
+      customerUsername,
       customerName: customer,
       customerPhoneNo: Number(phone),
       products: cart,

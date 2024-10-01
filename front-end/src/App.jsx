@@ -87,7 +87,7 @@ function App() {
         },
         {
           path: "/profile",
-          element: <Profile />,
+          element: !loggedUser ? <Navigate to="/" /> : <Profile />,
         },
         {
           path: "/admin",

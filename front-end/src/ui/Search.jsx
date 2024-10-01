@@ -28,7 +28,7 @@ function Search() {
     if (suggestion) {
       return navigate(`/search/${suggestion.replaceAll(" ", "_")}`);
     }
-    console.log(inputValue);
+    if (inputValue.length === 0) return null;
     navigate(`/search/${inputValue.replaceAll(" ", "_")}`);
   };
   return (
@@ -41,6 +41,7 @@ function Search() {
           value={inputValue}
           onChange={onchange}
           onSubmit={FilterProducts}
+          minLength={2}
           className={`h-8 md:h-10 w-20 md:w-28 lg:w-36 bg-white pb-1 outline-none ${
             inputValue.length <= 1 && "rounded-e-3xl w-28 md:w-36 lg:w-44"
           }`}

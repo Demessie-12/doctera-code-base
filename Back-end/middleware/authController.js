@@ -46,13 +46,13 @@ export const restrictTo = (...roles) => {
 
 export const restrictToCreatorOr = (...roles) => {
   return async (req, res, next) => {
-    const productCreator = await Product.findOne({
+    const product = await Product.findOne({
       productId: req.params.ProductID,
-    }).populate("creatorID");
+    });
 
     const logged = await User.findById(req.user._id);
 
-    if (productCreator?.creatorID?.username === logged.username) {
+    if (product?.creator === logged.username) {
       console.log("hi");
       return next();
     }
