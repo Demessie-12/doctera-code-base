@@ -3,25 +3,36 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import AppLayout from "./AppLayout";
-import Product from "./pages/Product";
-import Order from "./pages/Order";
+import AppLayout, { loader as mainLoader } from "./AppLayout";
 import Profile from "./pages/Profile";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 
 import { Toaster } from "react-hot-toast";
+import ProductDetail from "./pages/ProductDetail";
+import ProductUpload from "./features/product/ProductUpload";
+import ProductEditing from "./features/product/ProductEditing";
+import Login from "./pages/Login";
+import Products from "./pages/Products";
+import Orders from "./pages/Orders";
+import Reviews from "./pages/Reviews";
 
 function App() {
   const router = createBrowserRouter([
+    { path: "/login", element: <Login /> },
     {
       element: <AppLayout />,
+      loader: mainLoader,
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: <Dashboard />,
         },
-        { path: "/products", element: <Product /> },
-        { path: "/orders", element: <Order /> },
+        { path: "/products", element: <Products /> },
+        { path: "/products/upload", element: <ProductUpload /> },
+        { path: "/products/edit/:productId", element: <ProductEditing /> },
+        { path: "/products/:IdWithSlug", element: <ProductDetail /> },
+        { path: "/orders", element: <Orders /> },
+        { path: "/reviews", element: <Reviews /> },
         { path: "/profile", element: <Profile /> },
       ],
     },

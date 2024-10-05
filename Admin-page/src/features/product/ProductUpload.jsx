@@ -1,7 +1,7 @@
 import React from "react";
 
-function ProdcutUpload() {
+function ProductUpload() {
   return <div>ProdcutUpload</div>;
 }
 
-export default ProdcutUpload;
+export default ProductUpload;

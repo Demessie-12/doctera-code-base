@@ -101,6 +101,38 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+export const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    const isPasswordCorrect = await bcrypt.compare(
+      password,
+      user?.password || ""
+    );
+
+    if (!user || !isPasswordCorrect) {
+      return res.status(400).json({ error: "Invalid email or password" });
+    }
+    if (user.role != "admin") {
+      return res.status(400).json({ error: "This user isn't Admin" });
+    }
+
+    generateTokenAndSetCookie(user._id, res); // for deployment
+
+    res.status(200).json({
+      data: {
+        email: user.email,
+        fullname: user.fullname,
+        username: user.username,
+        phoneNumber: user.phoneNumber,
+        profilePic: user.profilePic,
+      },
+    });
+  } catch (error) {
+    console.log("Error in login controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 export const logoutUser = (req, res) => {
   try {

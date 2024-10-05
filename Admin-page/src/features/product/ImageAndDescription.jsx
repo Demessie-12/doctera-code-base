@@ -2,16 +2,16 @@ import React, { useState } from "react";
 
 import { SlCallOut } from "react-icons/sl";
 
+import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
-import UpdateItemQuantity from "./../Cart/UpdateItemQuantity.jsx";
-import DeleteItem from "./../Cart/DeleteItem.jsx";
+import { useAdminContext } from "../../context/Admin.context";
 
-function ProductDisplay({ product, handleAddToCart, isInCart }) {
+function ImageAndDescription({ product }) {
   const [selectedImage, setSelectedImage] = useState(product.coverImage);
   console.log(product._id);
   return (
-    <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">
+    <div className="relative mx-auto mt-5 flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">
       <div className="left block sm:w-full lg:w-[500px]">
         <h2 className="block py-1 text-2xl font-bold capitalize shadow-sm sm:hidden">
           {product.name}
@@ -41,17 +41,17 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
           </div>
         </div>
       </div>
-      <div className="right flex w-full flex-col gap-2 pl-2 text-lg text-gray-800">
+      <div className="right flex w-full flex-col gap-2 pl-2 text-lg text-gray-200">
         <h2 className="hidden pt-1 text-lg font-bold capitalize sm:flex">
           {product.name}
         </h2>
         <p>{product.description}</p>
-        <div className="Star flex items-center">
+        <div className="Star flex items-center gap-1.5">
           {["Placeholder"].map((placeholder) => {
             console.log(23);
             let reviewStars = [];
             let emptyStar = [];
-            for (let index = 1; index <= product.ratingsAverage; index++) {
+            for (let index = 1; index < product.ratingsAverage; index++) {
               reviewStars.push("star");
             }
             for (let index = 5; index > product.ratingsAverage; index--) {
@@ -59,14 +59,14 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
             }
             console.log(product.ratingsAverage);
             return (
-              <div className="flex gap-1.5">
+              <>
                 {reviewStars.map((star) => (
                   <p className="h-fit w-5 text-2xl text-yellow-500">
                     <FaStar />
                   </p>
                 ))}
                 {emptyStar.map((star, i) =>
-                  i == 0 && !Number.isInteger(product.ratingsAverage) ? (
+                  i == 0 ? (
                     <p className="h-fit w-5 text-2xl text-yellow-500">
                       <FaStarHalfAlt />
                     </p>
@@ -76,12 +76,9 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
                     </p>
                   ),
                 )}
-              </div>
+              </>
             );
           })}
-          <p className="ml-2 text-center font-semibold">
-            {product.ratingsAverage}
-          </p>
           <p className="ml-2 text-center">{`(${
             product.ratingsQuantity || 0
           })`}</p>
@@ -116,24 +113,9 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
             </p>
           </a>
         </div>
-        <div>
-          {isInCart ? (
-            <div className="flex gap-2">
-              <UpdateItemQuantity productId={product.productId} />
-              <DeleteItem productId={product.productId} />
-            </div>
-          ) : (
-            <button
-              className="inline-block rounded-full bg-teal-800 px-2.5 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-teal-600 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2"
-              onClick={handleAddToCart}
-            >
-              Add To Cart
-            </button>
-          )}
-        </div>
       </div>
     </div>
   );
 }
 
-export default ProductDisplay;
+export default ImageAndDescription;

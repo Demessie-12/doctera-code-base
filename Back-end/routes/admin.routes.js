@@ -3,6 +3,7 @@ import {
   EditOrderStatus,
   EditProductStatus,
   GetAllOrders,
+  GetAllProductsForAdmin,
   GetAllUsers,
   GetProductByStatus,
   GetSingleUser,
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get("/users", GetAllUsers);
 router.get("/users/c/:category", GetUsersByCategory);
 router.get("/users/:username", GetSingleUser);
+router.get("/products", GetAllProductsForAdmin);
 router.get("/products/status/:status", GetProductByStatus);
 router.patch("/products/status/:productId", EditProductStatus);
 router.get("/orders", GetAllOrders);

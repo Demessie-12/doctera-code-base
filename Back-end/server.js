@@ -10,6 +10,7 @@ import adminRoutes from "./routes/admin.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import reviewRoutes from "./routes/review.route.js";
 import { checkLogin, restrictTo } from "./middleware/authController.js";
+import PaymnetRoutes from "./routes/payment.route.js";
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/payment", PaymnetRoutes);
 app.use("/api/admin", checkLogin, restrictTo("admin", "owner"), adminRoutes);
 
 app.listen(5005, () => {

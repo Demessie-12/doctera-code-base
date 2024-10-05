@@ -48,6 +48,22 @@ export const GetSingleUser = async (req, res) => {
   }
 };
 
+export const GetAllProductsForAdmin = async (req, res) => {
+  try {
+    const Products = await Product.find().populate("reviews");
+
+    res.status(200).json({
+      data: Products,
+    });
+  } catch (error) {
+    console.log(
+      "Error in GetAllProductsForAdmin, admin.controller",
+      error.message
+    );
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export const GetProductByStatus = async (req, res) => {
   try {
     const { status } = req.params;
