@@ -57,7 +57,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/payment", PaymnetRoutes);
+app.use("/api/payments", PaymnetRoutes);
 app.use("/api/admin", checkLogin, restrictTo("admin", "owner"), adminRoutes);
 
 app.listen(5005, () => {

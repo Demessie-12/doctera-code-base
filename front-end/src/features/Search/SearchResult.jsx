@@ -13,6 +13,7 @@ function SearchResult() {
     priceRange: [100, 50000],
   });
   const [selctedSort, setSelectedSort] = useState("A-Z");
+  const [filteredProductNo, setFilteredProductNo] = useState(0);
 
   const sortingHandler = (a, b) => {
     if (selctedSort === "A-Z") {
@@ -30,15 +31,40 @@ function SearchResult() {
   searchName = searchName.replaceAll("_", " ");
   const { allproducts } = useDocteraContext();
 
+  let filteredProduct = [];
+  allproducts.map((product) => {
+    if (
+      (product.name
+        .toLocaleLowerCase()
+        .includes(searchName.toLocaleLowerCase()) ||
+        product.productId
+          .toLocaleLowerCase()
+          .includes(searchName.toLocaleLowerCase())) &
+      // Filter search
+      (filterObject.condition.length > 0
+        ? filterObject.condition.includes(product.condition)
+        : true) &
+      (product.newPrice >= filterObject.priceRange[0] &&
+      filterObject.priceRange === 50000
+        ? true
+        : product.newPrice <= filterObject.priceRange[1])
+    ) {
+      filteredProduct.push(product);
+      return null;
+    }
+  });
+
+  console.log("hi", filteredProduct);
+
   return (
-    <div className="flex flex-col gap-2 xl:max-w-7xl mx-auto">
-      <div className="flex justify-between">
-        <h2 className="font-bold text-lg text-gray-900 flex">
+    <div className="mx-auto flex flex-col gap-2 xl:max-w-7xl">
+      <div
+        className={`flex justify-between ${filteredProduct.length == 0 && "hidden"}`}
+      >
+        <h2 className="flex text-lg font-bold text-gray-900">
           Filltered By{" "}
           <span
-            className={` pt-1.5 pl-2 font-extrabold text-black ${
-              filterOpened && "hidden"
-            }`}
+            className={`pl-2 pt-1.5 font-extrabold text-black`}
             onClick={() => {
               setFilterOpened(true);
               console.log("hi");
@@ -49,36 +75,25 @@ function SearchResult() {
         </h2>
         <SortBy selctedSort={selctedSort} setSelectedSort={setSelectedSort} />
       </div>
-      <div className="flex gap-3">
+      <div className={`flex gap-3 ${filteredProduct.length == 0 && "hidden"}`}>
         <FillterSection
           filterObject={filterObject}
           setFilterObject={setFilterObject}
           filterOpened={filterOpened}
           setFilterOpened={setFilterOpened}
         />
-        <div className=" mx-auto grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-3 md:max-w-4xl lg:grid-cols-4 gap-x-2 gap-y-4">
-          {allproducts
-            .map((product) => {
-              if (
-                (product.name
-                  .toLocaleLowerCase()
-                  .includes(searchName.toLocaleLowerCase()) ||
-                  product.productId
-                    .toLocaleLowerCase()
-                    .includes(searchName.toLocaleLowerCase())) &
-                // Filter search
-                (filterObject.condition.length > 0
-                  ? filterObject.condition.includes(product.condition)
-                  : true) &
-                (product.newPrice >= filterObject.priceRange[0] &&
-                filterObject.priceRange === 50000
-                  ? true
-                  : product.newPrice <= filterObject.priceRange[1])
-              )
-                return <Item item={product} key={product.productId} />;
-            })
-            .sort(sortingHandler)}
+        <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:max-w-4xl md:grid-cols-3 lg:grid-cols-4">
+          {filteredProduct.sort(sortingHandler).map((product) => {
+            return <Item item={product} key={product.productId} />;
+          })}
         </div>
+      </div>
+
+      {/* if no product found */}
+      <div
+        className={`${filteredProduct.length > 0 && "hidden"} mt-5 text-center font-semibold md:text-xl`}
+      >
+        No product found. Please search with other key
       </div>
     </div>
   );

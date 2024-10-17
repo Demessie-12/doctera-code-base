@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import {
-  Form,
-  useActionData,
-  useNavigation,
-  useParams,
-} from "react-router-dom";
-import toast from "react-hot-toast";
-import ImageEditor from "./ImageEditor";
-import { UploadProductHook } from "../../Services/apiProducts";
+import { useAdminContext } from "../context/Admin.context";
+import { Form, useNavigation, useParams } from "react-router-dom";
+import ImageEditor from "../features/product/ImageEditor";
+import { UpdateProductHook } from "../Services/apiProducts";
 
-function ProductUpload() {
+function ProductEditing() {
+  const { allproducts } = useAdminContext();
+  const { IdWithSlug } = useParams();
+  const productId = IdWithSlug.slice(0, IdWithSlug.indexOf("_"));
+
+  const product = allproducts.find(
+    (value, index) => value.productId === productId,
+  );
+
+  const [selectedImage, setSelectedImage] = useState(product.coverImage);
+  const initialArray = product.images;
+  const [allImages, setAllImages] = useState([...initialArray]);
+  // console.log("From Editing", product, product.images, allImages);
+
+  // Waiting time during form submition
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  const formErrors = useActionData();
-
-  if (formErrors?.coverImage) toast.error(formErrors.coverImage);
-
-  const [selectedImage, setSelectedImage] = useState("");
-  const [allImages, setAllImages] = useState([]);
-  console.log(allImages, selectedImage);
 
   // Manage Condition
   const [condition, setCondition] = useState("Brand New");
@@ -39,7 +41,7 @@ function ProductUpload() {
 
   const [checkedCategories, setCheckedCategories] = useState(
     categories.map((item) => {
-      return { name: item, state: false };
+      return { name: item, state: product.category.includes(item) };
     }),
   );
 
@@ -52,24 +54,22 @@ function ProductUpload() {
 
     setCheckedCategories(updatedCatetoriesState);
 
-    console.log(updatedCatetoriesState);
+    // console.log(updatedCatetoriesState);
   };
 
   // Manage Catagory Selection
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(
+    product.mainCategory || categories[0],
+  );
   const handleCategorySelection = (e) => {
     setSelectedCategory(e.target.value);
   };
 
   return (
     <div>
-      <p className="mt-5 text-center text-xl font-semibold text-white md:text-2xl">
-        <span className="text-2xl text-yellow-500 md:text-3xl">
-          Welcome, 🙋‍♀️
-        </span>{" "}
-        <br />
-        Upload your Product and{" "}
-        <span className="text-yellow-500">BOOST your income!!</span>
+      <p className="mt-5 text-center text-xl font-semibold capitalize text-gray-400 md:text-2xl">
+        Product:&nbsp;
+        <span className="text-white">{product.name.toLowerCase()}</span>
       </p>
       <ImageEditor
         selectedImage={selectedImage}
@@ -77,7 +77,7 @@ function ProductUpload() {
         allImages={allImages}
         setAllImages={setAllImages}
       />
-      <div className="flex text-center lg:text-xl">
+      <div className="flex text-center">
         <Form
           method="POST"
           className="mt-5 rounded-md bg-gray-900 p-5 font-semibold lg:px-10"
@@ -89,7 +89,7 @@ function ProductUpload() {
                 className="input h-9 w-full rounded-xl bg-gray-600 pl-2 capitalize"
                 type="text"
                 name="name"
-                placeholder="Type your product Name"
+                defaultValue={product?.name.toLowerCase()}
                 minLength="3"
                 required
               />
@@ -103,6 +103,7 @@ function ProductUpload() {
                 className="input h-9 w-full rounded-xl bg-gray-200 pl-2 text-gray-900"
                 type="Number"
                 name="quantity"
+                defaultValue={product?.quantity}
                 min={1}
                 required
               />
@@ -119,7 +120,7 @@ function ProductUpload() {
                 className="input h-9 w-full rounded-xl pl-2 text-gray-900"
                 type="checkbox"
                 name="conditionInput"
-                defaultChecked={true}
+                defaultChecked={product.condition === "Brand New"}
                 checked={condition === "Brand New"}
                 onChange={() => handleConditionChange("Brand New")}
               />
@@ -130,6 +131,7 @@ function ProductUpload() {
                 className="input h-9 w-full rounded-xl pl-2 text-gray-900"
                 type="checkbox"
                 name="condition"
+                defaultChecked={product.condition === "Slightly Used"}
                 checked={condition === "Slightly Used"}
                 onChange={() => handleConditionChange("Slightly Used")}
               />
@@ -141,6 +143,7 @@ function ProductUpload() {
                 className="input h-9 w-full rounded-xl pl-2 text-gray-900"
                 type="checkbox"
                 name="condition"
+                defaultChecked={product.condition === "Used"}
                 checked={condition === "Used"}
                 onChange={() => handleConditionChange("Used")}
               />
@@ -155,6 +158,7 @@ function ProductUpload() {
                   className="input h-9 w-full rounded-xl bg-gray-200 pl-2 text-gray-900"
                   type="Number"
                   name="newPrice"
+                  defaultValue={product.newPrice}
                   min={20}
                   required
                 />
@@ -168,6 +172,11 @@ function ProductUpload() {
                   className="input h-9 w-full rounded-xl bg-gray-400 pl-2 text-gray-900 line-through"
                   type="Number"
                   name="oldPrice"
+                  defaultValue={
+                    product.oldPrice
+                      ? product.oldPrice
+                      : product.newPrice.toFixed(2) * 1.2
+                  }
                   min={20}
                   required
                 />
@@ -180,7 +189,7 @@ function ProductUpload() {
             <div className="grow">
               <textarea
                 name="description"
-                placeholder="Type one paragraph description about your product"
+                defaultValue={product.description}
                 rows={4}
                 className="input h-fit w-full rounded-xl bg-gray-600 p-2"
                 required
@@ -210,6 +219,7 @@ function ProductUpload() {
                 className="input hidden h-9 w-full rounded-xl bg-gray-600 pl-2"
                 type="text"
                 name="selctedCategory"
+                defaultValue={product?.category[1]}
               />
             </div>
           </div>
@@ -228,6 +238,7 @@ function ProductUpload() {
                     className="input h-9 w-6 rounded-xl pl-2 text-gray-900"
                     type="checkbox"
                     name="condition"
+                    defaultChecked={product.category.includes(category)}
                     checked={checkedCategories[index].state}
                     onChange={() => handleCategoriesChange(index)}
                   />
@@ -241,7 +252,7 @@ function ProductUpload() {
             <div className="grow">
               <textarea
                 name="detail"
-                placeholder="Tell us about your product in detail. like its brand, size, function and ..."
+                defaultValue={product.detail || ""}
                 rows={4}
                 className="input h-fit w-full rounded-xl bg-gray-600 p-2"
                 required
@@ -252,11 +263,13 @@ function ProductUpload() {
             <button
               className={`px rounded-full bg-blue-600 px-5 py-3 font-semibold text-white ${isSubmitting ? "bg-red-700 font-bold text-yellow-500" : ""}`}
             >
-              {isSubmitting ? "Uploading Please wait seconds..." : "Upload"}
+              {isSubmitting ? "Submiting" : "Update Order"}
             </button>
           </div>
 
           <div>
+            <input type="hidden" name="productId" value={productId} />
+
             <input type="hidden" name="condition" value={condition} />
             <input
               type="hidden"
@@ -269,6 +282,7 @@ function ProductUpload() {
               value={JSON.stringify(allImages)}
             />
             <input type="hidden" name="coverImage" value={selectedImage} />
+
             <input type="hidden" name="mainCategory" value={selectedCategory} />
           </div>
         </Form>
@@ -281,11 +295,6 @@ export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  const errors = {};
-  if (data.coverImage == "")
-    errors.coverImage = "Please add or select Coveer Image";
-  if (Object.keys(errors).length > 0) return errors;
-
   const productData = {
     ...data,
     quantity: Number(data.quantity),
@@ -296,11 +305,11 @@ export async function action({ request }) {
     coverImage: data.coverImage,
   };
 
-  const uploadedData = await UploadProductHook(productData);
-  console.log(uploadedData);
-  return null;
+  // console.log("productData", productData);
 
+  const updatedData = await UpdateProductHook(data.productId, productData);
+  console.log(updatedData);
   return null;
 }
 
-export default ProductUpload;
+export default ProductEditing;

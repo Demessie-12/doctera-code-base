@@ -48,11 +48,9 @@ const productSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
-    tags: [
-      {
-        type: String,
-      },
-    ],
+    mainCategory: {
+      type: String,
+    },
     condition: {
       type: String,
       required: [true, "A product must have a condition"],
@@ -105,7 +103,7 @@ productSchema.virtual("reviews", {
 
 productSchema.pre("save", function (next) {
   this.slug = slugify(this.name, { lower: true });
-  this.__v >= 0 ? next() : (this.tags = this.tags.concat(this.slug.split("-")));
+  // this.__v >= 0 ? next() : (this.tags = this.tags?.concat(this.slug.split("-")));
   next();
 });
 

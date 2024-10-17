@@ -29,6 +29,7 @@ export const GetOrderHook = async (orderId) => {
 
   if (!res.ok) throw Error("Failed to get Order");
 
-  const { data } = await res.json();
-  return data;
+  const { data, paymentStatus } = await res.json();
+  const order = data;
+  return { order, paymentStatus };
 };

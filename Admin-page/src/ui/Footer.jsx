@@ -3,7 +3,7 @@ import { useAdminContext } from "../context/Admin.context";
 
 function Footer() {
   const { allproducts } = useAdminContext();
-  console.log(allproducts);
+  // console.log(allproducts);
   return (
     <div>
       <p>footer</p>

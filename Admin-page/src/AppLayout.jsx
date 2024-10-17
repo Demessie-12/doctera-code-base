@@ -15,7 +15,7 @@ function AppLayout() {
   return (
     <div className="grid min-h-dvh w-full grid-rows-[auto_1fr] bg-gray-900 text-white">
       <Navbar />
-      <div className="relative grid grid-cols-[auto_1fr]">
+      <div className="relative grid-cols-[auto_1fr] md:grid">
         <div className="sticky top-0 max-h-dvh w-fit bg-gradient-to-r from-black via-black to-gray-900 text-gray-300 max-[768px]:hidden">
           <Sidebar />
         </div>

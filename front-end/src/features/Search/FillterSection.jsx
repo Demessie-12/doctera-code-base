@@ -19,21 +19,21 @@ function FillterSection({
 
   return (
     <div
-      className={`absolute md:relative mx-auto text-center w-full  h-dvh md:w-64 md:h-fit xl:w-68 z-10 ${
+      className={`xl:w-68 absolute z-10 mx-auto h-dvh w-full text-center md:relative md:h-fit md:w-64 ${
         filterOpened && "no-doc-scroll"
       } ${!filterOpened && "hidden md:flex"}`}
     >
       <div
-        className={`absolute w-full h-dvh top-0 bg-gray-500 bg-opacity-60 ${
+        className={`absolute top-0 h-dvh w-full bg-gray-500 bg-opacity-60 md:hidden ${
           !filterOpened && "hidden"
         }`}
         onClick={() => setFilterOpened(false)}
       ></div>
-      <div className="relative flex flex-col gap-3 mx-auto w-4/5 md:w-full pb-5 pt-2 px-1 bg-gray-200 bg-opacity-90 md:bg-opacity-100 rounded-r-xl ">
+      <div className="relative mx-auto flex w-4/5 flex-col gap-3 rounded-r-xl bg-gray-200 bg-opacity-90 px-1 pb-5 pt-2 md:w-full md:bg-opacity-100">
         <div
           className={`absolute ${
             !filterOpened && "hidden"
-          } md:hidden right-5 top-2 bg-white rounded-xl px-2 text-red-600 font-extrabold cursor-pointer h-7`}
+          } right-5 top-2 h-7 cursor-pointer rounded-xl bg-white px-2 font-extrabold text-red-600 md:hidden`}
           onClick={() => setFilterOpened(false)}
         >
           Close
@@ -67,10 +67,10 @@ function FillterSection({
             </label>
           </div>
         </div>
-        <div className="Price-range flex flex-col ">
+        <div className="Price-range flex flex-col">
           <h1 className="font-bold text-gray-800">Price Range</h1>
           <Slider
-            className="slider h-3 w-11/12 px-1 mx-auto mt-3 border rounded-full"
+            className="slider mx-auto mt-3 h-3 w-11/12 rounded-full border px-1"
             onChange={(e) =>
               setFilterObject({ ...filterObject, priceRange: e })
             }
@@ -79,9 +79,9 @@ function FillterSection({
             max={50000}
             trackClassName="example-track"
           />
-          <div className="relative flex justify-between mt-2">
+          <div className="relative mt-2 flex justify-between">
             <input
-              className="w-12 bg-transparent border border-gray-400"
+              className="w-12 border border-gray-400 bg-transparent"
               onChange={(e) => {
                 let targetValue = Number(e.target.value.replace(",", ""));
                 if (targetValue >= filterObject.priceRange[1])
@@ -96,7 +96,7 @@ function FillterSection({
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             />
             <input
-              className="w-14 text-right pr-1 bg-transparent border border-gray-400"
+              className="w-14 border border-gray-400 bg-transparent pr-1 text-right"
               onChange={(e) => {
                 let targetValue = Number(e.target.value.replace(",", ""));
                 if (targetValue > 50000) targetValue = 50000;
@@ -112,7 +112,7 @@ function FillterSection({
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             />
             {filterObject.priceRange[1] >= 50000 && (
-              <p className="absolute text-red-600 bg-white rounded-full h-7 right-0 bottom-5 font-bold text-xl">
+              <p className="absolute bottom-5 right-0 h-7 rounded-full bg-white text-xl font-bold text-red-600">
                 +
               </p>
             )}
@@ -122,7 +122,7 @@ function FillterSection({
         <div
           className={` ${
             !filterOpened && "hidden"
-          } md:hidden  bg-white rounded-xl px-2 text-blue-600 font-bold cursor-pointer h-7 w-fit mx-auto`}
+          } mx-auto h-7 w-fit cursor-pointer rounded-xl bg-white px-2 font-bold text-blue-600 md:hidden`}
           onClick={() => setFilterOpened(false)}
         >
           See Filtered

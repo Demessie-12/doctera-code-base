@@ -28,7 +28,7 @@ import { useDocteraContext } from "../../context/Doctera.Context.jsx";
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
   /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-    str
+    str,
   );
 
 function CreateOrder() {
@@ -62,26 +62,24 @@ function CreateOrder() {
 
   return (
     <div>
-      <div className="px-4 py-6 md:px-0 md:mx-auto md:max-w-2xl xl:flex xl:gap-8 xl:max-w-6xl">
+      <div className="px-4 py-6 md:mx-auto md:max-w-2xl md:px-0 xl:flex xl:max-w-6xl xl:gap-8">
         <div className="flex-1">
-          <h2 className=" mb-6 text-xl font-semibold text-gray-900">
-            Checkout
-          </h2>
-          <div className="Checkout-section flex flex-col gap-2 border bg-gray-200 border-gray-300 px-4 py-3 rounded-md">
-            <div className="flex flex-col gap-2 border-b pb-2 border-gray-400">
+          <h2 className="mb-6 text-xl font-semibold text-gray-900">Checkout</h2>
+          <div className="Checkout-section flex flex-col gap-2 rounded-md border border-gray-300 bg-gray-200 px-4 py-3">
+            <div className="flex flex-col gap-2 border-b border-gray-400 pb-2">
               <div className="flex justify-between">
                 <p className="font-semibold">
                   {totalCartQuantity} item{totalCartQuantity > 1 && "s"}
                 </p>
                 <button
-                  className="text-blue-700 font-semibold"
+                  className="font-semibold text-blue-700"
                   onClick={() => setShowDetail(() => !showDetail)}
                 >
                   {showDetail ? "Hide Details" : "Show details"}
                 </button>
               </div>
               <div
-                className={`flex flex-col gap-2 transition duration-500 mb-2 ${
+                className={`mb-2 flex flex-col gap-2 transition duration-500 ${
                   showDetail ? "block" : "hidden"
                 }`}
               >
@@ -92,13 +90,13 @@ function CreateOrder() {
             </div>
             <div>
               <button
-                className="text-blue-700 font-semibold"
+                className="font-semibold text-blue-700"
                 onClick={() => console.log(ClientDistance, shippingPrice)}
               >
                 Have a promo code?
               </button>
             </div>
-            <div className="flex justify-between pt-2 border-t border-gray-400">
+            <div className="flex justify-between border-t border-gray-400 pt-2">
               <p>Sub-total</p>
               <p className="font-semibold">{totalCartPrice} Birr</p>
             </div>
@@ -124,12 +122,12 @@ function CreateOrder() {
                   />
                 </span>
                 <div
-                  className={`absolute bottom-8 right-5 flex-col bg-white p-2 w-64 rounded rounded-lg" ${
+                  className={`rounded-lg" absolute bottom-8 right-5 w-64 flex-col rounded bg-white p-2 ${
                     showShippingDetail ? "flex" : "hidden"
                   }`}
                 >
                   <p>
-                    <span className="font-semibold text-center">
+                    <span className="text-center font-semibold">
                       In addis ababa -
                     </span>
                     20 Birr per Km
@@ -141,7 +139,7 @@ function CreateOrder() {
                 </div>
               </div>
             </div>
-            <div className="flex justify-between pt-2 border-t border-gray-400">
+            <div className="flex justify-between border-t border-gray-400 pt-2">
               <p className="font-semibold">Total</p>
               <p className="font-bold">
                 {totalCartPrice + ClientDistance * 20} Birr
@@ -150,19 +148,19 @@ function CreateOrder() {
           </div>
         </div>
         <div className="flex-1">
-          <h2 className=" my-6 xl:mt-0 text-xl font-semibold text-gray-900">
+          <h2 className="my-6 text-xl font-semibold text-gray-900 xl:mt-0">
             Personal Information
           </h2>
 
           <Form
             method="POST"
-            className="p-5 bg-gray-200 border border-gray-300 rounded-md font-semibold"
+            className="rounded-md border border-gray-300 bg-gray-200 p-5 font-semibold"
           >
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center ">
+            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center">
               <label className="sm:basis-32">Full Name</label>
               <div className="grow">
                 <input
-                  className="input w-full h-9 pl-2 rounded-xl"
+                  className="input h-9 w-full rounded-xl pl-2"
                   type="text"
                   name="customer"
                   defaultValue={loggedUser?.fullname}
@@ -176,7 +174,7 @@ function CreateOrder() {
               <label className="sm:basis-32">Phone number</label>
               <div className="grow">
                 <input
-                  className="input w-full  h-9 pl-2 rounded-xl"
+                  className="input h-9 w-full rounded-xl pl-2"
                   type="tel"
                   name="phone"
                   defaultValue={loggedUser?.phoneNumber}
@@ -203,7 +201,7 @@ function CreateOrder() {
                   defaultValue={address || ""}
                   // value={address || ""}
                   required
-                  className="input w-full h-9 pl-2 rounded-xl rounded-r-3xl"
+                  className="input h-9 w-full rounded-xl rounded-r-3xl pl-2"
                 />
                 {addressStatus === "error" &&
                   (toast.error("Please allow Location access"),
@@ -218,7 +216,7 @@ function CreateOrder() {
                   <button
                     type="small"
                     id="getAddress"
-                    className="inline-block rounded-full bg-gray-800 font-semibold uppercase tracking-wide text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-2.5 text-xs md:px-5 md:py-3"
+                    className="inline-block rounded-full bg-gray-800 px-4 py-2.5 text-xs font-semibold uppercase tracking-wide text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2 disabled:cursor-not-allowed md:px-5 md:py-3"
                     disabled={isLoadingAddress}
                     onClick={(e) => {
                       e.preventDefault();
@@ -251,8 +249,7 @@ function CreateOrder() {
               />
               <button
                 disabled={isSubmitting || isLoadingAddress}
-                type="primary"
-                className="inline-block rounded-full bg-gray-800 text-sm font-semibold tracking-wide text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-3 md:px-6 md:py-4"
+                className="inline-block rounded-full bg-gray-800 px-4 py-3 text-sm font-semibold tracking-wide text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
               >
                 {isSubmitting
                   ? "Placing Order..."
@@ -260,7 +257,7 @@ function CreateOrder() {
               </button>
               <Link
                 to="/cart"
-                className="inline-block rounded-full ml-5 bg-gray-500 text-sm font-semibold tracking-wide text-black hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-3 md:px-6 md:py-4"
+                className="ml-5 inline-block rounded-full bg-gray-500 px-4 py-3 text-sm font-semibold tracking-wide text-black hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
               >
                 Back To Cart
               </Link>
@@ -270,9 +267,9 @@ function CreateOrder() {
       </div>
       <div className="block w-full">
         {ClientDistance > 0 && (
-          <h2 className="flex w-full mx-auto justify-center z-10 bg-white py-3 text-red-600  rounded-lg font-bold">
+          <h2 className="z-10 mx-auto flex w-full justify-center rounded-lg bg-white py-3 font-bold text-red-600">
             Your address is
-            <span className=" text-blue-900">
+            <span className="text-blue-900">
               {/* space &nbsp; */}
               &nbsp;{ClientDistance} Km&nbsp;
             </span>

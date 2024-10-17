@@ -9,12 +9,16 @@ import Dashboard from "./pages/Dashboard";
 
 import { Toaster } from "react-hot-toast";
 import ProductDetail from "./pages/ProductDetail";
-import ProductUpload from "./features/product/ProductUpload";
-import ProductEditing from "./features/product/ProductEditing";
+import ProductUpload, {
+  action as UploadProductAction,
+} from "./features/product/ProductUpload";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import Reviews from "./pages/Reviews";
+import ProductEditing, {
+  action as EditProdcutAction,
+} from "./pages/ProductEditing";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,8 +32,16 @@ function App() {
           element: <Dashboard />,
         },
         { path: "/products", element: <Products /> },
-        { path: "/products/upload", element: <ProductUpload /> },
-        { path: "/products/edit/:productId", element: <ProductEditing /> },
+        {
+          path: "/products/upload",
+          element: <ProductUpload />,
+          action: UploadProductAction,
+        },
+        {
+          path: "/products/edit/:IdWithSlug",
+          element: <ProductEditing />,
+          action: EditProdcutAction,
+        },
         { path: "/products/:IdWithSlug", element: <ProductDetail /> },
         { path: "/orders", element: <Orders /> },
         { path: "/reviews", element: <Reviews /> },

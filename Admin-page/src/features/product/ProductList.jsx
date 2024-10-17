@@ -8,8 +8,28 @@ import { Link } from "react-router-dom";
 function ProductList() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { allproducts } = useAdminContext();
+  const [filtered, setFiltered] = useState("All");
 
-  const data = allproducts.map((product) => {
+  let filteredData = allproducts;
+
+  if (filtered == "Pending")
+    filteredData = allproducts.filter((product) => product.status == "Pending");
+  else if (filtered == "Verifed")
+    filteredData = allproducts.filter(
+      (product) => product.status == "Verified",
+    );
+  else if (filtered == "New")
+    filteredData = allproducts.filter(
+      (product) => product.condition == "Brand New",
+    );
+  else if (filtered == "Slightly-Used")
+    filteredData = allproducts.filter(
+      (product) => product.condition == "Slightly Used",
+    );
+  else if (filtered == "Used")
+    filteredData = allproducts.filter((product) => product.condition == "Used");
+
+  const data = filteredData.map((product) => {
     return [
       product.no,
       product.coverImage,
@@ -20,6 +40,7 @@ function ProductList() {
       product.ratingsAverage,
       product.ratingsQuantity,
       product.productId.concat("_", product.slug),
+      product.status,
     ];
   });
 
@@ -73,9 +94,10 @@ function ProductList() {
       options: {
         customBodyRender: (value) => (
           <p
-            className={`min-w-14 rounded-2xl font-semibold ${value == "Brand New" ? "bg-green-600 text-black" : "bg-red-700"} bg-black p-2 text-center`}
+            className={`min-w-14 rounded-2xl font-semibold ${value == "Brand New" && "bg-green-600 text-black"} ${value == "Slightly Used" && "bg-orange-600"} ${value == "Used" && "bg-red-700"} bg-black p-2 text-center`}
           >
-            {value == "Brand New" ? "New" : "Used"}
+            {value == "Brand New" && "New"} {value == "Used" && "Used"}{" "}
+            {value == "Slightly Used" && "Slightly"}
           </p>
         ),
       },
@@ -181,9 +203,46 @@ function ProductList() {
       <p>ProductList</p>
       <p>ProductList</p>
       <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
+
+      <div className="my-2 ml-5 flex gap-2 md:ml-10">
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "All" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("All")}
+        >
+          All
+        </p>
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "Verified" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("Verified")}
+        >
+          Verified
+        </p>
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "Pending" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("Pending")}
+        >
+          Pending
+        </p>
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "New" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("New")}
+        >
+          New
+        </p>
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "Slightly-Used" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("Slightly-Used")}
+        >
+          Slightly-Used
+        </p>
+        <p
+          className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "Used" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}
+          onClick={() => setFiltered("Used")}
+        >
+          Used
+        </p>
+      </div>
+
       <div className="max-w-fit overflow-x-hidden">
         <ThemeProvider theme={getMuiTheme}>
           <MUIDataTable

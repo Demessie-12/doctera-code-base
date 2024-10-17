@@ -1,6 +1,8 @@
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import User from "../models/user.model.js";
+import jwt from "jsonwebtoken";
+import Chapa from "chapa";
 
 export const CreateOrder = async (req, res) => {
   try {
@@ -35,8 +37,49 @@ export const CreateOrder = async (req, res) => {
       user = await User.findById(decoded.userId).select("-password");
     }
 
-    const customerUsername = user.username || "Unknown";
+    const customerUsername = user?.username || "Unknown";
 
+    // Creating Payment
+    let chapaId;
+    let chapaUrl;
+
+    let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
+    const customerInfo = {
+      amount: cartPrice.reduce((sum, item) => sum + item, 0),
+      currency: "ETB",
+      email: customerUsername + "@gmail.com",
+      first_name: customer,
+      last_name: " ",
+      // tx_ref: 'tx-x12345', // if autoRef is set in the options we dont't need to provide reference, instead it will generate it for us
+      callback_url: "http://localhost:5174/", // your callback URL
+      customization: {
+        title: "I love e-commerce",
+        description: "It is time to pay",
+      },
+    };
+
+    await myChapa
+      .initialize(customerInfo, { autoRef: true })
+      .then((response) => {
+        /*
+        response:
+          {
+            message: 'Hosted Link',
+            status: 'success' || 'failed',
+            data: {
+              checkout_url: 'https://checkout.chapa.co/checkout/payment/:token'
+            },
+            tx_ref: 'generated-token' // this will be the auto generated reference
+          }
+        */
+        chapaId = response.tx_ref;
+        chapaUrl = response.data.checkout_url;
+        // console.log(response, response.tx_ref);
+        // saveReference(response.tx_ref)
+      })
+      .catch((e) => console.log(e));
+
+    // Saving orderData in Database
     const newOrder = await new Order({
       orderId: 11000 + AllOrders.length,
       customerUsername,
@@ -47,6 +90,8 @@ export const CreateOrder = async (req, res) => {
       dateOfDelivery: date,
       address,
       ipLocation: position.split(", "),
+      chapaId,
+      chapaUrl,
     });
 
     newOrder.save();
@@ -73,7 +118,17 @@ export const GetSingleOrder = async (req, res) => {
         .status(404)
         .json({ error: `NO Order found with ${orderId} Id` });
 
-    res.status(200).json({ data: singleOrder });
+    let paymentStatus;
+    let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
+    await myChapa
+      .verify(singleOrder.chapaId)
+      .then((response) => {
+        paymentStatus = response.data.status;
+        // console.log(response); // if success
+      })
+      .catch((e) => console.log("not Verified")); // catch errors
+
+    res.status(200).json({ data: singleOrder, paymentStatus });
   } catch (error) {
     console.log("Error in GetSingleOrder order.contoller", error.message);
     res.status(500).json({ error: "Internal server error" });

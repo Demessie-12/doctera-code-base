@@ -67,10 +67,13 @@ export const PostProduct = async (req, res) => {
       condition,
       newPrice,
       coverImage,
+      images,
+      mainCategory,
       tags,
     } = req.body;
 
     const ProductList = await Product.find();
+    console.log(name);
 
     // Get number form last Product from A096 => 96
     const lastProductIdNo = Number(
@@ -91,8 +94,11 @@ export const PostProduct = async (req, res) => {
       condition,
       newPrice,
       coverImage,
+      images,
+      mainCategory,
       tags,
     });
+    console.log(newProduct);
 
     await newProduct.save();
 
@@ -113,7 +119,6 @@ export const EditProduct = async (req, res) => {
       return res
         .status(404)
         .json({ message: `NO Product found with ${ProductID} ID` });
-
     const {
       productId,
       name,
@@ -127,6 +132,7 @@ export const EditProduct = async (req, res) => {
       coverImage,
       tags,
       images,
+      mainCategory,
     } = req.body;
 
     const ExistedProductID = await Product.findOne({
@@ -154,12 +160,12 @@ export const EditProduct = async (req, res) => {
         coverImage,
         tags,
         images,
+        mainCategory,
       },
       {
         new: true,
       }
     );
-
     // await updatedProduct.save();
     res.status(200).json({ data: updatedProduct });
   } catch (error) {

@@ -3,12 +3,15 @@ import { FaStar } from "react-icons/fa";
 
 function ReviewsAndDescription({ product }) {
   const [selected, setSelcted] = useState("detail");
+  console.log(product);
   return (
     <div className="my-2 flex flex-col gap-0 px-3">
       <div className="flex">
         <p
           className={`cursor-pointer border border-b-0 border-r-0 border-gray-400 p-5 px-7 font-semibold ${
-            selected === "detail" ? "bg-gray-600" : "bg-gray-900 text-gray-500"
+            selected === "detail"
+              ? "bg-transparent"
+              : "bg-gray-700 text-gray-500"
           }`}
           onClick={() => setSelcted("detail")}
         >
@@ -16,14 +19,16 @@ function ReviewsAndDescription({ product }) {
         </p>
         <p
           className={`cursor-pointer border border-b-0 border-gray-400 p-5 font-semibold ${
-            selected === "reviews" ? "bg-gray-600" : "bg-gray-900 text-gray-500"
+            selected === "reviews"
+              ? "bg-transparent"
+              : "bg-gray-700 text-gray-500"
           }`}
           onClick={() => setSelcted("reviews")}
         >
           Reviews
         </p>
       </div>
-      <div className="max-h-96 overflow-y-auto border border-gray-400 bg-gray-600">
+      <div className="max-h-96 overflow-y-auto border border-gray-400 bg-transparent">
         {selected == "detail" ? (
           <p className="p-3 md:p-5 lg:p-7 xl:p-8">{product.detail}</p>
         ) : [2, 5, 5]?.length > 0 ? (
@@ -52,19 +57,19 @@ function ReviewsAndDescription({ product }) {
                 />
                 <div className="flex w-full flex-col">
                   <div className="flex justify-between">
-                    <p className="font-semibold text-gray-950">
+                    <p className="font-semibold text-gray-100">
                       Demessie Wondimu
                     </p>
                     <p>September 4, 2024</p>
                   </div>
                   <div className="flex gap-1">
-                    {reviewStars.map((star) => (
-                      <p className="h-fit w-5 text-yellow-500">
+                    {reviewStars.map((star, i) => (
+                      <p key={i} className="h-fit w-5 text-yellow-500">
                         <FaStar />
                       </p>
                     ))}
-                    {emptyStar.map((star) => (
-                      <p className="h-fit w-5 text-gray-400">
+                    {emptyStar.map((star, i) => (
+                      <p key={i} className="h-fit w-5 text-gray-400">
                         <FaStar />
                       </p>
                     ))}

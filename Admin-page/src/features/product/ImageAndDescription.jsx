@@ -2,16 +2,22 @@ import React, { useState } from "react";
 
 import { SlCallOut } from "react-icons/sl";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import { useAdminContext } from "../../context/Admin.context";
 
 function ImageAndDescription({ product }) {
   const [selectedImage, setSelectedImage] = useState(product.coverImage);
-  console.log(product._id);
+
   return (
-    <div className="relative mx-auto mt-5 flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">
+    <div className="relative mx-auto mt-8 flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">
+      <Link
+        to={`/products/edit/${product.productId.concat("_", product.slug)}`}
+        className="fixed right-0 top-24 cursor-pointer rounded-l-2xl border-2 border-b border-r-0 border-yellow-500 bg-blue-900 py-3 pl-8 pr-5 text-xl font-semibold text-white"
+      >
+        Edit
+      </Link>
       <div className="left block sm:w-full lg:w-[500px]">
         <h2 className="block py-1 text-2xl font-bold capitalize shadow-sm sm:hidden">
           {product.name}
@@ -48,7 +54,6 @@ function ImageAndDescription({ product }) {
         <p>{product.description}</p>
         <div className="Star flex items-center gap-1.5">
           {["Placeholder"].map((placeholder) => {
-            console.log(23);
             let reviewStars = [];
             let emptyStar = [];
             for (let index = 1; index < product.ratingsAverage; index++) {
@@ -57,21 +62,21 @@ function ImageAndDescription({ product }) {
             for (let index = 5; index > product.ratingsAverage; index--) {
               emptyStar.push("star");
             }
-            console.log(product.ratingsAverage);
+            // console.log(product.ratingsAverage);
             return (
               <>
-                {reviewStars.map((star) => (
-                  <p className="h-fit w-5 text-2xl text-yellow-500">
+                {reviewStars.map((star, i) => (
+                  <p key={i} className="h-fit w-5 text-2xl text-yellow-500">
                     <FaStar />
                   </p>
                 ))}
                 {emptyStar.map((star, i) =>
                   i == 0 ? (
-                    <p className="h-fit w-5 text-2xl text-yellow-500">
+                    <p key={i} className="h-fit w-5 text-2xl text-yellow-500">
                       <FaStarHalfAlt />
                     </p>
                   ) : (
-                    <p className="h-fit w-5 text-2xl text-gray-400">
+                    <p key={i} className="h-fit w-5 text-2xl text-gray-400">
                       <FaStar />
                     </p>
                   ),
