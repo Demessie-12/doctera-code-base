@@ -5,7 +5,7 @@ import discountTag from "./../Assets/discount-tag.jpg";
 function Item(props) {
   const { item } = props;
   return (
-    <div className="relative cursor-pointer rounded-md border border-gray-400 bg-gray-800 text-white duration-500 hover:z-10 hover:scale-105 hover:bg-blue-700 hover:p-2 hover:text-black hover:transition hover:duration-700">
+    <div className="bg-DocOrange hover:bg-DocBlue relative cursor-pointer rounded-md border border-gray-400 text-black duration-500 hover:z-10 hover:scale-105 hover:p-2 hover:text-black hover:transition hover:duration-700">
       <div className="absolute left-0 top-0 h-auto w-1/3">
         {item.category.includes("discount") && (
           <img src={discountTag} alt="discount tag" />
@@ -31,7 +31,9 @@ function Item(props) {
           </div>
           <p
             className={`mr-3 font-medium hover:text-red-600 sm:text-lg ${
-              item.condition === "Brand New" ? "text-green-500" : "text-red-600"
+              item.condition === "Brand New"
+                ? "h-fit rounded-xl bg-white px-2 text-green-700"
+                : "h-fit rounded-xl bg-red-600 px-2 text-white"
             }`}
           >
             {item.condition}

@@ -21,7 +21,7 @@ function OrderDetail() {
   }, "3000");
 
   return (
-    <div className="mx-auto my-2 flex flex-col gap-2 px-3 sm:px-5 md:max-w-3xl">
+    <div className="mx-auto my-2 flex flex-col gap-2 px-5 sm:px-8 md:max-w-3xl">
       <div
         className={`fixed left-1/2 top-14 -translate-x-1/2 rounded-xl bg-gray-950 ${paymentStatus === "success" ? "hidden" : ""}`}
       >

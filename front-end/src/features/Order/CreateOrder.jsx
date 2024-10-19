@@ -61,7 +61,7 @@ function CreateOrder() {
   // console.log(loggedUser);
 
   return (
-    <div>
+    <div className="px-2 sm:px-3">
       <div className="px-4 py-6 md:mx-auto md:max-w-2xl md:px-0 xl:flex xl:max-w-6xl xl:gap-8">
         <div className="flex-1">
           <h2 className="mb-6 text-xl font-semibold text-gray-900">Checkout</h2>

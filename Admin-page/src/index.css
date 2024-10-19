@@ -15,10 +15,16 @@ html {
   display: flex;
   width: 0px;
 }
-/* .tss-1t2q2nr-MUIDataTableBodyCell-stackedHeader {
+
+.tss-1t2q2nr-MUIDataTableBodyCell-stackedHeader {
   visibility: hidden;
   width: 0px;
 }
 .css-10odgc5-MuiButtonBase-root-MuiButton-root {
   padding: none;
-} */
+}
+
+.tss-1vd39vz-MUIDataTableBodyCell-stackedCommon:nth-last-of-type(2) {
+  visibility: hidden;
+  width: 0px;
+}

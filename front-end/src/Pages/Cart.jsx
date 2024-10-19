@@ -10,11 +10,11 @@ function Cart() {
   if (!cart.length) return <EmptyCart />;
 
   return (
-    <div className="px-4 py-3 md:max-w-2xl md:mx-auto">
+    <div className="px-6 py-3 md:mx-auto md:max-w-2xl">
       <Link to="/">&larr; Back to menu</Link>
 
       <h2 className="mt-6 text-xl font-semibold">Your cart</h2>
-      <ul className=" my-2 divide-y divide-stone-300 border-b border-stone-300">
+      <ul className="my-2 divide-y divide-stone-300 border-b border-stone-300">
         {cart.map((item) => (
           <CartItem item={item} key={item.productId} />
         ))}
@@ -22,13 +22,13 @@ function Cart() {
       <div className="mt-6 space-x-2">
         <Link
           reloadDocument
-          className="inline-block rounded-full bg-teal-800 text-sm font-semibold uppercase tracking-wide text-white hover:bg-teal-600 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-3 md:px-6 md:py-4"
+          className="inline-block rounded-full bg-teal-800 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:bg-teal-600 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
           to="/order/new"
         >
           Proceed To Checkout
         </Link>
         <button
-          className="inline-block rounded-full bg-transparent border-2 border-stone-300 text-sm font-semibold uppercase tracking-wider text-stone-400 hover:bg-stone-300 hover:text-stone-800 focus:outline-none focus:ring focus:ring-stone-300 focus:text-stone-800 focus:ring-offset-2 disabled:cursor-not-allowed px-4 py-2.5 md:px-6 md:py-3.5 "
+          className="inline-block rounded-full border-2 border-stone-300 bg-transparent px-4 py-2.5 text-sm font-semibold uppercase tracking-wider text-stone-400 hover:bg-stone-300 hover:text-stone-800 focus:text-stone-800 focus:outline-none focus:ring focus:ring-stone-300 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-3.5"
           onClick={() => dispatch(clearItem())}
           type="secondary"
         >

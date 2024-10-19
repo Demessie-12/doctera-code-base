@@ -13,10 +13,10 @@ function AppLayout() {
   const { sideBar, setSideBar } = useNavbarContext();
   return (
     <DocteraContextProvider>
-      <div className="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-gray-100">
+      <div className="bg-DocBlue grid min-h-dvh grid-rows-[auto_1fr_auto]">
         {sideBar && <Sidebar />}
         <NavBar />
-        <div className="px-2 sm:px-3 ">
+        <div className="">
           <Outlet />
         </div>
         <Footer />

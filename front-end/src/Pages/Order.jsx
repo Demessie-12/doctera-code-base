@@ -12,8 +12,8 @@ function Order() {
     setQuery("");
   };
   return (
-    <div className="flex gap-3 justify-center md:max-w-3xl mx-auto  mt-5">
-      <p className="pt-1 font-semibold text-xl">
+    <div className="mx-auto mt-5 flex justify-center gap-3 px-2 sm:px-3 md:max-w-3xl">
+      <p className="pt-1 text-xl font-semibold">
         Check your order using OrderId
       </p>
 

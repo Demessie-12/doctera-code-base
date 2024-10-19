@@ -26,8 +26,11 @@ function Navbar() {
     <div className="sticky top-0 z-40 w-full">
       {openSidebar && <MobileSidebar setOpenSidebar={setOpenSidebar} />}
       <div className="relative mx-auto flex h-16 items-center justify-between bg-blue-900 px-2 md:px-6 lg:px-8">
-        <div className="flex items-center" onClick={() => setOpenSidebar(true)}>
-          <button className="flex px-2 text-xl md:hidden">
+        <div className="flex items-center">
+          <button
+            className="flex px-2 text-xl md:hidden"
+            onClick={() => setOpenSidebar(true)}
+          >
             <FaBarsStaggered />
           </button>
           <Link to="/" className="cursor-pointer text-xl font-semibold">

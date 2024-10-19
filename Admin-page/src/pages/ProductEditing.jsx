@@ -67,10 +67,22 @@ function ProductEditing() {
 
   return (
     <div>
-      <p className="mt-5 text-center text-xl font-semibold capitalize text-gray-400 md:text-2xl">
+      <p className="mt-5 px-2 text-center text-xl font-semibold capitalize text-gray-400 md:text-2xl">
         Product:&nbsp;
         <span className="text-white">{product.name.toLowerCase()}</span>
       </p>
+
+      {product.status == "Pending" && (
+        <div className="mt-3 flex items-center justify-center gap-3">
+          <p className="text-center text-xl font-semibold capitalize text-gray-400 md:text-2xl">
+            This product need verification
+          </p>
+          <button className="rounded-2xl bg-yellow-500 px-3 py-2 text-center text-xl font-semibold capitalize text-gray-900 md:text-2xl">
+            Verify
+          </button>
+        </div>
+      )}
+
       <ImageEditor
         selectedImage={selectedImage}
         setSelectedImage={setSelectedImage}

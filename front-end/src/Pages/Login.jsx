@@ -22,7 +22,7 @@ function Login() {
 
   return (
     <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 sm:px-3 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Doctera logo"
@@ -76,7 +76,7 @@ function Login() {
                   </a>
                 </div>
               </div>
-              <div className="mt-2 flex relative">
+              <div className="relative mt-2 flex">
                 <input
                   id="password"
                   name="password"

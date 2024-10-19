@@ -10,10 +10,10 @@ function Category() {
   const { allproducts } = useDocteraContext();
 
   return (
-    <div>
+    <div className="px-2 sm:px-3">
       Items by category
       <div>
-        <div className=" mx-auto grid grid-cols-2 min-[480px]:grid-cols-3 md:grid-cols-4 md:max-w-4xl gap-x-2 gap-y-4">
+        <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:max-w-4xl md:grid-cols-4">
           {allproducts.map((product) => {
             if (category === "Used" && product.condition === "Used")
               return <Item item={product} key={product.productId} />;

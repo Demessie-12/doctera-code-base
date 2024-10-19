@@ -11,6 +11,7 @@ function ProductList() {
   const [filtered, setFiltered] = useState("All");
 
   let filteredData = allproducts;
+  const screenwidth = screen.width;
 
   if (filtered == "Pending")
     filteredData = allproducts.filter((product) => product.status == "Pending");
@@ -79,13 +80,25 @@ function ProductList() {
       name: "id",
       options: {
         filter: false,
+        customBodyRender: (value, tableMeta) => (
+          <p
+            className={`min-w-14 rounded-2xl font-semibold ${tableMeta.rowData[9] == "Pending" && "h-14 bg-red-600 py-4 text-black"} text-center`}
+          >
+            {value}
+            {console.log(tableMeta.rowData)}
+          </p>
+        ),
       },
     },
     {
       name: "name",
       options: {
-        customBodyRender: (value) => (
-          <p className="line-clamp-2 max-w-32 capitalize">{value}</p>
+        customBodyRender: (value, tableMeta) => (
+          <p
+            className={`line-clamp-3 min-w-40 max-w-32 capitalize ${tableMeta.rowData[9] == "Pending" && "h-14 rounded-2xl bg-red-600 py-4 pl-2"}`}
+          >
+            {value}
+          </p>
         ),
       },
     },
@@ -154,6 +167,14 @@ function ProductList() {
             </Link>
           </div>
         ),
+      },
+    },
+    {
+      name: "status",
+      label: "status",
+      options: {
+        filter: false,
+        display: false,
       },
     },
   ];
@@ -242,16 +263,17 @@ function ProductList() {
           Used
         </p>
       </div>
-
-      <div className="max-w-fit overflow-x-hidden">
-        <ThemeProvider theme={getMuiTheme}>
-          <MUIDataTable
-            title={"Product List"}
-            data={data}
-            columns={columns}
-            options={options}
-          />
-        </ThemeProvider>
+      <div className={`w-[${screenwidth}px] md:w-full`}>
+        <div className="max-w-fit overflow-x-hidden">
+          <ThemeProvider theme={getMuiTheme}>
+            <MUIDataTable
+              title={"Product List"}
+              data={data}
+              columns={columns}
+              options={options}
+            />
+          </ThemeProvider>
+        </div>
       </div>
     </div>
   );

@@ -57,7 +57,7 @@ function SearchResult() {
   console.log("hi", filteredProduct);
 
   return (
-    <div className="mx-auto flex flex-col gap-2 xl:max-w-7xl">
+    <div className="mx-auto flex flex-col gap-2 px-2 sm:px-3 xl:max-w-7xl">
       <div
         className={`flex justify-between ${filteredProduct.length == 0 && "hidden"}`}
       >

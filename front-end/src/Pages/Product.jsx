@@ -17,7 +17,7 @@ function Product() {
   const productId = IdWithSlug.slice(0, IdWithSlug.indexOf("_"));
 
   const product = allproducts.find(
-    (value, index, array) => value.productId === productId
+    (value, index, array) => value.productId === productId,
   );
 
   const QuantityInCart = useSelector(getCurrentQuantityById(productId));
@@ -37,7 +37,7 @@ function Product() {
   }
 
   return (
-    <div className="relative flex flex-col w-full gap-2 sm:gap-4 overflow-hidden">
+    <div className="relative flex w-full flex-col gap-2 overflow-hidden px-2 sm:gap-4 sm:px-3">
       <Breadcrumb product={product} />
       <ProductDisplay
         product={product}
