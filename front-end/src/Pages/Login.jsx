@@ -29,7 +29,7 @@ function Login() {
             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
             className="mx-auto h-10 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-DocOrange">
             Sign in to your account
           </h2>
         </div>
@@ -39,7 +39,7 @@ function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block font-medium leading-6 text-DocOrange md:text-lg"
               >
                 Email address
               </label>
@@ -63,18 +63,18 @@ function Login() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block font-medium leading-6 text-DocOrange md:text-lg"
                 >
                   Password
                 </label>
-                <div className="text-sm">
+                {/* <div className="text-sm">
                   <a
                     href="#"
                     className="font-semibold text-indigo-600 hover:text-indigo-500"
                   >
                     Forgot password?
                   </a>
-                </div>
+                </div> */}
               </div>
               <div className="relative mt-2 flex">
                 <input
@@ -90,7 +90,7 @@ function Login() {
                   autoComplete="current-password"
                   className="flex w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                {Icon}
+                <div className="flex text-center text-DocOrange">{Icon}</div>
               </div>
             </div>
 
@@ -106,11 +106,11 @@ function Login() {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-white">
             Not a member?{" "}
             <Link
               to={"/signup"}
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="font-semibold leading-6 text-DocOrange hover:text-DocOrange/65"
             >
               Create a new Account
             </Link>

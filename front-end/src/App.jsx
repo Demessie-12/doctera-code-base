@@ -31,6 +31,8 @@ import OrderDetail, {
   loader as OrderLoader,
 } from "./features/Order/OrderDetail.jsx";
 import SearchResult from "./features/Search/SearchResult.jsx";
+import { action as AddReviewAction } from "./features/Product/AddReview.jsx";
+import Error from "./ui/Error.jsx";
 // import SearchResult from "./Pages/SearchResult.jsx";
 
 library.add(faEye, faEyeSlash);
@@ -42,6 +44,7 @@ function App() {
     {
       element: <AppLayout />,
       loader: MainLoader,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
@@ -62,6 +65,7 @@ function App() {
         {
           path: "/product/:IdWithSlug",
           element: <Product />,
+          action: AddReviewAction,
         },
         {
           path: "/cart",

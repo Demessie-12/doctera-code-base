@@ -50,7 +50,6 @@ function CreateOrder() {
   const isLoadingAddress = addressStatus === "loading";
 
   const [showDetail, setShowDetail] = useState(false);
-  const [shippingPrice, setShippingPrice] = useState(ClientDistance * 20);
   const [showShippingDetail, setShowShippingDetail] = useState(false);
 
   const cart = useSelector(getCart);
@@ -64,7 +63,9 @@ function CreateOrder() {
     <div className="px-2 sm:px-3">
       <div className="px-4 py-6 md:mx-auto md:max-w-2xl md:px-0 xl:flex xl:max-w-6xl xl:gap-8">
         <div className="flex-1">
-          <h2 className="mb-6 text-xl font-semibold text-gray-900">Checkout</h2>
+          <h2 className="mb-6 text-xl font-semibold text-DocOrange">
+            Checkout
+          </h2>
           <div className="Checkout-section flex flex-col gap-2 rounded-md border border-gray-300 bg-gray-200 px-4 py-3">
             <div className="flex flex-col gap-2 border-b border-gray-400 pb-2">
               <div className="flex justify-between">
@@ -89,10 +90,7 @@ function CreateOrder() {
               </div>
             </div>
             <div>
-              <button
-                className="font-semibold text-blue-700"
-                onClick={() => console.log(ClientDistance, shippingPrice)}
-              >
+              <button className="font-semibold text-blue-700">
                 Have a promo code?
               </button>
             </div>
@@ -103,13 +101,8 @@ function CreateOrder() {
             <div className="flex justify-between">
               <p>Shipping</p>
               <div className="relative flex gap-2">
-                {address ? (
-                  <p className="font-semibold">
-                    {city === "Addis Ababa" ? ClientDistance * 20 : "300"} Birr
-                  </p>
-                ) : (
-                  <p>Based on your location</p>
-                )}
+                <p>Based on your location</p>
+
                 <span>
                   <InformationCircleIcon
                     className="h-7"
@@ -128,7 +121,7 @@ function CreateOrder() {
                 >
                   <p>
                     <span className="text-center font-semibold">
-                      In addis ababa -
+                      In Addis Ababa -
                     </span>
                     20 Birr per Km
                   </p>
@@ -141,14 +134,15 @@ function CreateOrder() {
             </div>
             <div className="flex justify-between border-t border-gray-400 pt-2">
               <p className="font-semibold">Total</p>
-              <p className="font-bold">
-                {totalCartPrice + ClientDistance * 20} Birr
+              <p className="font-bold text-DocOrange">
+                {/* {totalCartPrice + ClientDistance * 20} Birr */}
+                {totalCartPrice} Birr
               </p>
             </div>
           </div>
         </div>
         <div className="flex-1">
-          <h2 className="my-6 text-xl font-semibold text-gray-900 xl:mt-0">
+          <h2 className="my-6 text-xl font-semibold text-DocOrange xl:mt-0">
             Personal Information
           </h2>
 
@@ -249,14 +243,14 @@ function CreateOrder() {
               />
               <button
                 disabled={isSubmitting || isLoadingAddress}
-                className="inline-block rounded-full bg-gray-800 px-4 py-3 text-sm font-semibold tracking-wide text-white hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-800 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
+                className="text-balck inline-block rounded-full bg-DocOrange/90 px-4 py-3 text-sm font-semibold tracking-wide hover:bg-DocOrange focus:outline-none focus:ring focus:ring-DocOrange focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
               >
                 {isSubmitting
                   ? "Placing Order..."
-                  : `Order Now ${totalCartPrice + ClientDistance * 20} Birr`}
+                  : `Order Now ${totalCartPrice} Birr`}
               </button>
               <Link
-                to="/cart"
+                to={isSubmitting || isLoadingAddress ? "" : "/cart"}
                 className="ml-5 inline-block rounded-full bg-gray-500 px-4 py-3 text-sm font-semibold tracking-wide text-black hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
               >
                 Back To Cart
@@ -264,19 +258,6 @@ function CreateOrder() {
             </div>
           </Form>
         </div>
-      </div>
-      <div className="block w-full">
-        {ClientDistance > 0 && (
-          <h2 className="z-10 mx-auto flex w-full justify-center rounded-lg bg-white py-3 font-bold text-red-600">
-            Your address is
-            <span className="text-blue-900">
-              {/* space &nbsp; */}
-              &nbsp;{ClientDistance} Km&nbsp;
-            </span>
-            away from our store.
-          </h2>
-        )}
-        <MapfromHtml />{" "}
       </div>
     </div>
   );

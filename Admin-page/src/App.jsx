@@ -14,11 +14,21 @@ import ProductUpload, {
 } from "./features/product/ProductUpload";
 import Login from "./pages/Login";
 import Products from "./pages/Products";
-import Orders from "./pages/Orders";
+import Orders, { loader as orderLoader } from "./pages/Orders";
 import Reviews from "./pages/Reviews";
 import ProductEditing, {
   action as EditProdcutAction,
 } from "./pages/ProductEditing";
+import OrderDetail, {
+  action as updateStatusAction,
+  loader as singleOrderLoader,
+} from "./pages/OrderDetail";
+import Users, { loader as allUsersLoader } from "./pages/Users";
+import UserDetail, {
+  action as updateRoleLoader,
+  loader as singleUserLoader,
+} from "./pages/UserDetail";
+import Error from "./ui/Error";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,6 +36,7 @@ function App() {
     {
       element: <AppLayout />,
       loader: mainLoader,
+      errorElement: <Error />,
       children: [
         {
           path: "/",
@@ -43,9 +54,22 @@ function App() {
           action: EditProdcutAction,
         },
         { path: "/products/:IdWithSlug", element: <ProductDetail /> },
-        { path: "/orders", element: <Orders /> },
+        { path: "/orders", element: <Orders />, loader: orderLoader },
+        {
+          path: "/orders/:orderId",
+          element: <OrderDetail />,
+          loader: singleOrderLoader,
+          action: updateStatusAction,
+        },
         { path: "/reviews", element: <Reviews /> },
         { path: "/profile", element: <Profile /> },
+        { path: "/users", element: <Users />, loader: allUsersLoader },
+        {
+          path: "/users/:username",
+          element: <UserDetail />,
+          loader: singleUserLoader,
+          action: updateRoleLoader,
+        },
       ],
     },
   ]);

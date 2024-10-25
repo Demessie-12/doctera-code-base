@@ -5,6 +5,7 @@ import { MdDashboard } from "react-icons/md";
 import { FaProductHunt } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa6";
 import { MdOutlinePreview } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 
 function Sidebar() {
   const AdminNav = [
@@ -12,6 +13,7 @@ function Sidebar() {
     { title: "Products", to: "/products", icon: <FaProductHunt /> },
     { title: "Orders", to: "/orders", icon: <FaCartPlus /> },
     { title: "Reviews", to: "/reviews", icon: <MdOutlinePreview /> },
+    { title: "Users", to: "/users", icon: <FaUserCircle /> },
   ];
   const location = useLocation();
   const path = location.pathname.split("/");

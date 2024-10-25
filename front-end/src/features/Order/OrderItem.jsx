@@ -7,12 +7,12 @@ function OrderItem(props) {
     <div>
       <li
         key={item.name}
-        className="py-3 flex items-center justify-between  pl-3 sm:pl-5 md:pl-7 pr-3 bg-white"
+        className="flex items-center justify-between bg-gray-300 py-3 pl-3 pr-3 font-semibold text-black sm:pl-5 md:pl-7"
       >
-        <div className="flex gap-2 w-1/2">
+        <div className="flex w-1/2 gap-2">
           <img
             src={item.coverImage}
-            className="h-8 border border-gray-400 rounded-md"
+            className="h-8 rounded-md border border-gray-400"
             alt=""
           />
           <p className="capitalize">{item.name}</p>

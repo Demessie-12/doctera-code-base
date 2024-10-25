@@ -41,7 +41,7 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
           </div>
         </div>
       </div>
-      <div className="right flex w-full flex-col gap-2 pl-2 text-lg text-gray-800">
+      <div className="right flex w-full flex-col gap-2 pl-2 text-lg text-gray-300">
         <h2 className="hidden pt-1 text-lg font-bold capitalize sm:flex">
           {product.name}
         </h2>
@@ -91,7 +91,7 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
           <p
             className={`font-bold ${
               product.condition === "Brand New"
-                ? "text-green-500"
+                ? "text-DocOrange"
                 : "text-red-600"
             }`}
           >
@@ -124,7 +124,7 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
             </div>
           ) : (
             <button
-              className="inline-block rounded-full bg-teal-800 px-2.5 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-teal-600 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2"
+              className="inline-block rounded-full bg-DocOrange px-2.5 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-DocOrange/65 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2"
               onClick={handleAddToCart}
             >
               Add To Cart

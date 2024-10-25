@@ -2,6 +2,8 @@ import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
 import User from "../models/user.model.js";
 
+import Chapa from "chapa";
+
 export const GetAllUsers = async (req, res) => {
   try {
     const Users = await User.find().select("-password");
@@ -82,13 +84,12 @@ export const GetProductByStatus = async (req, res) => {
 export const EditProductStatus = async (req, res) => {
   try {
     const { productId } = req.params;
+    const { status } = req.body;
     const selectedProduct = await Product.findOne({ productId: productId });
 
     const product = await Product.findByIdAndUpdate(
       selectedProduct._id,
-      {
-        status: selectedProduct.status === "Verified" ? "Pending" : "Verified",
-      },
+      { status },
       {
         new: true,
       }
@@ -103,6 +104,22 @@ export const EditProductStatus = async (req, res) => {
   }
 };
 
+export const DeleteProductById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const deleted = await Product.findByIdAndDelete(id);
+    if (!deleted) {
+      return res.status(404).json({ error: "No Product found in this Id" });
+    }
+
+    res.status(200).json({ message: "Product Deleted succesfully" });
+  } catch (error) {
+    console.log("Error in DeleteProductById, review.contoller", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 export const GetAllOrders = async (req, res) => {
   try {
     const allOrders = await Order.find();
@@ -110,6 +127,36 @@ export const GetAllOrders = async (req, res) => {
     res.status(200).json({ data: allOrders });
   } catch (error) {
     console.log("Error in GetAllOrders admin.contoller", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const GetSingleOrderDetail = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const singleOrder = await Order.findOne({ orderId });
+
+    if (!singleOrder)
+      return res
+        .status(404)
+        .json({ error: `NO Order found with ${orderId} Id` });
+
+    let paymentStatus;
+    {
+      /*
+    let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
+    await myChapa
+      .verify(singleOrder.chapaId)
+      .then((response) => {
+        paymentStatus = response.data.status;
+        // console.log(response); // if success
+      })
+      .catch((e) => console.log("not Verified")); // catch errors
+*/
+    }
+    res.status(200).json({ data: singleOrder, paymentStatus });
+  } catch (error) {
+    console.log("Error in GetSingleOrder order.contoller", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -137,6 +184,30 @@ export const EditOrderStatus = async (req, res) => {
     res.status(200).json({ data: updatedOrder });
   } catch (error) {
     console.log("Error in GetAllOrders admin.contoller", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const EditUserRole = async (req, res) => {
+  try {
+    const { username } = req.params;
+    const { role } = req.body;
+    const selectedUser = await User.findOne({ username });
+    if (!selectedUser)
+      return res.staus(404).json({ error: `NO User found @${username}` });
+    const updatedUser = await User.findByIdAndUpdate(
+      selectedUser._id,
+      {
+        role,
+      },
+      {
+        new: true,
+      }
+    );
+
+    res.status(200).json({ data: updatedUser });
+  } catch (error) {
+    console.log("Error in EditUserRole admin.contoller", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };

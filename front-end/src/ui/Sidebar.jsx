@@ -2,7 +2,7 @@ import React from "react";
 import { useDocteraContext } from "../context/Doctera.Context";
 import { IoCloseOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import StarIcon from "./../Assets/star_icon.png";
+
 import { useNavbarContext } from "../context/Navbar.context";
 
 function Sidebar() {
@@ -47,18 +47,18 @@ function Sidebar() {
   return (
     <div className="no-doc-scroll fixed inset-0 z-50 flex h-dvh w-dvw overflow-y-auto">
       <div className="relative z-30 h-dvh min-h-dvh w-4/5 overflow-y-auto bg-gray-200 min-[480px]:w-3/5 sm:w-80">
-        <div className="fixed top-0 mx-auto flex h-16 w-4/5 items-center justify-center bg-gradient-to-b from-gray-900 to-gray-700 min-[480px]:w-3/5 sm:w-80">
+        <div className="fixed top-0 mx-auto flex h-16 w-4/5 items-center justify-center bg-DocBlue min-[480px]:w-3/5 sm:w-80">
           <p className="text-2xl font-bold text-white">Menu</p>
           <div
-            className="absolute right-1 top-1 cursor-pointer rounded-full p-2 text-4xl text-red-600 hover:bg-white hover:text-black"
+            className="absolute right-1 top-1 cursor-pointer rounded-full p-2 text-4xl text-red-600 hover:bg-red-500 hover:text-black"
             onClick={() => setSideBar(false)}
           >
             <IoCloseOutline />
           </div>
         </div>
         <div className="mb-28 mt-16 bg-fixed">
-          <div className="bg-gradient-to-b from-gray-700 to-gray-200">
-            <div className="mx-auto grid w-2/3 min-w-52 grid-cols-2 gap-1 rounded-b-xl bg-gradient-to-b from-gray-700 to-blue-900 py-2 text-yellow-300 shadow-lg sm:hidden">
+          <div className="bg-gradient-to-b from-DocBlue to-gray-200">
+            <div className="mx-auto grid w-2/3 min-w-52 grid-cols-2 gap-1 rounded-b-xl bg-gradient-to-b from-DocBlue/90 to-DocBlue py-2 text-DocOrange shadow-lg sm:hidden">
               {navigation.map((nav, i) => (
                 <Link
                   key={i}
@@ -88,7 +88,7 @@ function Sidebar() {
             ))}
           </div>
         </div>
-        <div className="fixed bottom-0 mt-7 flex w-4/5 flex-col bg-gray-900 pt-3 text-center text-yellow-300 min-[480px]:w-3/5 sm:w-80">
+        <div className="fixed bottom-0 mt-7 flex w-4/5 flex-col bg-gray-900 pt-3 text-center text-DocOrange min-[480px]:w-3/5 sm:w-80">
           <div className="flex justify-between px-5 sm:px-10">
             <a href="tel:251900763647">+251900763647</a>
             <Link to={"/contact"} onClick={() => setSideBar(false)}>
@@ -99,7 +99,7 @@ function Sidebar() {
             <Link
               to={loggedUser ? "/profile" : "/login"}
               onClick={() => setSideBar(false)}
-              className="rounded-xl border border-gray-300 px-3 py-1.5 text-white"
+              className="rounded-xl border border-gray-300 bg-DocBlue px-3 py-1.5 text-white"
             >
               {loggedUser ? "Go to profile" : "Sign in"}
             </Link>

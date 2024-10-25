@@ -11,6 +11,7 @@ export const CreateOrder = async (req, res) => {
 
     const AllOrders = await Order.find();
     const Products = await Product.find();
+
     await cart.map((CartItem, i) => {
       const SingleProduct = Products.find(
         (element) => element.productId == CartItem.productId
@@ -119,15 +120,19 @@ export const GetSingleOrder = async (req, res) => {
         .json({ error: `NO Order found with ${orderId} Id` });
 
     let paymentStatus;
+    {
+      /*
+      Check Paymnet State on Chapa
     let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
     await myChapa
-      .verify(singleOrder.chapaId)
+      .verify(singleOrder?.chapaId)
       .then((response) => {
         paymentStatus = response.data.status;
         // console.log(response); // if success
       })
       .catch((e) => console.log("not Verified")); // catch errors
-
+*/
+    }
     res.status(200).json({ data: singleOrder, paymentStatus });
   } catch (error) {
     console.log("Error in GetSingleOrder order.contoller", error.message);

@@ -8,6 +8,7 @@ import HeroSection from "../features/Home/HeroSection";
 import TrustedBy from "../features/Home/TrustedBy";
 import FaqSection from "../features/Home/FaqSection";
 import CheckCategories from "../features/Home/CheckCategories";
+import Parallax from "../features/Home/Parallax";
 
 function Home() {
   const cart = useSelector(getCart);
@@ -20,6 +21,7 @@ function Home() {
       <NewCollections allproducts={allproducts} />
       <TrustedBy />
       <Popular allproducts={allproducts} />
+      <Parallax />
       <FaqSection />
     </div>
   );

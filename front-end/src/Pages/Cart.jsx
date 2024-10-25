@@ -11,9 +11,11 @@ function Cart() {
 
   return (
     <div className="px-6 py-3 md:mx-auto md:max-w-2xl">
-      <Link to="/">&larr; Back to menu</Link>
+      <Link to="/" className="text-gray-400">
+        &larr; Back to Menu
+      </Link>
 
-      <h2 className="mt-6 text-xl font-semibold">Your cart</h2>
+      <h2 className="mt-6 text-xl font-semibold text-DocOrange">Your cart</h2>
       <ul className="my-2 divide-y divide-stone-300 border-b border-stone-300">
         {cart.map((item) => (
           <CartItem item={item} key={item.productId} />
@@ -22,7 +24,7 @@ function Cart() {
       <div className="mt-6 space-x-2">
         <Link
           reloadDocument
-          className="inline-block rounded-full bg-teal-800 px-4 py-3 text-sm font-semibold uppercase tracking-wide text-white hover:bg-teal-600 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
+          className="text-balck inline-block rounded-full bg-DocOrange px-4 py-3 text-sm font-semibold uppercase tracking-wide hover:bg-DocOrange/70 hover:text-white focus:outline-none focus:ring focus:ring-DocOrange focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
           to="/order/new"
         >
           Proceed To Checkout

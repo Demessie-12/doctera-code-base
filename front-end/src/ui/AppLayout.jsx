@@ -1,6 +1,6 @@
 import React from "react";
 import NavBar from "./Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import { GetAllProducts } from "../Services/apiProducts";
 import Sidebar from "./Sidebar";
 import DocteraContextProvider from "../context/Doctera.Context";
@@ -8,12 +8,16 @@ import secureLocalStorage from "react-secure-storage";
 import { useNavbarContext } from "../context/Navbar.context";
 import ScrollToTop from "./ScrollToTop";
 import Footer from "./Footer";
+import Loader from "./Loader";
 
 function AppLayout() {
   const { sideBar, setSideBar } = useNavbarContext();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
   return (
     <DocteraContextProvider>
-      <div className="bg-DocBlue grid min-h-dvh grid-rows-[auto_1fr_auto]">
+      {isLoading && <Loader />}
+      <div className="grid min-h-dvh grid-rows-[auto_1fr_auto] bg-DocBlue">
         {sideBar && <Sidebar />}
         <NavBar />
         <div className="">

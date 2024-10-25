@@ -3,8 +3,11 @@ import { useAdminContext } from "../context/Admin.context";
 import { Form, useNavigation, useParams } from "react-router-dom";
 import ImageEditor from "../features/product/ImageEditor";
 import { UpdateProductHook } from "../Services/apiProducts";
+import ProductVerification from "../features/product/ProductVerification";
+import DeleteProduct from "../features/product/DeleteProduct";
 
 function ProductEditing() {
+  const [model, setModel] = useState(false);
   const { allproducts } = useAdminContext();
   const { IdWithSlug } = useParams();
   const productId = IdWithSlug.slice(0, IdWithSlug.indexOf("_"));
@@ -72,16 +75,7 @@ function ProductEditing() {
         <span className="text-white">{product.name.toLowerCase()}</span>
       </p>
 
-      {product.status == "Pending" && (
-        <div className="mt-3 flex items-center justify-center gap-3">
-          <p className="text-center text-xl font-semibold capitalize text-gray-400 md:text-2xl">
-            This product need verification
-          </p>
-          <button className="rounded-2xl bg-yellow-500 px-3 py-2 text-center text-xl font-semibold capitalize text-gray-900 md:text-2xl">
-            Verify
-          </button>
-        </div>
-      )}
+      {product.status == "Pending" && <ProductVerification />}
 
       <ImageEditor
         selectedImage={selectedImage}
@@ -299,6 +293,11 @@ function ProductEditing() {
           </div>
         </Form>
       </div>
+      <DeleteProduct
+        product_ID={product._id}
+        model={model}
+        setModel={setModel}
+      />
     </div>
   );
 }

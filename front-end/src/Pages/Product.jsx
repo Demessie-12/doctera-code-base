@@ -47,6 +47,7 @@ function Product() {
       <ReviewsAndDescription
         reviews={product.reviews}
         detail={product.detail}
+        productId={product._id}
       />
       <SimilarProducts category={product.category[0]} />
     </div>

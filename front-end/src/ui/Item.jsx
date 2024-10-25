@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import discountTag from "./../Assets/discount-tag.jpg";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 function Item(props) {
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
   const { item } = props;
   return (
-    <div className="bg-DocOrange hover:bg-DocBlue relative cursor-pointer rounded-md border border-gray-400 text-black duration-500 hover:z-10 hover:scale-105 hover:p-2 hover:text-black hover:transition hover:duration-700">
+    <div
+      data-aos="fade-up"
+      className="item relative cursor-pointer rounded-md border border-gray-400 bg-DocOrange text-black duration-500 hover:z-10 hover:scale-105 hover:bg-DocBlue hover:p-2 hover:text-black hover:transition hover:duration-500"
+    >
       <div className="absolute left-0 top-0 h-auto w-1/3">
         {item.category.includes("discount") && (
           <img src={discountTag} alt="discount tag" />

@@ -31,7 +31,47 @@ export async function UpdateProductHook(productId, data) {
     location.replace(
       `/products/${updatedData.data.productId.concat("_", updatedData.data.slug)}`,
     );
+    return updatedData.data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
+export async function UpdateProductStatusHook(productId, data, IdWithSlug) {
+  try {
+    const res = await fetch(`/api/admin/products/status/${productId}`, {
+      method: "PATCH",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ ...data }),
+    });
+
+    const updatedData = await res.json();
+
+    if (updatedData.error) {
+      throw new Error(updatedData.error);
+    }
+    toast.success(updatedData.message);
+    location.replace(`/products/${IdWithSlug}`);
     return res.data;
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
+export async function DeleteProductHook(product_ID) {
+  try {
+    const res = await fetch(`/api/admin/products/delete/${product_ID}`, {
+      method: "DELETE",
+      headers: { "content-type": "application/json" },
+    });
+
+    const deletedData = await res.json();
+
+    if (deletedData.error) {
+      throw new Error(deletedData.error);
+    }
+    toast.success("product Deleted Successfully");
+    location.replace("/products");
   } catch (error) {
     toast.error(error.message);
   }

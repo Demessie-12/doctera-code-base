@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
+import AddReview from "./AddReview";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
-function ReviewsAndDescription({ detail, reviews }) {
+function ReviewsAndDescription({ detail, reviews, productId }) {
+  useEffect(() => {
+    Aos.init({ duration: 1500 });
+  }, []);
   const [selected, setSelcted] = useState("detail");
   return (
     <div className="my-2 flex flex-col gap-0 px-3">
       <div className="flex">
         <p
           className={`cursor-pointer border border-b-0 border-r-0 border-gray-400 p-5 px-7 font-semibold ${
-            selected === "detail" ? "bg-transparent" : "bg-gray-300"
+            selected === "detail"
+              ? "bg-transparent text-xl text-DocOrange"
+              : "bg-gray-600 text-gray-800"
           }`}
           onClick={() => setSelcted("detail")}
         >
@@ -16,7 +24,9 @@ function ReviewsAndDescription({ detail, reviews }) {
         </p>
         <p
           className={`cursor-pointer border border-b-0 border-gray-400 p-5 font-semibold ${
-            selected === "reviews" ? "bg-transparent" : "bg-gray-300"
+            selected === "reviews"
+              ? "bg-transparent text-xl text-DocOrange"
+              : "bg-gray-600 text-gray-800"
           }`}
           onClick={() => setSelcted("reviews")}
         >
@@ -25,55 +35,66 @@ function ReviewsAndDescription({ detail, reviews }) {
       </div>
       <div className="max-h-96 overflow-y-auto border border-gray-400">
         {selected == "detail" ? (
-          <p className="p-3 md:p-5 lg:p-7 xl:p-8">{detail}</p>
-        ) : [2, 5, 5]?.length > 0 ? (
-          [
-            { star: 3 },
-            { star: 5 },
-            { star: 4 },
-            { star: 3 },
-            { star: 5 },
-            { star: 4 },
-          ].map((review, i) => {
-            let reviewStars = [];
-            let emptyStar = [];
-            for (let index = 0; index < review.star; index++) {
-              reviewStars.push("star");
-            }
-            for (let index = 5; index > review.star; index--) {
-              emptyStar.push("star");
-            }
-            return (
-              <div className={`flex gap-2 p-3 md:p-5 lg:p-7 xl:p-8`}>
-                <img
-                  src="https://avatar.iran.liara.run/public/boy?username=new"
-                  alt="reviewer photo"
-                  className="h-fit w-10"
-                />
-                <div className="flex w-full flex-col">
-                  <div className="flex justify-between">
-                    <p className="font-semibold text-black">Demessie Wondimu</p>
-                    <p>September 4, 2024</p>
-                  </div>
-                  <div className="flex gap-1">
-                    {reviewStars.map((star) => (
-                      <p className="h-fit w-5 text-yellow-500">
-                        <FaStar />
-                      </p>
-                    ))}
-                    {emptyStar.map((star) => (
-                      <p className="h-fit w-5 text-gray-400">
-                        <FaStar />
-                      </p>
-                    ))}
-                  </div>
-                  <p>This is amazing product. I loved it.</p>
-                </div>
-              </div>
-            );
-          })
+          <p className="p-3 text-white md:p-5 lg:p-7 xl:p-8">{detail}</p>
         ) : (
-          <p>No one review this product! 😢😢</p>
+          <div data-aos="fade-up" className="relative">
+            <div data-aos="zoom-in" className="sticky top-0">
+              <AddReview product={productId} />
+            </div>
+            {[2, 5, 5]?.length > 0 ? (
+              [
+                { star: 3 },
+                { star: 5 },
+                { star: 4 },
+                { star: 3 },
+                { star: 5 },
+                { star: 4 },
+              ].map((review, i) => {
+                let reviewStars = [];
+                let emptyStar = [];
+                for (let index = 0; index < review.star; index++) {
+                  reviewStars.push("star");
+                }
+                for (let index = 5; index > review.star; index--) {
+                  emptyStar.push("star");
+                }
+                return (
+                  <div className={`flex gap-2 p-3 md:p-5 lg:p-7 xl:p-8`}>
+                    <img
+                      src="https://avatar.iran.liara.run/public/boy?username=new"
+                      alt="reviewer photo"
+                      className="h-fit w-10"
+                    />
+                    <div className="flex w-full flex-col">
+                      <div className="flex justify-between">
+                        <p className="font-semibold text-white">
+                          Demessie Wondimu
+                        </p>
+                        <p className="text-white">September 4, 2024</p>
+                      </div>
+                      <div className="flex gap-1">
+                        {reviewStars.map((star) => (
+                          <p className="h-fit w-5 text-yellow-500">
+                            <FaStar />
+                          </p>
+                        ))}
+                        {emptyStar.map((star) => (
+                          <p className="h-fit w-5 text-gray-400">
+                            <FaStar />
+                          </p>
+                        ))}
+                      </div>
+                      <p className="text-DocOrange">
+                        This is amazing product. I loved it.
+                      </p>
+                    </div>
+                  </div>
+                );
+              })
+            ) : (
+              <p>No one review this product! 😢😢</p>
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -1,35 +1,15 @@
 import React from "react";
+
 import { SlCallOut } from "react-icons/sl";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { GiPathDistance } from "react-icons/gi";
-import { useLoaderData, useParams } from "react-router-dom";
-import { GetOrderHook } from "../../Services/apiOrder";
-import OrderItem from "./OrderItem";
-import { Link } from "react-router-dom";
 
-function OrderDetail() {
-  const { order, paymentStatus } = useLoaderData();
-  console.log(order, paymentStatus);
+function OrderProductList({ order }) {
   const orderDate = new Date(order.createdAt);
   const deliveryDate = new Date(order.dateOfDelivery);
-
-  // setTimeout(() => {
-  //   if (paymentStatus !== "success") {
-  //     window.location.href = order.chapaUrl;
-  //   }
-  // }, "3000");
-
   return (
     <div className="mx-auto my-2 flex flex-col gap-2 px-5 sm:px-8 md:max-w-3xl">
-      {/* <div
-        className={`fixed left-1/2 top-14 -translate-x-1/2 rounded-xl bg-gray-950 ${paymentStatus === "success" ? "hidden" : ""}`}
-      >
-        <p className="z-50 mx-auto cursor-pointer rounded-l-2xl px-4 py-2 text-sm font-semibold text-white md:text-xl">
-          You didn't finish{" "}
-          <span className="text-yellow-600">your payment</span>
-        </p>
-      </div> */}
       <div className="flex justify-between">
         <h1 className="pt-1 text-sm font-bold sm:text-xl">
           Order ID: <span className="text-white">{order.orderId}</span>
@@ -46,12 +26,18 @@ function OrderDetail() {
             {order.status}
           </span>
         </h1>
-        <a href="tel:0900763648">
+        <a href={`tel:0${order.customerPhoneNo}`}>
           <p className="flex rounded-2xl bg-DocOrange px-2 py-1 text-black sm:px-3 sm:py-2">
             <SlCallOut className="h-fit pt-1" /> &nbsp; Call
           </p>
         </a>
       </div>
+      <h1 className="pt-1 text-sm font-bold text-gray-400 sm:text-xl">
+        Ordered by:{" "}
+        <span className="text-DocOrange">
+          {order.customerName || "Unknown"}
+        </span>
+      </h1>
       <div className="flex h-14 flex-col gap-1 border-b border-gray-400 pb-2 sm:h-fit sm:flex-row sm:gap-3">
         <div>
           <p className="text-base text-white">
@@ -75,7 +61,25 @@ function OrderDetail() {
 
       <div className="my-2 mb-2 flex flex-col gap-2 rounded-md border border-gray-500 bg-gray-500 p-5">
         {order.products.map((item) => (
-          <OrderItem item={item} />
+          <div>
+            <li
+              key={item.name}
+              className="flex items-center justify-between bg-gray-300 py-3 pl-3 pr-3 font-semibold text-black sm:pl-5 md:pl-7"
+            >
+              <div className="flex w-1/2 gap-2">
+                <img
+                  src={item.coverImage}
+                  className="h-8 rounded-md border border-gray-400"
+                  alt=""
+                />
+                <p className="capitalize">{item.name}</p>
+              </div>
+              <p>
+                {item.quantity} x {item.unitPrice}
+              </p>
+              <p className="text-sm font-bold">{item.totalPrice} Birr</p>
+            </li>
+          </div>
         ))}
       </div>
       <div className="mx-auto my-2 grid w-full grid-cols-2 gap-5 border-t border-gray-400 px-5 pt-2 text-white">
@@ -122,10 +126,4 @@ function OrderDetail() {
   );
 }
 
-export async function loader({ params }) {
-  console.log("hi from loader");
-  const { order, paymentStatus } = await GetOrderHook(params.orderId);
-  return { order, paymentStatus };
-}
-
-export default OrderDetail;
+export default OrderProductList;

@@ -51,7 +51,6 @@ function ProductList() {
       label: "no",
       options: {
         filter: false,
-        display: false,
       },
     },
     {
@@ -85,7 +84,7 @@ function ProductList() {
             className={`min-w-14 rounded-2xl font-semibold ${tableMeta.rowData[9] == "Pending" && "h-14 bg-red-600 py-4 text-black"} text-center`}
           >
             {value}
-            {console.log(tableMeta.rowData)}
+            {/* {console.log(tableMeta.rowData)} */}
           </p>
         ),
       },
@@ -215,14 +214,6 @@ function ProductList() {
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
-      <p>ProductList</p>
       <p>ProductList</p>
 
       <div className="my-2 ml-5 flex gap-2 md:ml-10">
