@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import passwordToogle from "../hooks/passwordToogle.jsx";
 import { LoginApi } from "../Services/apiAuthentication.js";
+import secureLocalStorage from "react-secure-storage";
+import Doctera_Banner from "./../Assets/Doctera_Banner.png";
+import { GetMineOrderHook } from "../Services/apiOrder.js";
 
 function Login() {
   const [inputs, setInputs] = useState({
@@ -17,6 +20,8 @@ function Login() {
     try {
       e.preventDefault();
       await LoginHook(inputs);
+      const loggedUser = secureLocalStorage.getItem("logged-user");
+      await GetMineOrderHook(loggedUser.username);
     } catch (error) {}
   };
 
@@ -26,10 +31,10 @@ function Login() {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Doctera logo"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
+            src={Doctera_Banner}
+            className="mx-auto h-24 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-DocOrange">
+          <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-DocOrange">
             Sign in to your account
           </h2>
         </div>
@@ -110,7 +115,7 @@ function Login() {
             Not a member?{" "}
             <Link
               to={"/signup"}
-              className="font-semibold leading-6 text-DocOrange hover:text-DocOrange/65"
+              className="text-base font-semibold leading-6 text-DocOrange hover:text-DocOrange/65"
             >
               Create a new Account
             </Link>

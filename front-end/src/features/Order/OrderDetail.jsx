@@ -31,7 +31,7 @@ function OrderDetail() {
         </p>
       </div> */}
       <div className="flex justify-between">
-        <h1 className="pt-1 text-sm font-bold sm:text-xl">
+        <h1 className="pt-1 text-sm font-bold text-gray-400 sm:text-xl">
           Order ID: <span className="text-white">{order.orderId}</span>
         </h1>
         <h1 className="h-8 rounded-xl bg-gray-600 py-1 pl-2 text-sm font-bold text-gray-200 sm:h-10 sm:text-xl">

@@ -3,9 +3,9 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import AppLayout, { loader as mainLoader } from "./AppLayout";
+import AppLayout from "./AppLayout";
 import Profile from "./pages/Profile";
-import Dashboard from "./pages/Dashboard";
+import Dashboard, { loader as dashboardLoader } from "./pages/Dashboard";
 
 import { Toaster } from "react-hot-toast";
 import ProductDetail from "./pages/ProductDetail";
@@ -13,7 +13,7 @@ import ProductUpload, {
   action as UploadProductAction,
 } from "./features/product/ProductUpload";
 import Login from "./pages/Login";
-import Products from "./pages/Products";
+import Products, { loader as productLoader } from "./pages/Products";
 import Orders, { loader as orderLoader } from "./pages/Orders";
 import Reviews from "./pages/Reviews";
 import ProductEditing, {
@@ -35,14 +35,14 @@ function App() {
     { path: "/login", element: <Login /> },
     {
       element: <AppLayout />,
-      loader: mainLoader,
       errorElement: <Error />,
       children: [
         {
           path: "/",
           element: <Dashboard />,
+          loader: dashboardLoader,
         },
-        { path: "/products", element: <Products /> },
+        { path: "/products", element: <Products />, loader: productLoader },
         {
           path: "/products/upload",
           element: <ProductUpload />,

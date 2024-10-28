@@ -7,18 +7,21 @@ import {
   GetAllOrders,
   GetAllProductsForAdmin,
   GetAllUsers,
+  GetDashboardData,
   GetProductByStatus,
   GetSingleOrderDetail,
   GetSingleUser,
   GetUsersByCategory,
 } from "../controllers/admin.controller.js";
+import { restrictTo } from "../middleware/authController.js";
 
 const router = express.Router();
 
+router.get("/dashboard", GetDashboardData);
 router.get("/users", GetAllUsers);
 router.get("/users/c/:category", GetUsersByCategory);
 router.get("/users/:username", GetSingleUser);
-router.patch("/users/:username", EditUserRole);
+router.patch("/users/:username", restrictTo("super admin"), EditUserRole);
 
 router.get("/products", GetAllProductsForAdmin);
 router.get("/products/status/:status", GetProductByStatus);

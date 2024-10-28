@@ -24,9 +24,9 @@ export async function GetSingleUserHook(username) {
       throw Error(res.error);
     }
 
-    const { data } = await res.json();
+    const { UserData } = await res.json();
 
-    return data;
+    return UserData;
   } catch (error) {
     toast.error(error.message);
   }

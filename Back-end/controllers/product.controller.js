@@ -73,7 +73,6 @@ export const PostProduct = async (req, res) => {
     } = req.body;
 
     const ProductList = await Product.find();
-    console.log(name);
 
     // Get number form last Product from A096 => 96
     const lastProductIdNo = Number(
@@ -98,7 +97,6 @@ export const PostProduct = async (req, res) => {
       mainCategory,
       tags,
     });
-    console.log(newProduct);
 
     await newProduct.save();
 

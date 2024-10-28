@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SlCallOut } from "react-icons/sl";
 import { GetSingleUserHook, UpdateUserRoleHook } from "../Services/apiUsers";
+import secureLocalStorage from "react-secure-storage";
 import { Form, useLoaderData } from "react-router-dom";
 
 function UserDetail() {
@@ -51,14 +52,19 @@ function UserDetail() {
         </p>
       </div>
 
-      <Form method="POST" className="mx-auto my-10 flex justify-center">
+      <Form
+        method="POST"
+        className={`${secureLocalStorage.getItem("logged-user")?.role !== "super admin" && "hidden"} mx-auto my-10 flex justify-center`}
+      >
         <p className="md:text-xl">Change Role to</p>
         <input
           type="checkbox"
           name="ongoing"
           id="ongoing"
           checked={role === "customer"}
-          onChange={() => setRole("customer")}
+          onChange={() =>
+            role === "customer" ? setRole() : setRole("customer")
+          }
           className={`ml-5 ${userData.role == "customer" && "hidden"}`}
         />
         <label
@@ -71,22 +77,8 @@ function UserDetail() {
           type="checkbox"
           name="delivered"
           id="delivered"
-          checked={role === "merchant"}
-          onChange={() => setRole("merchant")}
-          className={`ml-5 ${userData.role == "merchant" && "hidden"}`}
-        />
-        <label
-          htmlFor="delivered"
-          className={`ml-1 mr-5 inline text-DocOrange md:text-xl ${userData.role == "merchant" && "hidden"}`}
-        >
-          Merchant
-        </label>
-        <input
-          type="checkbox"
-          name="delivered"
-          id="delivered"
           checked={role === "admin"}
-          onChange={() => setRole("admin")}
+          onChange={() => (role === "admin" ? setRole() : setRole("admin"))}
           className={`ml-5 ${userData.role == "admin" && "hidden"}`}
         />
         <label
@@ -122,7 +114,6 @@ export async function action({ request, params }) {
 
 export async function loader({ params }) {
   const username = params.username.substr(1);
-  console.log(username);
   let SingleUser = await GetSingleUserHook(username);
 
   return SingleUser;

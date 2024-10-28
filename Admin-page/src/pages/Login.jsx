@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import passwordToogle from "../hooks/passwordToogle.jsx";
 import { LoginApi } from "../Services/apiAuthentication.js";
+import Doctera_Banner from "./../Assets/Doctera_Banner.png";
 
 function Login() {
   const [inputs, setInputs] = useState({
@@ -23,14 +24,14 @@ function Login() {
 
   return (
     <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex min-h-full flex-1 flex-col justify-center bg-DocBlue px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Doctera logo"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
+            src={Doctera_Banner}
+            className="mx-auto h-24 w-auto"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-DocOrange">
             Log in as Administrator
           </h2>
         </div>
@@ -40,7 +41,7 @@ function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Email address
               </label>
@@ -64,14 +65,14 @@ function Login() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-white"
                 >
                   Password
                 </label>
                 <div className="text-sm">
                   <a
                     href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
+                    className="hover:textDocOrange font-semibold text-DocOrange/70"
                   >
                     Forgot password?
                   </a>
@@ -98,7 +99,7 @@ function Login() {
             <div>
               <button
                 type="submit"
-                className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${
+                className={`flex w-full justify-center rounded-md bg-DocOrange/80 px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-DocOrange focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-DocOrange ${
                   loading && "cursor-not-allowed"
                 }`}
               >
@@ -110,7 +111,7 @@ function Login() {
           <p className="mt-10 text-center text-gray-500">
             <Link
               to={"#"}
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+              className="font-semibold leading-6 text-DocOrange/70 hover:text-DocOrange"
             >
               Log in as a User
             </Link>

@@ -94,6 +94,7 @@ export const loginUser = async (req, res) => {
         username: user.username,
         phoneNumber: user.phoneNumber,
         profilePic: user.profilePic,
+        gender: user.gender,
       },
     });
   } catch (error) {
@@ -113,7 +114,7 @@ export const loginAdmin = async (req, res) => {
     if (!user || !isPasswordCorrect) {
       return res.status(400).json({ error: "Invalid email or password" });
     }
-    if (user.role != "admin") {
+    if (user.role != "admin" && user.role != "super admin") {
       return res.status(400).json({ error: "This user isn't Admin" });
     }
 
@@ -126,6 +127,7 @@ export const loginAdmin = async (req, res) => {
         username: user.username,
         phoneNumber: user.phoneNumber,
         profilePic: user.profilePic,
+        role: user.role,
       },
     });
   } catch (error) {

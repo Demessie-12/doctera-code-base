@@ -30,37 +30,30 @@ function ReviewsAndDescription({ product }) {
       </div>
       <div className="max-h-96 overflow-y-auto border border-gray-400 bg-transparent">
         {selected == "detail" ? (
-          <p className="p-3 md:p-5 lg:p-7 xl:p-8">{product.detail}</p>
-        ) : [2, 5, 5]?.length > 0 ? (
-          [
-            { star: 3 },
-            { star: 5 },
-            { star: 4 },
-            { star: 3 },
-            { star: 5 },
-            { star: 4 },
-          ].map((review, i) => {
+          <p className="p-3 md:p-5 lg:p-7 xl:p-8">{product?.detail}</p>
+        ) : product.reviews?.length > 0 ? (
+          product.reviews.map((SingleReview, i) => {
             let reviewStars = [];
             let emptyStar = [];
-            for (let index = 0; index < review.star; index++) {
+            for (let index = 0; index < SingleReview.rating; index++) {
               reviewStars.push("star");
             }
-            for (let index = 5; index > review.star; index--) {
+            for (let index = 5; index > SingleReview.rating; index--) {
               emptyStar.push("star");
             }
             return (
-              <div className={`flex gap-2 p-3 md:p-5 lg:p-7 xl:p-8`}>
+              <div className={`relative flex gap-2 p-3 md:p-5 lg:p-7 xl:p-8`}>
                 <img
-                  src="https://avatar.iran.liara.run/public/boy?username=new"
+                  src={SingleReview.reviewer.profilePic}
                   alt="reviewer photo"
                   className="h-fit w-10"
                 />
-                <div className="flex w-full flex-col">
+                <div className="flex w-full flex-col pr-14">
                   <div className="flex justify-between">
                     <p className="font-semibold text-gray-100">
-                      Demessie Wondimu
+                      {SingleReview.reviewer.fullname}
                     </p>
-                    <p>September 4, 2024</p>
+                    <p>{new Date(SingleReview.createdAt).toDateString()}</p>
                   </div>
                   <div className="flex gap-1">
                     {reviewStars.map((star, i) => (
@@ -74,7 +67,12 @@ function ReviewsAndDescription({ product }) {
                       </p>
                     ))}
                   </div>
-                  <p>This is amazing product. I loved it.</p>
+                  <p>{SingleReview.review}</p>
+                </div>
+                <div className="absolute right-1 pl-2">
+                  <button className="rounded-full bg-red-700 px-2 py-1 font-bold text-white">
+                    Delete
+                  </button>
                 </div>
               </div>
             );

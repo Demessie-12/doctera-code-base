@@ -5,6 +5,8 @@ import { FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa";
+import Doctera_Banner from "./../Assets/Doctera_Banner.png";
+
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -14,16 +16,13 @@ function Footer() {
   }, []);
   return (
     <div className="mt-10 flex flex-col gap-5 rounded-t-3xl bg-gradient-to-b from-DocOrange/90 to-DocOrange px-3 py-5 pb-10 font-semibold text-white shadow-lg md:mt-16">
-      <div className="flex flex-col gap-3 sm:flex-row sm:gap-8">
-        <div className="flex gap-3">
+      <div className="flex flex-col gap-3 sm:grid sm:grid-cols-[auto_1fr] sm:gap-1">
+        <div className="flex w-fit">
           <img
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="h-auto w-10"
+            src={Doctera_Banner}
+            className="h-20 w-auto"
             alt="Doctera Logo"
           />
-          <span className="text-2xl font-bold text-DocBlue">
-            Doctera<span className="font-thin">®</span>
-          </span>
         </div>
         <div data-aos="zoom-in" className="flex flex-col gap-3">
           <p className="px-5 text-justify font-semibold text-gray-900">

@@ -12,7 +12,7 @@ function Search() {
 
   const { allproducts } = useDocteraContext();
   const ListOfAutocomplete = allproducts.map((product) =>
-    product.name.toLocaleLowerCase()
+    product.name.toLocaleLowerCase(),
   );
 
   const onchange = function (event) {
@@ -32,9 +32,9 @@ function Search() {
     navigate(`/search/${inputValue.replaceAll(" ", "_")}`);
   };
   return (
-    <div className="relative ">
-      <form onSubmit={FilterProducts} className="flex h-8 md:h-10 ">
-        <IoSearch className="h-8 md:h-10  w-9 text-xl rounded-s-3xl bg-white px-2" />
+    <div className="relative">
+      <form onSubmit={FilterProducts} className="flex h-8 md:h-10">
+        <IoSearch className="h-8 w-9 rounded-s-3xl bg-white px-2 text-xl md:h-10" />
         <input
           type="text"
           placeholder="Search product"
@@ -42,13 +42,13 @@ function Search() {
           onChange={onchange}
           onSubmit={FilterProducts}
           minLength={2}
-          className={`h-8 md:h-10 w-20 md:w-28 lg:w-36 bg-white pb-1 outline-none ${
-            inputValue.length <= 1 && "rounded-e-3xl w-28 md:w-36 lg:w-44"
+          className={`h-8 w-20 bg-white pb-1 outline-none md:h-10 md:w-28 lg:w-36 ${
+            inputValue.length <= 1 && "w-28 rounded-e-3xl md:w-36 lg:w-44"
           }`}
         />
         {inputValue.length > 1 && (
           <MdClear
-            className="h-8 md:h-10 w-8 text-xl rounded-e-3xl bg-white text-red-600 px-1 cursor-pointer"
+            className="h-8 w-8 cursor-pointer rounded-e-3xl bg-white px-1 text-xl text-red-600 md:h-10"
             onClick={(e) => {
               setInputValue("");
               setoptiOnvisibility(false);
@@ -57,15 +57,16 @@ function Search() {
         )}
       </form>
       <div
-        className={`absolute top-9 w-full flex flex-col gap-2 py-2 max-h-44 overflow-hidden border border-gray-400 rounded-xl bg-gray-400 ${
+        className={`absolute top-9 flex max-h-44 w-full flex-col gap-2 overflow-hidden rounded-xl border border-gray-400 bg-gray-400 py-2 ${
           optionvisibility ? "" : "hidden"
         }`}
       >
-        {ListOfAutocomplete.map((suggestion) => {
+        {ListOfAutocomplete.map((suggestion, i) => {
           if (suggestion.includes(inputValue))
             return (
               <option
-                className="w-full h-6 pl-2 bg-gray-100 cursor-pointer"
+                key={i}
+                className="h-6 w-full cursor-pointer bg-gray-100 pl-2"
                 onClick={(e) => {
                   onchange(e);
                   FilterProducts(e, suggestion);

@@ -15,6 +15,7 @@ import secureLocalStorage from "react-secure-storage";
 import { NavbarContext, useNavbarContext } from "../context/Navbar.context";
 import Search from "./Search";
 import { LogoutApi } from "../Services/apiAuthentication";
+import Doctera_Logo from "./../Assets/Doctera_Logo.png";
 
 const navigation = [
   { name: "Discount", to: "/c/discount" },
@@ -50,11 +51,11 @@ export default function NavBar() {
   const QuantityInCart = useSelector(getTotalCartQuantity);
   const isCartEmpty = QuantityInCart === 0;
   return (
-    <div className="  sticky top-0 w-full z-40">
-      <Disclosure as="nav" className="bg-gray-800 z-10">
-        <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8 bg-gray-800">
+    <div className="sticky top-0 z-40 w-full">
+      <Disclosure as="nav" className="z-10 bg-gray-800">
+        <div className="mx-auto max-w-7xl bg-gray-800 px-2 md:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className=" flex items-center mr-3 ">
+            <div className="mr-3 flex items-center">
               <button
                 onClick={() => {
                   setSideBar(true);
@@ -62,21 +63,21 @@ export default function NavBar() {
               >
                 <Bars3Icon
                   aria-hidden="true"
-                  className=" h-10 w-10  group relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                  className="group relative inline-flex h-10 w-10 items-center justify-center rounded-md p-2 text-white hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 />
               </button>
             </div>
-            <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start ">
-              <div className="flex flex-shrink-0 items-center ">
+            <div className="flex flex-1 items-center justify-start sm:items-stretch sm:justify-start">
+              <div className="flex flex-shrink-0 items-center">
                 <Link to="/" className="cursor-pointer">
                   <img
                     alt="Doctera"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    className="h-8 w-auto"
+                    src={Doctera_Logo}
+                    className="h-14 w-auto"
                   />
                 </Link>
               </div>
-              <div className="hidden sm:ml-2 md:ml-5 sm:block">
+              <div className="hidden sm:ml-2 sm:block md:ml-5">
                 <div className="flex space-x-2 lg:space-x-4">
                   {navigation.map((item, i) => (
                     <Link
@@ -86,9 +87,9 @@ export default function NavBar() {
                         location.pathname == item.to
                           ? "bg-gray-900 text-white"
                           : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        `text-lg md:text-lg rounded-md px-2 py-2  font-medium transition ${
+                        `rounded-md px-2 py-2 text-lg font-medium transition md:text-lg ${
                           i > 2 && "sm:hidden md:flex"
-                        }`
+                        }`,
                       )}
                     >
                       {item.name}
@@ -97,7 +98,7 @@ export default function NavBar() {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-2 flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-5 sm:pr-1 md:pr-2">
+            <div className="absolute inset-y-0 right-2 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-5 sm:pr-1 md:pr-2">
               <Search />
               <button
                 type="button"
@@ -109,10 +110,10 @@ export default function NavBar() {
                 {/* <BellIcon aria-hidden="true" className="h-6 w-6" /> */}
                 <IoCart
                   aria-hidden="true"
-                  className={` text-4xl w-9 ${!isCartEmpty && "text-red-500"}`}
+                  className={`w-9 text-4xl ${!isCartEmpty && "text-red-500"}`}
                 />
                 {!isCartEmpty && (
-                  <span className="absolute bottom-1 right-0 font-bold text-xl  text-white">
+                  <span className="absolute bottom-1 right-0 text-xl font-bold text-white">
                     {QuantityInCart}
                   </span>
                 )}
@@ -149,12 +150,12 @@ export default function NavBar() {
                       </Link>
                     </MenuItem>
                     <MenuItem>
-                      <a
-                        href="#"
+                      <Link
+                        to="/history"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                       >
                         Shopping History
-                      </a>
+                      </Link>
                     </MenuItem>
                     <MenuItem>
                       <Link
@@ -170,7 +171,7 @@ export default function NavBar() {
               ) : (
                 <Link
                   to="/login"
-                  className="ml-3 px-2 py-1.5 bg-gray-200 hover:bg-white rounded-md"
+                  className="ml-3 rounded-md bg-gray-200 px-2 py-1.5 hover:bg-white"
                 >
                   Log in
                 </Link>

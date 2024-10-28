@@ -24,24 +24,32 @@ function Sidebar() {
     {
       name: "Imagings",
       to: "/c/Imagings",
-      icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzhVXRj4fPzYQFSDWsHuDNE-o2zVWsmyScwA&s",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730118838/hmgbfp4tqpyiurxbk3ma.jpg",
     },
     {
       name: "Laboratory equipments",
       to: "/c/Laboratory-equipments",
-      icon: "",
+      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123174/fsdwx9bpbuvh0oaodrqq.jpg",
     },
-    { name: "Respiratory care", to: "/c/Respiratory-care", icon: "" },
+    {
+      name: "Respiratory care",
+      to: "/c/Respiratory-care",
+      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121367/sl25lg225bnd8z4xbdym.jpg",
+    },
     {
       name: "Supportive and physiotherapy",
       to: "/c/Supportive-and-physiotherapy",
-      icon: "",
+      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123057/ogbsbapahrfooajjykdu.jpg",
     },
-    { name: "Homecare", to: "/c/Homecare", icon: "" },
+    {
+      name: "Homecare",
+      to: "/c/Homecare",
+      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123068/yzc2sbqyzu3pgk5nkpvr.jpg",
+    },
     {
       name: "Furnitures",
       to: "/c/Furnitures",
-      icon: "",
+      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121357/sf08vvlkutqlnsv91dqo.jpg",
     },
   ];
   return (

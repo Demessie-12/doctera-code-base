@@ -3,15 +3,10 @@ import Navbar from "./ui/Navbar";
 import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import Footer from "./ui/Footer";
 import Sidebar from "./ui/Sidebar";
-import { GetAllProducts } from "./Services/apiProducts";
-import { useAdminContext } from "./context/Admin.context";
 import ScrollToTop from "./ui/ScrollToTop";
 import Loader from "./ui/Loader";
 
 function AppLayout() {
-  const { setAllproducts } = useAdminContext();
-  const loadedData = useLoaderData();
-  setAllproducts(loadedData);
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
@@ -33,10 +28,4 @@ function AppLayout() {
   );
 }
 
-export async function loader() {
-  let Allproducts = await GetAllProducts();
-  // Add serianl No
-  Allproducts = Allproducts.map((product, i) => ({ ...product, no: i + 1 }));
-  return Allproducts;
-}
 export default AppLayout;

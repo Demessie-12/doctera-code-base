@@ -11,7 +11,6 @@ function Category() {
 
   return (
     <div className="px-2 sm:px-3">
-      Items by category
       <div>
         <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:max-w-4xl md:grid-cols-4">
           {allproducts.map((product) => {

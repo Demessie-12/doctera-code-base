@@ -12,7 +12,6 @@ import Signup from "./Pages/Signup.jsx";
 import Category from "./Pages/Category.jsx";
 import Product from "./Pages/Product.jsx";
 import Cart from "./Pages/Cart.jsx";
-import Order from "./Pages/Order.jsx";
 import Profile from "./Pages/Profile.jsx";
 import Admin from "./Pages/Admin.jsx";
 
@@ -33,6 +32,7 @@ import OrderDetail, {
 import SearchResult from "./features/Search/SearchResult.jsx";
 import { action as AddReviewAction } from "./features/Product/AddReview.jsx";
 import Error from "./ui/Error.jsx";
+import History from "./Pages/History.jsx";
 // import SearchResult from "./Pages/SearchResult.jsx";
 
 library.add(faEye, faEyeSlash);
@@ -72,10 +72,6 @@ function App() {
           element: <Cart />,
         },
         {
-          path: "/order",
-          element: <Order />,
-        },
-        {
           path: "/order/new",
           element: <CreateOrder />,
           action: createOrderAction,
@@ -94,8 +90,8 @@ function App() {
           element: !loggedUser ? <Navigate to="/" /> : <Profile />,
         },
         {
-          path: "/admin",
-          element: <Admin />,
+          path: "/history",
+          element: !loggedUser ? <Navigate to="/" /> : <History />,
         },
       ],
     },

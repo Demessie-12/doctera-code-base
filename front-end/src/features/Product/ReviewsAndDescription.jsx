@@ -9,6 +9,7 @@ function ReviewsAndDescription({ detail, reviews, productId }) {
     Aos.init({ duration: 1500 });
   }, []);
   const [selected, setSelcted] = useState("detail");
+  console.log(reviews);
   return (
     <div className="my-2 flex flex-col gap-0 px-3">
       <div className="flex">
@@ -41,36 +42,31 @@ function ReviewsAndDescription({ detail, reviews, productId }) {
             <div data-aos="zoom-in" className="sticky top-0">
               <AddReview product={productId} />
             </div>
-            {[2, 5, 5]?.length > 0 ? (
-              [
-                { star: 3 },
-                { star: 5 },
-                { star: 4 },
-                { star: 3 },
-                { star: 5 },
-                { star: 4 },
-              ].map((review, i) => {
+            {reviews?.length > 0 ? (
+              reviews.map((singleReview, i) => {
                 let reviewStars = [];
                 let emptyStar = [];
-                for (let index = 0; index < review.star; index++) {
+                for (let index = 0; index < singleReview.rating; index++) {
                   reviewStars.push("star");
                 }
-                for (let index = 5; index > review.star; index--) {
+                for (let index = 5; index > singleReview.rating; index--) {
                   emptyStar.push("star");
                 }
                 return (
                   <div className={`flex gap-2 p-3 md:p-5 lg:p-7 xl:p-8`}>
                     <img
-                      src="https://avatar.iran.liara.run/public/boy?username=new"
+                      src={singleReview.reviewer.profilePic}
                       alt="reviewer photo"
                       className="h-fit w-10"
                     />
                     <div className="flex w-full flex-col">
                       <div className="flex justify-between">
                         <p className="font-semibold text-white">
-                          Demessie Wondimu
+                          {singleReview.reviewer.fullname}
                         </p>
-                        <p className="text-white">September 4, 2024</p>
+                        <p className="text-white">
+                          {new Date(singleReview.createdAt).toDateString()}
+                        </p>
                       </div>
                       <div className="flex gap-1">
                         {reviewStars.map((star) => (
@@ -84,15 +80,15 @@ function ReviewsAndDescription({ detail, reviews, productId }) {
                           </p>
                         ))}
                       </div>
-                      <p className="text-DocOrange">
-                        This is amazing product. I loved it.
-                      </p>
+                      <p className="text-DocOrange">{singleReview.review}</p>
                     </div>
                   </div>
                 );
               })
             ) : (
-              <p>No one review this product! 😢😢</p>
+              <p className="py-3 pl-2 font-bold text-DocOrange">
+                No one review this product! 😢😢 be the first
+              </p>
             )}
           </div>
         )}

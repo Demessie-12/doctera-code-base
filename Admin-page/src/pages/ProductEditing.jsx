@@ -269,7 +269,7 @@ function ProductEditing() {
             <button
               className={`px rounded-full bg-blue-600 px-5 py-3 font-semibold text-white ${isSubmitting ? "bg-red-700 font-bold text-yellow-500" : ""}`}
             >
-              {isSubmitting ? "Submiting" : "Update Order"}
+              {isSubmitting ? "Submiting" : "Update Product"}
             </button>
           </div>
 

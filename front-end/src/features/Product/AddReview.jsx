@@ -92,6 +92,7 @@ export async function action({ request }) {
   if (Object.keys(errors).length > 0) return errors;
 
   const newReview = await CreateReviewHook(data);
+  location.reload();
 
   console.log(newReview);
 

@@ -36,7 +36,6 @@ export const checkLogin = async (req, res, next) => {
 export const restrictTo = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      console.log("no");
       return res
         .status(403)
         .json({ error: "You don't have permission to take this action" });

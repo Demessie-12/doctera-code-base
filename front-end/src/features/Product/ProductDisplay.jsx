@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { SlCallOut } from "react-icons/sl";
 
@@ -6,10 +6,15 @@ import { FaStar } from "react-icons/fa6";
 import { FaStarHalfAlt } from "react-icons/fa";
 import UpdateItemQuantity from "./../Cart/UpdateItemQuantity.jsx";
 import DeleteItem from "./../Cart/DeleteItem.jsx";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 function ProductDisplay({ product, handleAddToCart, isInCart }) {
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  }, []);
   const [selectedImage, setSelectedImage] = useState(product.coverImage);
-  console.log(product._id);
+
   return (
     <div className="relative mx-auto flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">
       <div className="left block sm:w-full lg:w-[500px]">
@@ -42,13 +47,16 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
         </div>
       </div>
       <div className="right flex w-full flex-col gap-2 pl-2 text-lg text-gray-300">
-        <h2 className="hidden pt-1 text-lg font-bold capitalize sm:flex">
+        <h2
+          data-aos="zoom-in"
+          className="hidden pt-1 text-lg font-bold capitalize sm:flex"
+        >
           {product.name}
         </h2>
-        <p>{product.description}</p>
+        <p data-aos="zoom-in">{product.description}</p>
         <div className="Star flex items-center">
           {["Placeholder"].map((placeholder) => {
-            console.log(23);
+            console.log(product);
             let reviewStars = [];
             let emptyStar = [];
             for (let index = 1; index <= product.ratingsAverage; index++) {
@@ -57,21 +65,30 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
             for (let index = 5; index > product.ratingsAverage; index--) {
               emptyStar.push("star");
             }
-            console.log(product.ratingsAverage);
             return (
               <div className="flex gap-1.5">
-                {reviewStars.map((star) => (
-                  <p className="h-fit w-5 text-2xl text-yellow-500">
+                {reviewStars.map((star, i) => (
+                  <p
+                    key={i}
+                    data-aos="zoom-in"
+                    className="h-fit w-5 text-2xl text-yellow-500"
+                  >
                     <FaStar />
                   </p>
                 ))}
                 {emptyStar.map((star, i) =>
                   i == 0 && !Number.isInteger(product.ratingsAverage) ? (
-                    <p className="h-fit w-5 text-2xl text-yellow-500">
+                    <p
+                      data-aos="zoom-in"
+                      className="h-fit w-5 text-2xl text-yellow-500"
+                    >
                       <FaStarHalfAlt />
                     </p>
                   ) : (
-                    <p className="h-fit w-5 text-2xl text-gray-400">
+                    <p
+                      data-aos="zoom-in"
+                      className="h-fit w-5 text-2xl text-gray-400"
+                    >
                       <FaStar />
                     </p>
                   ),
@@ -79,14 +96,14 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
               </div>
             );
           })}
-          <p className="ml-2 text-center font-semibold">
+          <p data-aos="zoom-in" className="ml-2 text-center font-semibold">
             {product.ratingsAverage}
           </p>
           <p className="ml-2 text-center">{`(${
             product.ratingsQuantity || 0
           })`}</p>
         </div>
-        <div className="Condition flex">
+        <div data-aos="zoom-in" className="Condition flex">
           <p className="font-bold">Condition:- </p>
           <p
             className={`font-bold ${
@@ -98,7 +115,7 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
             {product.condition}
           </p>
         </div>
-        <div className="Price flex text-xl">
+        <div data-aos="zoom-in" className="Price flex text-xl">
           <p className="mr-2 font-bold capitalize">Price:</p>
           <p className="mr-2 text-gray-400 line-through">{`${
             product.oldPrice
@@ -107,7 +124,7 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
           }`}</p>
           <p className="font-bold">{`${product.newPrice} Birr`}</p>
         </div>
-        <div className="Price flex text-xl">
+        <div data-aos="zoom-in" className="Contact flex text-xl">
           <p className="mr-2 font-bold capitalize">Contact:</p>
           <a href={`tel:${product.creatorPhone || "0900763647"}`}>
             <p className="inline-flex rounded-full bg-blue-700 px-2 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-blue-400 hover:text-black focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2">

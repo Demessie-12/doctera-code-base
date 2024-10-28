@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import { GetAllProducts } from "./apiProducts";
 
 export const CreateReviewHook = async (reviewData) => {
   try {
@@ -15,6 +16,9 @@ export const CreateReviewHook = async (reviewData) => {
     }
     const { data } = CreateReviewdata;
     toast.success("Review Created successfully");
+
+    await fetch("/api/reviews");
+    await GetAllProducts();
     return data;
   } catch (error) {
     toast.error(error.message);

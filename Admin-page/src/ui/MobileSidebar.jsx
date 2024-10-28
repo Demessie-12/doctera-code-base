@@ -12,7 +12,7 @@ function MobileSidebar({ setOpenSidebar }) {
     { title: "Dashboard", to: "/", icon: <MdDashboard /> },
     { title: "Products", to: "/products", icon: <FaProductHunt /> },
     { title: "Orders", to: "/orders", icon: <FaCartPlus /> },
-    { title: "Reviews", to: "/reviews", icon: <MdOutlinePreview /> },
+    // { title: "Reviews", to: "/reviews", icon: <MdOutlinePreview /> },
     { title: "Users", to: "/users", icon: <FaUserCircle /> },
   ];
   return (

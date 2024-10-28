@@ -4,6 +4,46 @@ import User from "../models/user.model.js";
 
 import Chapa from "chapa";
 
+export const GetDashboardData = async (req, res) => {
+  try {
+    const Users = await User.find().select("-password");
+    const RecentUsers = Users.filter(
+      (user, i) =>
+        Math.round(
+          (Date.now() - new Date(user?.createdAt || 2023 - 10 - 28)) /
+            (1000 * 3600 * 24)
+        ) <= 7
+    );
+
+    const Products = await Product.find();
+    const RecentProducts = Products.filter(
+      (product, i) =>
+        Math.round(
+          (Date.now() - new Date(product?.createdAt || 2023 - 10 - 28)) /
+            (1000 * 3600 * 24)
+        ) <= 7
+    );
+
+    const Orders = await Order.find();
+    const RecentOrders = Orders.filter(
+      (order, i) =>
+        Math.round(
+          (Date.now() - new Date(order?.createdAt || 2023 - 10 - 28)) /
+            (1000 * 3600 * 24)
+        ) <= 7
+    );
+
+    res.status(200).json({
+      newUsers: RecentUsers,
+      newProducts: RecentProducts,
+      newOrders: RecentOrders,
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+    console.log("Error in GetDashboardData admin.controller", error.message);
+  }
+};
+
 export const GetAllUsers = async (req, res) => {
   try {
     const Users = await User.find().select("-password");
@@ -43,7 +83,7 @@ export const GetSingleUser = async (req, res) => {
     if (!selectedUser)
       return res.status(404).json({ error: "No user found in this username" });
 
-    res.status(200).json({ data: selectedUser });
+    res.status(200).json({ UserData: selectedUser });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
     console.log("Error in GetSingleUser admin.controller", error.message);

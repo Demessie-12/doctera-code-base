@@ -11,7 +11,6 @@ function Orders() {
 
   return (
     <div className="flex flex-col">
-      <p>Order</p>
       <OrderList />
     </div>
   );

@@ -38,12 +38,13 @@ function Navbar() {
           </Link>
         </div>
         <div className="mr-3 flex gap-3">
-          <div className="relative flex pt-1 text-center text-3xl text-green-500">
+          <Link
+            to="/orders"
+            className="relative flex pt-1 text-center text-3xl text-green-500"
+          >
             <FaCartArrowDown />
-            <p className="absolute bottom-5 left-5 text-xl font-bold text-white">
-              2
-            </p>
-          </div>
+            <p className="absolute bottom-5 left-5 text-xl font-bold text-white"></p>
+          </Link>
           <Link
             to="/products/upload"
             className="flex pt-1 text-center text-3xl"

@@ -7,15 +7,6 @@ function Footer() {
   return (
     <div>
       <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
-      <p>footer</p>
     </div>
   );
 }

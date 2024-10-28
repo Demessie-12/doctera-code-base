@@ -214,8 +214,6 @@ function ProductList() {
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      <p>ProductList</p>
-
       <div className="my-2 ml-5 flex gap-2 md:ml-10">
         <p
           className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filtered === "All" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}

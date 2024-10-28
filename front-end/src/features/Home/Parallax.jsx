@@ -9,7 +9,7 @@ function Parallax() {
           <MdHealthAndSafety />
         </div>
         <h1 className="text-center text-xl font-bold text-white md:text-2xl">
-          Best Medical Market <span className="block">In Ethiopia</span>
+          Best Healthcare Market <span className="block">In Ethiopia</span>
         </h1>
       </div>
     </div>

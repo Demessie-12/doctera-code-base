@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import toast from "react-hot-toast";
-import { DocteraContext } from "../context/Doctera.Context";
+import { DocteraContext, useDocteraContext } from "../context/Doctera.Context";
 import secureLocalStorage from "react-secure-storage";
 import { NavbarContext } from "../context/Navbar.context";
 
@@ -76,6 +76,7 @@ export const LoginApi = () => {
 export const LogoutApi = () => {
   const [loading, setLoading] = useState(false);
   const { setLoggedUser } = useContext(NavbarContext);
+  const { setUserOrders } = useDocteraContext();
   const logoutHook = async () => {
     setLoading(true);
     try {
@@ -83,6 +84,10 @@ export const LogoutApi = () => {
 
       secureLocalStorage.removeItem("logged-user");
       setLoggedUser(null);
+      secureLocalStorage.removeItem("orders");
+      setUserOrders(null);
+
+      window.location = "/";
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -96,7 +101,7 @@ export const LogoutApi = () => {
 function handleInputErrors({ fullname, username, phoneNumber }) {
   const isValidPhone = (str) =>
     /^\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$/.test(
-      str
+      str,
     );
   if (!fullname || !username || !phoneNumber) {
     toast.error("Please fill all fields");

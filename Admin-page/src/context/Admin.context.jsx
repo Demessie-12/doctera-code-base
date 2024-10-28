@@ -7,6 +7,7 @@ export const AdminContext = createContext(null);
 export const useAdminContext = () => useContext(AdminContext);
 
 const AdminContextProvider = (props) => {
+  const [dashboardData, setDashboardData] = useState([]);
   const [allproducts, setAllproducts] = useState([]);
   const [allorders, setAllorders] = useState([]);
   const [allusers, setAllusers] = useState([]);
@@ -18,6 +19,8 @@ const AdminContextProvider = (props) => {
     setAllorders,
     allusers,
     setAllusers,
+    dashboardData,
+    setDashboardData,
   };
 
   return (

@@ -9,6 +9,7 @@ export async function GetAllProducts() {
   const { data } = await res.json();
   console.log("fetched", data);
   secureLocalStorage.setItem("products", data);
+  secureLocalStorage.setItem("lastTime", Date.now());
   // console.log("stored", secureLocalStorage.getItem("products"));
 
   return data;

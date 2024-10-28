@@ -14,6 +14,13 @@ function AppLayout() {
   const { sideBar, setSideBar } = useNavbarContext();
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
+  Math.round(
+    (Date.now() - secureLocalStorage.getItem("lastTime")) / (1000 * 60),
+  ) > 20 &&
+    setTimeout(() => {
+      location.reload();
+    }, 5000);
+
   return (
     <DocteraContextProvider>
       {isLoading && <Loader />}
@@ -31,7 +38,13 @@ function AppLayout() {
 }
 
 export async function loader() {
-  if (secureLocalStorage.getItem("products")) {
+  if (
+    secureLocalStorage.getItem("lastTime") &&
+    Math.round(
+      (Date.now() - secureLocalStorage.getItem("lastTime")) / (1000 * 60),
+    ) < 20
+  ) {
+    console.log("updated");
     return secureLocalStorage.getItem("products");
   }
   const AllProducts = await GetAllProducts();

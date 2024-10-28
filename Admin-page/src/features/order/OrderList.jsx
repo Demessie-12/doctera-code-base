@@ -10,7 +10,7 @@ function OrderList() {
   const { allorders } = useAdminContext();
   console.log(allorders);
   const [filterStatus, setFilterStatus] = useState("All");
-  const [filteredTime, setFilteredTime] = useState("AllTime");
+  const [filteredTime, setFilteredTime] = useState(1);
 
   // let filteredData = allorders;
   const screenwidth = screen.width;
@@ -180,8 +180,6 @@ function OrderList() {
 
   return (
     <div className="relative w-full overflow-x-hidden">
-      <p>OrderList</p>
-
       <div className="my-2 ml-5 flex flex-wrap gap-2 md:ml-10">
         <p
           className={`cursor-pointer rounded-full px-2 py-1 font-semibold text-white ${filterStatus === "All" ? "border border-white bg-blue-600" : "border border-gray-500 bg-transparent"}`}

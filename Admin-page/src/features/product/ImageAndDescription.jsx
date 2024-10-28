@@ -8,7 +8,7 @@ import { FaStarHalfAlt } from "react-icons/fa";
 import { useAdminContext } from "../../context/Admin.context";
 
 function ImageAndDescription({ product }) {
-  const [selectedImage, setSelectedImage] = useState(product.coverImage);
+  const [selectedImage, setSelectedImage] = useState(product?.coverImage);
 
   return (
     <div className="relative mx-auto mt-8 flex w-full max-w-7xl flex-1 flex-col overflow-y-auto sm:flex-row sm:gap-2 md:gap-3 lg:gap-4 xl:gap-6">

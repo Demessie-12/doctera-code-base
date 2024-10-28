@@ -21,9 +21,10 @@ import store from "./../../store.js";
 import { fetchAddress } from "../../hooks/UserSlice.js";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import MapfromHtml from "./MapfromHtml.jsx";
-import { CreateOrderHook } from "../../Services/apiOrder.js";
+import { CreateOrderHook, GetMineOrderHook } from "../../Services/apiOrder.js";
 import OrderItem from "./OrderItem.jsx";
 import { useDocteraContext } from "../../context/Doctera.Context.jsx";
+import secureLocalStorage from "react-secure-storage";
 
 // https://uibakery.io/regex-library/phone-number
 const isValidPhone = (str) =>
@@ -250,8 +251,8 @@ function CreateOrder() {
                   : `Order Now ${totalCartPrice} Birr`}
               </button>
               <Link
-                to={isSubmitting || isLoadingAddress ? "" : "/cart"}
-                className="ml-5 inline-block rounded-full bg-gray-500 px-4 py-3 text-sm font-semibold tracking-wide text-black hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
+                to="/cart"
+                className={`${isSubmitting || isLoadingAddress ? "hidden" : ""} ml-5 inline-block rounded-full bg-gray-500 px-4 py-3 text-sm font-semibold tracking-wide text-black hover:bg-gray-600 focus:outline-none focus:ring focus:ring-gray-500 focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4`}
               >
                 Back To Cart
               </Link>
@@ -282,8 +283,16 @@ export async function action({ request }) {
   if (Object.keys(errors).length > 0) return errors;
 
   const newOrder = await CreateOrderHook(order);
+
+  const loggedUser = secureLocalStorage.getItem("logged-user");
+  loggedUser
+    ? await GetMineOrderHook(loggedUser.username)
+    : secureLocalStorage.setItem(
+        "local-orders",
+        [].concat(secureLocalStorage.getItem("local-orders"), newOrder),
+      );
   store.dispatch(clearItem());
-  console.log(newOrder);
+  console.log(secureLocalStorage.getItem("local-orders"));
 
   setTimeout(() => {
     console.log("redirected");

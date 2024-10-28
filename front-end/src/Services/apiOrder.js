@@ -1,5 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import secureLocalStorage from "react-secure-storage";
 
 export const CreateOrderHook = async (orderData) => {
   try {
@@ -27,9 +28,19 @@ export const GetOrderHook = async (orderId) => {
   const res = await fetch(`/api/orders/${orderId}`);
   console.log("get hook finished");
 
-  if (!res.ok) throw Error("Failed to get Order");
+  if (!res.ok) throw Error("Failed to get Order with this ID");
 
   const { data, paymentStatus } = await res.json();
   const order = data;
   return { order, paymentStatus };
+};
+
+export const GetMineOrderHook = async (username) => {
+  const res = await fetch(`/api/start/${username}`);
+
+  if (!res.ok) throw Error("Failed to get your Orders");
+
+  const { mineOrders } = await res.json();
+  secureLocalStorage.setItem("orders", mineOrders);
+  return { mineOrders };
 };

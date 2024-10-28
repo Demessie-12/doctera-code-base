@@ -18,7 +18,7 @@ const router = express.Router();
 router.post(
   "/new",
   checkLogin,
-  restrictTo("merchant", "admin", "owner"),
+  restrictTo("merchant", "admin", "super admin"),
   PostProduct
 );
 router.get("/", GetAllProducts);
@@ -27,13 +27,13 @@ router.get("/:ProductID", GetSingleProduct);
 router.patch(
   "/:ProductID",
   checkLogin,
-  restrictToCreatorOr("admin", "owner"),
+  restrictToCreatorOr("admin", "super admin"),
   EditProduct
 );
 router.delete(
   "/:ProductID",
   checkLogin,
-  restrictToCreatorOr("admin", "owner"),
+  restrictToCreatorOr("admin", "super admin"),
   DeleteProduct
 );
 

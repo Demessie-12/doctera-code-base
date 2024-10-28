@@ -13,7 +13,7 @@ function TrustedBy() {
     <div>
       <div className="flex flex-col justify-center px-2 text-center">
         <h1 className="mx-auto w-fit text-2xl font-bold text-DocOrange">
-          Trusted By Thousands Of Doctors Nationwide
+          Trusted By Thousands Of Healthcare Professions Nationwide
         </h1>
         <p></p>
       </div>

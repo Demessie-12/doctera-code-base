@@ -89,7 +89,7 @@ const productSchema = mongoose.Schema(
       default: "Pending",
     },
   },
-  { toJSON: { virtuals: true }, toObject: { virtuals: true } }
+  { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
 // Vertula Populate

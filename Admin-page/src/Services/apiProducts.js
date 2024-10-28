@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-export async function GetAllProducts() {
+export async function GetAllProductsHook() {
   const res = await fetch("/api/admin/products");
   console.log(res);
   if (!res.ok) {
@@ -28,9 +28,7 @@ export async function UpdateProductHook(productId, data) {
       throw new Error(updatedData.error);
     }
     toast.success("product updagted Successfully");
-    location.replace(
-      `/products/${updatedData.data.productId.concat("_", updatedData.data.slug)}`,
-    );
+    location.replace(`/products`);
     return updatedData.data;
   } catch (error) {
     toast.error(error.message);
@@ -91,9 +89,7 @@ export async function UploadProductHook(data) {
       throw new Error(newData.error);
     }
     toast.success("product uploaded Successfully");
-    location.replace(
-      `/products/${newData.data.productId.concat("_", newData.data.slug)}`,
-    );
+    location.replace(`/products/`);
     return res.data;
   } catch (error) {
     toast.error(error.message);
