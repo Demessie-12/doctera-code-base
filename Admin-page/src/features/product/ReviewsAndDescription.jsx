@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 
 function ReviewsAndDescription({ product }) {
   const [selected, setSelcted] = useState("detail");
-  console.log(product);
+  // console.log(product);
   return (
     <div className="my-2 flex flex-col gap-0 px-3">
       <div className="flex">
@@ -30,7 +30,13 @@ function ReviewsAndDescription({ product }) {
       </div>
       <div className="max-h-96 overflow-y-auto border border-gray-400 bg-transparent">
         {selected == "detail" ? (
-          <p className="p-3 md:p-5 lg:p-7 xl:p-8">{product?.detail}</p>
+          <p className="p-3 md:p-5 lg:p-7 xl:p-8">
+            {product?.detail.split("\n").map((oneLine, i) => (
+              <p key={i} className="block">
+                {oneLine}
+              </p>
+            ))}
+          </p>
         ) : product.reviews?.length > 0 ? (
           product.reviews.map((SingleReview, i) => {
             let reviewStars = [];

@@ -62,7 +62,7 @@ function Search() {
         }`}
       >
         {ListOfAutocomplete.map((suggestion, i) => {
-          if (suggestion.includes(inputValue))
+          if (suggestion.includes(inputValue.toLocaleLowerCase()))
             return (
               <option
                 key={i}

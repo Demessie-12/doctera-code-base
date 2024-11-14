@@ -9,7 +9,7 @@ function ReviewsAndDescription({ detail, reviews, productId }) {
     Aos.init({ duration: 1500 });
   }, []);
   const [selected, setSelcted] = useState("detail");
-  console.log(reviews);
+  // console.log(reviews);
   return (
     <div className="my-2 flex flex-col gap-0 px-3">
       <div className="flex">
@@ -36,7 +36,13 @@ function ReviewsAndDescription({ detail, reviews, productId }) {
       </div>
       <div className="max-h-96 overflow-y-auto border border-gray-400">
         {selected == "detail" ? (
-          <p className="p-3 text-white md:p-5 lg:p-7 xl:p-8">{detail}</p>
+          <p className="p-3 text-white md:p-5 lg:p-7 xl:p-8">
+            {detail.split("\n").map((oneLine, i) => (
+              <p key={i} className="block">
+                {oneLine}
+              </p>
+            ))}
+          </p>
         ) : (
           <div data-aos="fade-up" className="relative">
             <div data-aos="zoom-in" className="sticky top-0">

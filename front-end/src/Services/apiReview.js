@@ -3,11 +3,15 @@ import { GetAllProducts } from "./apiProducts";
 
 export const CreateReviewHook = async (reviewData) => {
   try {
-    const res = await fetch("/api/reviews/new", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ ...reviewData }),
-    });
+    const res = await fetch(
+      "https://apidoctera.yeshisolutions.com/api/reviews/new",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...reviewData }),
+        credentials: "include",
+      },
+    );
 
     const CreateReviewdata = await res.json();
 
@@ -17,7 +21,9 @@ export const CreateReviewHook = async (reviewData) => {
     const { data } = CreateReviewdata;
     toast.success("Review Created successfully");
 
-    await fetch("/api/reviews");
+    await fetch("https://apidoctera.yeshisolutions.com/api/reviews", {
+      credentials: "include",
+    });
     await GetAllProducts();
     return data;
   } catch (error) {

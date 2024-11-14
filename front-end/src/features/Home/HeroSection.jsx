@@ -55,28 +55,56 @@ const HeroSection = () => {
         <div className="mySlides">
           <img
             className="h-fit w-full max-w-96"
-            src={Portfolio_image}
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731011189/zcy7ackgy2xhttsnsu8k.png"
             alt="Portfolio_image"
           />
         </div>
         <div className="mySlides">
           <img
             className="h-fit w-full max-w-96"
-            src={discout_tag}
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731011071/u1ezlmhjhiqr9pqussve.png"
             alt="Portfolio_image"
           />
         </div>
         <div className="mySlides">
           <img
             className="h-fit w-full max-w-96"
-            src={star_dull}
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731011852/xmwkwq8h7vlt4cb7mott.png"
             alt="Portfolio_image"
           />
         </div>
         <div className="mySlides">
           <img
             className="h-fit w-full max-w-96"
-            src={discount_label}
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731011957/fau1gzrhy1smqczlmpwh.png"
+            alt="Portfolio_image"
+          />
+        </div>
+        <div className="mySlides">
+          <img
+            className="h-fit w-full max-w-96"
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731012031/av6bqft67ebrasvf9niq.png"
+            alt="Portfolio_image"
+          />
+        </div>
+        <div className="mySlides">
+          <img
+            className="h-fit w-full max-w-96"
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731012140/m2utyr9amnjrgjqqhfnn.png"
+            alt="Portfolio_image"
+          />
+        </div>
+        <div className="mySlides">
+          <img
+            className="h-fit w-full max-w-96"
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731012282/itubd6kkeqbjifgwbnxt.png"
+            alt="Portfolio_image"
+          />
+        </div>
+        <div className="mySlides">
+          <img
+            className="h-fit w-full max-w-96"
+            src="https://res.cloudinary.com/dttmf74ie/image/upload/v1731012519/iplgz2siq0i1pvmd8nan.png"
             alt="Portfolio_image"
           />
         </div>

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function OrderList() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { allorders } = useAdminContext();
-  console.log(allorders);
+  // console.log(allorders);
   const [filterStatus, setFilterStatus] = useState("All");
   const [filteredTime, setFilteredTime] = useState(1);
 

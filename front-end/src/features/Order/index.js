@@ -1,5 +1,5 @@
 function initMap() {
-  console.log(1221);
+  // console.log(1221);
   const directionsService = new google.maps.DirectionsService();
   const directionsRenderer = new google.maps.DirectionsRenderer();
   const map = new google.maps.Map(document.getElementById("map"), {
@@ -10,7 +10,7 @@ function initMap() {
   directionsRenderer.setMap(map);
 
   const onChangeHandler = function () {
-    console.log("from handler");
+    // console.log("from handler");
     calculateAndDisplayRoute(directionsService, directionsRenderer);
   };
 

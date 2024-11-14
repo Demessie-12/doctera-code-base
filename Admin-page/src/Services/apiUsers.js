@@ -2,7 +2,12 @@ import toast from "react-hot-toast";
 
 export async function GetAllUsersHook() {
   try {
-    const res = await fetch("/api/admin/users");
+    const res = await fetch(
+      "https://apidoctera.yeshisolutions.com/api/admin/users",
+      {
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       throw Error(res);
@@ -18,7 +23,12 @@ export async function GetAllUsersHook() {
 
 export async function GetSingleUserHook(username) {
   try {
-    const res = await fetch(`/api/admin/users/${username}`);
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/admin/users/${username}`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       throw Error(res.error);
@@ -34,12 +44,16 @@ export async function GetSingleUserHook(username) {
 
 export async function UpdateUserRoleHook(username, data) {
   try {
-    console.log("api reached");
-    const res = await fetch(`/api/admin/users/${username}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ ...data }),
-    });
+    // console.log("api reached");
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/admin/users/${username}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...data }),
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) throw Error("Failed to update role of User");
 

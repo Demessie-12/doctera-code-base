@@ -16,8 +16,11 @@ const Breadcrumb = (props) => {
         SHOP
       </Link>
       <p className="font-extrabold text-gray-900">&#62;</p>
-      <Link to={`/c/${product.category[0]}`} className="font-bold text-white">
-        <p>{product.category[0]}</p>
+      <Link
+        to={`/c/${product.mainCategory.replaceAll(" ", "-")}`}
+        className="font-bold text-white"
+      >
+        <p>{product.mainCategory || product.category[0]}</p>
       </Link>
       <p className="font-extrabold text-gray-900">&#62;</p>
       <p className="font-semibold capitalize text-DocOrange">{product.name}</p>

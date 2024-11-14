@@ -14,7 +14,8 @@ function Popular({ allproducts }) {
       </p>
       <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
         {allproducts.map((product) => {
-          if (product.category.includes("popular"))
+          // console.log(product.category);
+          if (product.category.includes("Popular"))
             return <Item key={product.productId} item={product} />;
         })}
       </div>

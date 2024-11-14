@@ -14,12 +14,16 @@ function Category() {
       <div>
         <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:max-w-4xl md:grid-cols-4">
           {allproducts.map((product) => {
-            if (category === "Used" && product.condition === "Used")
+            if (
+              category === "Used" &&
+              (product.condition === "Used" ||
+                product.condition === "Slightly Used")
+            )
               return <Item item={product} key={product.productId} />;
 
             if (category === "Brand_New" && product.condition === "Brand New")
               return <Item item={product} key={product.productId} />;
-            if (product.category.includes(category))
+            if (product.category.includes(category.replaceAll("-", " ")))
               return <Item item={product} key={product.productId} />;
           })}
         </div>

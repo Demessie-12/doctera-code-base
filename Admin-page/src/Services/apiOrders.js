@@ -2,7 +2,12 @@ import toast from "react-hot-toast";
 
 export async function GetAllOrders() {
   try {
-    const res = await fetch("/api/admin/orders");
+    const res = await fetch(
+      "https://apidoctera.yeshisolutions.com/api/admin/orders",
+      {
+        credentials: "include",
+      },
+    );
     const updatedData = await res.json();
 
     if (updatedData.error) {
@@ -17,8 +22,13 @@ export async function GetAllOrders() {
 
 export async function GetSingleOrderHook(orderId) {
   try {
-    console.log("api reached");
-    const res = await fetch(`/api/admin/orders/${orderId}`);
+    // console.log("api reached");
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/admin/orders/${orderId}`,
+      {
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) throw Error("Failed to get Order");
 
@@ -37,12 +47,16 @@ export async function GetSingleOrderHook(orderId) {
 
 export async function UpdateOrderStatusHook(orderId, data) {
   try {
-    console.log("api reached");
-    const res = await fetch(`/api/admin/orders/${orderId}`, {
-      method: "PATCH",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ ...data }),
-    });
+    // console.log("api reached");
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/admin/orders/${orderId}`,
+      {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...data }),
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) throw Error("Failed to update status of Order");
 

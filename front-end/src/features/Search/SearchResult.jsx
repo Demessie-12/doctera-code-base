@@ -34,12 +34,8 @@ function SearchResult() {
   let filteredProduct = [];
   allproducts.map((product) => {
     if (
-      (product.name
-        .toLocaleLowerCase()
-        .includes(searchName.toLocaleLowerCase()) ||
-        product.productId
-          .toLocaleLowerCase()
-          .includes(searchName.toLocaleLowerCase())) &
+      (product.name.toLowerCase().includes(searchName.toLowerCase()) ||
+        product.productId.toLowerCase().includes(searchName.toLowerCase())) &
       // Filter search
       (filterObject.condition.length > 0
         ? filterObject.condition.includes(product.condition)
@@ -54,7 +50,7 @@ function SearchResult() {
     }
   });
 
-  console.log("hi", filteredProduct);
+  // console.log("hi", filteredProduct);
 
   return (
     <div className="mx-auto flex flex-col gap-2 px-2 sm:px-3 xl:max-w-7xl">
@@ -67,7 +63,7 @@ function SearchResult() {
             className={`pl-2 pt-1.5 font-extrabold text-black`}
             onClick={() => {
               setFilterOpened(true);
-              console.log("hi");
+              // console.log("hi");
             }}
           >
             {<IoFilterOutline />}

@@ -13,9 +13,11 @@ export const CreateOrder = async (req, res) => {
     const Products = await Product.find();
 
     await cart.map((CartItem, i) => {
+      console.log(CartItem, Products);
       const SingleProduct = Products.find(
         (element) => element.productId == CartItem.productId
       );
+      console.log(SingleProduct);
       const productPrice = CartItem.quantity * SingleProduct.newPrice;
       cartPrice.push(productPrice);
       return productPrice;
@@ -41,44 +43,44 @@ export const CreateOrder = async (req, res) => {
     const customerUsername = user?.username || "Unknown";
 
     // Creating Payment
-    let chapaId;
-    let chapaUrl;
+    // let chapaId;
+    // let chapaUrl;
 
-    let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
-    const customerInfo = {
-      amount: cartPrice.reduce((sum, item) => sum + item, 0),
-      currency: "ETB",
-      email: customerUsername + "@gmail.com",
-      first_name: customer,
-      last_name: " ",
-      // tx_ref: 'tx-x12345', // if autoRef is set in the options we dont't need to provide reference, instead it will generate it for us
-      callback_url: "http://localhost:5174/", // your callback URL
-      customization: {
-        title: "I love e-commerce",
-        description: "It is time to pay",
-      },
-    };
+    // let myChapa = new Chapa(process.env.CHAPA_SECRET_KEY);
+    // const customerInfo = {
+    //   amount: cartPrice.reduce((sum, item) => sum + item, 0),
+    //   currency: "ETB",
+    //   email: customerUsername + "@gmail.com",
+    //   first_name: customer,
+    //   last_name: " ",
+    //   // tx_ref: 'tx-x12345', // if autoRef is set in the options we dont't need to provide reference, instead it will generate it for us
+    //   callback_url: "http://localhost:5174/", // your callback URL
+    //   customization: {
+    //     title: "I love e-commerce",
+    //     description: "It is time to pay",
+    //   },
+    // };
 
-    await myChapa
-      .initialize(customerInfo, { autoRef: true })
-      .then((response) => {
-        /*
-        response:
-          {
-            message: 'Hosted Link',
-            status: 'success' || 'failed',
-            data: {
-              checkout_url: 'https://checkout.chapa.co/checkout/payment/:token'
-            },
-            tx_ref: 'generated-token' // this will be the auto generated reference
-          }
-        */
-        chapaId = response.tx_ref;
-        chapaUrl = response.data.checkout_url;
-        // console.log(response, response.tx_ref);
-        // saveReference(response.tx_ref)
-      })
-      .catch((e) => console.log(e));
+    // await myChapa
+    //   .initialize(customerInfo, { autoRef: true })
+    //   .then((response) => {
+    //     /*
+    //     response:
+    //       {
+    //         message: 'Hosted Link',
+    //         status: 'success' || 'failed',
+    //         data: {
+    //           checkout_url: 'https://checkout.chapa.co/checkout/payment/:token'
+    //         },
+    //         tx_ref: 'generated-token' // this will be the auto generated reference
+    //       }
+    //     */
+    //     chapaId = response.tx_ref;
+    //     chapaUrl = response.data.checkout_url;
+    //     // console.log(response, response.tx_ref);
+    //     // saveReference(response.tx_ref)
+    //   })
+    //   .catch((e) => console.log(e));
 
     // Saving orderData in Database
     const newOrder = await new Order({
@@ -91,8 +93,8 @@ export const CreateOrder = async (req, res) => {
       dateOfDelivery: date,
       address,
       ipLocation: position.split(", "),
-      chapaId,
-      chapaUrl,
+      // chapaId,
+      // chapaUrl,
     });
 
     newOrder.save();

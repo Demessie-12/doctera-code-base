@@ -107,7 +107,7 @@ export async function action({ request, params }) {
   const username = params.username.substr(1);
   const updatedUser = await UpdateUserRoleHook(username, data);
 
-  console.log(data);
+  // console.log(data);
 
   return null;
 }

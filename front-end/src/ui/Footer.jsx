@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaTiktok } from "react-icons/fa6";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaTelegram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import Doctera_Banner from "./../Assets/Doctera_Banner.png";
 
@@ -32,19 +32,39 @@ function Footer() {
             oxygen therapy devices, wheelchairs, etc
           </p>
           <div className="mx-auto flex justify-center gap-5 pt-2 text-DocBlue">
-            <Link to="#" className="text-xl hover:text-white">
+            <Link
+              to="https://www.facebook.com/DocteraMarket?mibextid=ZbWKwL"
+              target="_blank"
+              className="text-2xl hover:text-white"
+            >
               <FaFacebook />
             </Link>
-            <Link to="#" className="text-xl hover:text-white">
+            <Link
+              to="https://www.instagram.com/doctera.market/"
+              target="_blank"
+              className="text-2xl hover:text-white"
+            >
               <FaInstagram />
             </Link>
-            <Link to="#" className="text-xl hover:text-white">
-              <FaXTwitter />
+            <Link
+              to="https://t.me/DocteraMarket"
+              target="_blank"
+              className="text-2xl hover:text-white"
+            >
+              <FaTelegram />
             </Link>
-            <Link to="#" className="text-xl hover:text-white">
+            <Link
+              to="https://www.tiktok.com/@docteramarket?_t=8rCpkJtcS7r&_r=1"
+              target="_blank"
+              className="text-2xl hover:text-white"
+            >
               <FaTiktok />
             </Link>
-            <Link to="#" className="text-xl hover:text-white">
+            <Link
+              to="https://www.linkedin.com/company/doceramarket/?viewAsMember=true"
+              target="_blank"
+              className="text-2xl hover:text-white"
+            >
               <FaLinkedin />
             </Link>
           </div>
@@ -56,13 +76,13 @@ function Footer() {
       >
         <div className="flex w-fit flex-col gap-0.5 text-DocBlue">
           <h1 className="mb-1 text-xl font-bold text-white">Categories</h1>
-          <Link to={"/c/discount"} className="pl-3 hover:text-white">
+          <Link to={"/c/Discount"} className="pl-3 hover:text-white">
             Discount
           </Link>
           <Link to={"/c/New-Arrival"} className="pl-3 hover:text-white">
             New Arrival
           </Link>
-          <Link to={"/c/popular"} className="pl-3 hover:text-white">
+          <Link to={"/c/Popular"} className="pl-3 hover:text-white">
             Popular
           </Link>
           <Link to={"/"} className="pl-3 hover:text-white">

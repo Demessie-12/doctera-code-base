@@ -51,7 +51,13 @@ function ImageAndDescription({ product }) {
         <h2 className="hidden pt-1 text-lg font-bold capitalize sm:flex">
           {product.name}
         </h2>
-        <p>{product.description}</p>
+        <p>
+          {product.description.split("\n").map((oneLine, i) => (
+            <p key={i} className="block">
+              {oneLine}
+            </p>
+          ))}
+        </p>
         <div className="Star flex items-center gap-1.5">
           {["Placeholder"].map((placeholder) => {
             let reviewStars = [];
@@ -105,9 +111,15 @@ function ImageAndDescription({ product }) {
           <p className="mr-2 text-gray-400 line-through">{`${
             product.oldPrice
               ? product.oldPrice
-              : product.newPrice.toFixed(2) * 1.2
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : (product.newPrice.toFixed(2) * 1.2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           }`}</p>
-          <p className="font-bold">{`${product.newPrice} Birr`}</p>
+          <p className="font-bold">{`${product.newPrice
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Birr`}</p>
         </div>
         <div className="Price flex text-xl">
           <p className="mr-2 font-bold capitalize">Contact:</p>

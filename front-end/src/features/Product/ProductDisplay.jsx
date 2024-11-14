@@ -53,10 +53,16 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
         >
           {product.name}
         </h2>
-        <p data-aos="zoom-in">{product.description}</p>
+        <p data-aos="zoom-in">
+          {product.description.split("\n").map((oneLine, i) => (
+            <p key={i} className="block">
+              {oneLine}
+            </p>
+          ))}
+        </p>
         <div className="Star flex items-center">
           {["Placeholder"].map((placeholder) => {
-            console.log(product);
+            // console.log(product);
             let reviewStars = [];
             let emptyStar = [];
             for (let index = 1; index <= product.ratingsAverage; index++) {
@@ -120,14 +126,20 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
           <p className="mr-2 text-gray-400 line-through">{`${
             product.oldPrice
               ? product.oldPrice
-              : product.newPrice.toFixed(2) * 1.2
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              : (product.newPrice.toFixed(2) * 1.2)
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           }`}</p>
-          <p className="font-bold">{`${product.newPrice} Birr`}</p>
+          <p className="font-bold">{`${product.newPrice
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} Birr`}</p>
         </div>
         <div data-aos="zoom-in" className="Contact flex text-xl">
           <p className="mr-2 font-bold capitalize">Contact:</p>
           <a href={`tel:${product.creatorPhone || "0900763647"}`}>
-            <p className="inline-flex rounded-full bg-blue-700 px-2 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-blue-400 hover:text-black focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2">
+            <p className="inline-flex rounded-full bg-blue-700 px-2 py-1 text-base font-semibold uppercase tracking-wide text-white hover:bg-blue-400 hover:text-black focus:outline-none focus:ring focus:ring-blue-700 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2">
               <SlCallOut className="h-fit pt-1" /> &nbsp;{" "}
               {product.creatorPhone || "0900763647"}
             </p>
@@ -136,15 +148,18 @@ function ProductDisplay({ product, handleAddToCart, isInCart }) {
         <div>
           {isInCart ? (
             <div className="flex gap-2">
-              <UpdateItemQuantity productId={product.productId} />
+              <UpdateItemQuantity
+                productId={product.productId}
+                quantity={product.quantity}
+              />
               <DeleteItem productId={product.productId} />
             </div>
           ) : (
             <button
-              className="inline-block rounded-full bg-DocOrange px-2.5 py-1 text-sm font-semibold uppercase tracking-wide text-white hover:bg-DocOrange/65 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2"
+              className={`${product.quantity > 0 ? "bg-DocOrange text-white hover:bg-DocOrange/65" : "bg-red-700 text-gray-400 hover:bg-red-700/65"} inline-block rounded-full px-2.5 py-1 text-lg font-semibold uppercase tracking-wide text-white hover:bg-DocOrange/65 focus:outline-none focus:ring focus:ring-teal-800 focus:ring-offset-2 disabled:cursor-not-allowed sm:px-3 sm:py-2`}
               onClick={handleAddToCart}
             >
-              Add To Cart
+              {product.quantity > 0 ? "Add To Cart" : "Out OF Stock"}
             </button>
           )}
         </div>

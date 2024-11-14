@@ -54,16 +54,16 @@ const orderSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Reviews",
     },
-    chapaId: {
-      type: String,
-      required: [true, "An order must have unique Chapa ID"],
-      unique: true,
-    },
-    chapaUrl: {
-      type: String,
-      required: [true, "An order must have unique Chapa Url"],
-      unique: true,
-    },
+    // chapaId: {
+    //   type: String,
+    //   required: [true, "An order must have unique Chapa ID"],
+    //   unique: true,
+    // },
+    // chapaUrl: {
+    //   type: String,
+    //   required: [true, "An order must have unique Chapa Url"],
+    //   unique: true,
+    // },
   },
   { timestamps: true }
 );

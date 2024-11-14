@@ -15,7 +15,7 @@ function CheckCategories() {
       <hr className="mx-auto mb-3 mt-1 w-36 rounded-2xl border-2 text-center text-gray-400 md:w-44" />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-        <div data-aos="zoom-in" className="rounded-2xl bg-trusted">
+        <div data-aos="zoom-in" className="bg-imaging rounded-2xl">
           <div className="mx-auto flex h-fit justify-center bg-DocBlue/50 py-20 align-middle font-bold">
             <Link
               className="rounded-full bg-DocOrange px-2 py-2 text-white"
@@ -25,17 +25,17 @@ function CheckCategories() {
             </Link>
           </div>
         </div>
-        <div data-aos="zoom-in-up" className="rounded-2xl bg-trusted">
+        <div data-aos="zoom-in-up" className="bg-diagnostic rounded-2xl">
           <div className="mx-auto flex h-fit justify-center bg-DocBlue/50 py-20 align-middle font-bold">
             <Link
-              className="rounded-full bg-DocOrange px-2 py-2 text-white"
+              className="rounded-full bg-DocBlue px-2 py-2 text-white"
               to="/c/Diagnostic-Tools"
             >
               Diagnostic Tools
             </Link>
           </div>
         </div>
-        <div data-aos="zoom-in" className="rounded-2xl bg-trusted">
+        <div data-aos="zoom-in" className="bg-lab rounded-2xl">
           <div className="mx-auto flex h-fit justify-center bg-DocBlue/50 py-20 align-middle font-bold">
             <Link
               className="rounded-full bg-DocOrange px-2 py-2 text-white"
@@ -45,10 +45,10 @@ function CheckCategories() {
             </Link>
           </div>
         </div>
-        <div data-aos="zoom-in-down" className="rounded-2xl bg-trusted">
+        <div data-aos="zoom-in-down" className="bg-homeCare rounded-2xl">
           <div className="mx-auto flex h-fit justify-center bg-DocBlue/50 py-20 align-middle font-bold">
             <Link
-              className="rounded-full bg-DocOrange px-2 py-2 text-white"
+              className="rounded-full bg-DocBlue px-2 py-2 text-white"
               to="/c/Homecare"
             >
               Homecare

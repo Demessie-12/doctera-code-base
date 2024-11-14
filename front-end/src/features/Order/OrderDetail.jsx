@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 function OrderDetail() {
   const { order, paymentStatus } = useLoaderData();
-  console.log(order, paymentStatus);
+  // console.log(order, paymentStatus);
   const orderDate = new Date(order.createdAt);
   const deliveryDate = new Date(order.dateOfDelivery);
 
@@ -88,11 +88,11 @@ function OrderDetail() {
             <CiLocationOn className="h-full text-xl text-white" /> &nbsp;
             {order.address}
           </h2>
-          <p className="pl-3 text-sm text-DocOrange">Distance</p>
+          {/* <p className="pl-3 text-sm text-DocOrange">Distance</p>
           <h2 className="flex pl-5 text-white">
             <GiPathDistance className="h-full text-xl text-white" />
             &nbsp; {"3"} Km away from our Store
-          </h2>
+          </h2> */}
         </div>
         <div className="flex flex-col gap-2">
           <h2 className="text-center font-semibold text-DocOrange underline">
@@ -100,20 +100,28 @@ function OrderDetail() {
           </h2>
           <div className="flex justify-between">
             <p className="pl-3 text-DocOrange">Subtotal</p>
-            <h2>{order.totalPrice} Birr</h2>
+            <h2>
+              {order.totalPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              Birr
+            </h2>
           </div>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <p className="pl-3 text-DocOrange">Delivery</p>
             <h2>{"15"} Birr</h2>
-          </div>
+          </div> */}
           <div className="flex justify-between">
             <p className="pl-3 text-DocOrange">Discount</p>
-            <h2>{"0.00"} Birr</h2>
+            <h2>{"0"} Birr</h2>
           </div>
           <div className="mt-2 flex justify-between border-t border-dashed border-gray-300 pt-2">
             <p className="pl-3 text-white">Total</p>
             <h2 className="font-bold text-DocOrange">
-              {order.totalPrice} Birr
+              {order.totalPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+              Birr
             </h2>
           </div>
         </div>
@@ -123,7 +131,7 @@ function OrderDetail() {
 }
 
 export async function loader({ params }) {
-  console.log("hi from loader");
+  // console.log("hi from loader");
   const { order, paymentStatus } = await GetOrderHook(params.orderId);
   return { order, paymentStatus };
 }

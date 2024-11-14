@@ -8,16 +8,16 @@ export default function CloudinaryUpload({ allImages, setAllImages }) {
     cloudinaryRef.current = window.cloudinary;
     widgeRef.current = cloudinaryRef.current.createUploadWidget(
       {
-        cloudName: "dx1cyrkdk",
-        uploadPreset: "doctera",
+        cloudName: "dttmf74ie",
+        uploadPreset: "Doctera",
       },
       function (error, result) {
         if (!error && result && result.event === "success") {
-          setUploadedLink(result.info.url);
+          setUploadedLink(result.info.url.replace("http://", "https://"));
         }
       },
     );
-    console.log(cloudinaryRef.current);
+    // console.log(cloudinaryRef.current);
   }, []);
   // console.log("worked", uploadedLink);
   if (uploadedLink != 0 && uploadedLink != undefined) {

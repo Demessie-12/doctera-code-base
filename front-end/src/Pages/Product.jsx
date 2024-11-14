@@ -8,6 +8,7 @@ import Breadcrumb from "../features/Breadcrumb/Breadcrumb.jsx";
 import ProductDisplay from "../features/Product/ProductDisplay.jsx";
 import SimilarProducts from "../features/Product/SimilarProducts.jsx";
 import ReviewsAndDescription from "../features/Product/ReviewsAndDescription.jsx";
+import toast from "react-hot-toast";
 
 function Product() {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ function Product() {
   const isInCart = QuantityInCart > 0;
 
   function handleAddToCart() {
+    if (product.quantity < 1)
+      return toast.error("This product is out of stock. We will add it soon!");
     const newItem = {
       productId,
       name: product.name,
@@ -49,7 +52,7 @@ function Product() {
         detail={product.detail}
         productId={product._id}
       />
-      <SimilarProducts category={product.category[0]} />
+      <SimilarProducts selectedProduct={product} />
     </div>
   );
 }

@@ -32,9 +32,15 @@ function Item(props) {
         </div>
         <div className="flex justify-between p-2">
           <div className="flex-col">
-            <p className="font-semibold">{item.newPrice}</p>
+            <p className="font-semibold">
+              {item.newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </p>
             <p className="text-gray-400 line-through">
-              {item.oldPrice ? item.oldPrice : item.newPrice.toFixed(2) * 1.2}
+              {item.oldPrice
+                ? item.oldPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                : (item.newPrice.toFixed(2) * 1.2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             </p>
           </div>
           <p

@@ -18,9 +18,13 @@ function OrderItem(props) {
           <p className="capitalize">{item.name}</p>
         </div>
         <p>
-          {item.quantity} x {item.unitPrice}
+          {item.quantity} x{" "}
+          {item.unitPrice?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </p>
-        <p className="text-sm font-bold">{item.totalPrice} Birr</p>
+        <p className="text-sm font-bold">
+          {item.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+          Birr
+        </p>
       </li>
     </div>
   );

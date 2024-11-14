@@ -16,10 +16,6 @@ function OrderList() {
     setQuery("");
   };
 
-  const orders = [
-    { orderId: 11061, date: 120111, price: 12356 },
-    { orderId: 11060, date: 120111, price: 12356 },
-  ];
   return (
     <div className="mx-auto flex flex-col gap-2 md:max-w-3xl">
       <div className="mx-auto mt-5 flex justify-center gap-3 border-t-2 border-gray-500 px-2 pt-5 sm:px-3 md:max-w-3xl">
@@ -39,7 +35,9 @@ function OrderList() {
         </div>
       </div>
       <div className="mx-auto mt-5 flex w-4/5 flex-col justify-center gap-1 text-lg text-DocOrange lg:text-xl">
-        <div className="flex justify-between pb-2 font-semibold">
+        <div
+          className={`${(!previousOrders || previousOrders?.length == 0) && "hidden"} flex justify-between pb-2 font-semibold`}
+        >
           <p className="pl-2">No</p>
           <p>Order Id</p>
           <p className="pr-5">Price</p>
@@ -52,7 +50,11 @@ function OrderList() {
           >
             <p className="py-2 pl-2">{i + 1},</p>
             <p className="py-2 font-bold text-DocOrange">{order.orderId}</p>
-            <p className="py-2">{order.totalPrice}</p>
+            <p className="py-2">
+              {order.totalPrice
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </p>
             <Link
               to={`/order/${order.orderId}`}
               className="border-1 rounded-full border-gray-400 bg-DocOrange/85 px-3 py-2 align-top text-gray-900 hover:bg-DocOrange hover:text-black"

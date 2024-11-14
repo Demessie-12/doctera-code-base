@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { DeleteProductHook } from "../../Services/apiProducts";
 
 function DeleteProduct({ product_ID, model, setModel }) {
-  console.log(product_ID);
+  // console.log(product_ID);
   const handleDeleteButton = async () => {
     const deltedata = await DeleteProductHook(product_ID);
   };

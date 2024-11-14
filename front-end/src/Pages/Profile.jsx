@@ -1,10 +1,11 @@
 import React from "react";
 import secureLocalStorage from "react-secure-storage";
 import { SlCallOut } from "react-icons/sl";
+import { Link } from "react-router-dom";
 
 function Profile() {
   const userData = secureLocalStorage.getItem("logged-user");
-  console.log(userData);
+  // console.log(userData);
   return (
     <div className="px-2 text-white sm:px-3">
       <div className="mx-auto mt-10 grid grid-cols-2 justify-center gap-3 text-center md:max-w-3xl">
@@ -41,6 +42,26 @@ function Profile() {
             {userData.email}
           </span>
         </p>
+        <p>
+          Role :{" "}
+          <span className="text-lg font-semibold text-DocOrange">
+            {userData.role}
+          </span>
+        </p>
+      </div>
+      <div className="mx-auto mt-5 flex w-fit justify-center gap-3 md:gap-5">
+        <Link
+          to="/password/edit"
+          className="rounded-2xl bg-white px-2 py-1.5 font-semibold text-DocBlue sm:mt-5"
+        >
+          Change Password
+        </Link>
+        <Link
+          to="/profile/edit"
+          className="rounded-2xl bg-DocOrange px-2 py-1.5 font-semibold text-black sm:mt-5"
+        >
+          Edit Profile
+        </Link>
       </div>
     </div>
   );

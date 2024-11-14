@@ -72,14 +72,14 @@ export async function action({ request, params }) {
 
   const updatedOrder = await UpdateOrderStatusHook(params.orderId, data);
 
-  console.log(data);
+  // console.log(data);
 
   return null;
 }
 
 export async function loader({ params }) {
   const { order, paymentStatus } = await GetSingleOrderHook(params.orderId);
-  console.log(order);
+  // console.log(order);
   return { order, paymentStatus };
 }
 

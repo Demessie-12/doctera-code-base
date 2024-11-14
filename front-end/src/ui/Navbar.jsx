@@ -18,10 +18,10 @@ import { LogoutApi } from "../Services/apiAuthentication";
 import Doctera_Logo from "./../Assets/Doctera_Logo.png";
 
 const navigation = [
-  { name: "Discount", to: "/c/discount" },
+  { name: "Discount", to: "/c/Discount" },
   { name: "New", to: "/c/Brand_New" },
   { name: "Used", to: "/c/Used" },
-  { name: "Popular", to: "/c/popular" },
+  { name: "Popular", to: "/c/Popular" },
 ];
 
 function classNames(...classes) {
@@ -53,9 +53,9 @@ export default function NavBar() {
   return (
     <div className="sticky top-0 z-40 w-full">
       <Disclosure as="nav" className="z-10 bg-gray-800">
-        <div className="mx-auto max-w-7xl bg-gray-800 px-2 md:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl bg-gray-800 pl-1 md:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
-            <div className="mr-3 flex items-center">
+            <div className="flex items-center sm:mr-3">
               <button
                 onClick={() => {
                   setSideBar(true);
@@ -98,19 +98,19 @@ export default function NavBar() {
                 </div>
               </div>
             </div>
-            <div className="absolute inset-y-0 right-2 flex items-center gap-2 pr-2 sm:static sm:inset-auto sm:ml-5 sm:pr-1 md:pr-2">
+            <div className="absolute inset-y-0 right-2 flex items-center gap-2 sm:static sm:inset-auto sm:ml-5 sm:pr-1 md:pr-2">
               <Search />
               <button
                 type="button"
                 onClick={() => navigate("/cart")}
-                className="relative rounded-full bg-gray-800 p-1 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="relative rounded-full bg-gray-800 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
               >
-                <span className="absolute -inset-1.5" />
+                {/* <span className="absolute -inset-1.5" /> */}
                 <span className="sr-only">View Cart</span>
                 {/* <BellIcon aria-hidden="true" className="h-6 w-6" /> */}
                 <IoCart
                   aria-hidden="true"
-                  className={`w-9 text-4xl ${!isCartEmpty && "text-red-500"}`}
+                  className={`w-8 text-4xl sm:w-9 ${!isCartEmpty && "text-red-500"}`}
                 />
                 {!isCartEmpty && (
                   <span className="absolute bottom-1 right-0 text-xl font-bold text-white">
@@ -171,7 +171,7 @@ export default function NavBar() {
               ) : (
                 <Link
                   to="/login"
-                  className="ml-3 rounded-md bg-gray-200 px-2 py-1.5 hover:bg-white"
+                  className="rounded-md bg-gray-200 px-1 py-1.5 hover:bg-white sm:ml-3 sm:px-2"
                 >
                   Log in
                 </Link>

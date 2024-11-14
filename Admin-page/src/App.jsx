@@ -29,6 +29,10 @@ import UserDetail, {
   loader as singleUserLoader,
 } from "./pages/UserDetail";
 import Error from "./ui/Error";
+import ProfileEdit, { action as profileEditAction } from "./pages/ProfileEdit";
+import PasswordEdit, {
+  action as passwordEditAction,
+} from "./pages/PasswordEdit";
 
 function App() {
   const router = createBrowserRouter([
@@ -63,6 +67,16 @@ function App() {
         },
         { path: "/reviews", element: <Reviews /> },
         { path: "/profile", element: <Profile /> },
+        {
+          path: "/profile/edit",
+          element: <ProfileEdit />,
+          action: profileEditAction,
+        },
+        {
+          path: "/password/edit",
+          element: <PasswordEdit />,
+          action: passwordEditAction,
+        },
         { path: "/users", element: <Users />, loader: allUsersLoader },
         {
           path: "/users/:username",

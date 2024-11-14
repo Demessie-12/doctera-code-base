@@ -97,7 +97,12 @@ function CreateOrder() {
             </div>
             <div className="flex justify-between border-t border-gray-400 pt-2">
               <p>Sub-total</p>
-              <p className="font-semibold">{totalCartPrice} Birr</p>
+              <p className="font-semibold">
+                {totalCartPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                Birr
+              </p>
             </div>
             <div className="flex justify-between">
               <p>Shipping</p>
@@ -137,7 +142,10 @@ function CreateOrder() {
               <p className="font-semibold">Total</p>
               <p className="font-bold text-DocOrange">
                 {/* {totalCartPrice + ClientDistance * 20} Birr */}
-                {totalCartPrice} Birr
+                {totalCartPrice
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}{" "}
+                Birr
               </p>
             </div>
           </div>
@@ -273,7 +281,7 @@ export async function action({ request }) {
     cart: JSON.parse(data.cart),
   };
 
-  console.log(order);
+  // console.log(order);
 
   const errors = {};
   if (!isValidPhone(order.phone))
@@ -292,12 +300,12 @@ export async function action({ request }) {
         [].concat(secureLocalStorage.getItem("local-orders"), newOrder),
       );
   store.dispatch(clearItem());
-  console.log(secureLocalStorage.getItem("local-orders"));
+  // console.log(secureLocalStorage.getItem("local-orders"));
 
   setTimeout(() => {
-    console.log("redirected");
+    // console.log("redirected");
     window.location = `/order/${newOrder.orderId}`;
-  }, 0.001);
+  }, 0.01);
 
   return null;
 }

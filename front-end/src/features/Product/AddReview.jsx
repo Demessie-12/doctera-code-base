@@ -83,10 +83,10 @@ export async function action({ request }) {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
 
-  console.log(data);
+  // console.log(data);
   const errors = {};
   if (!data.loggedUser) {
-    console.log("error detected");
+    // console.log("error detected");
     errors.pleaseLogin = "Please Login to give review on product.";
   }
   if (Object.keys(errors).length > 0) return errors;
@@ -94,7 +94,7 @@ export async function action({ request }) {
   const newReview = await CreateReviewHook(data);
   location.reload();
 
-  console.log(newReview);
+  // console.log(newReview);
 
   return null;
 }

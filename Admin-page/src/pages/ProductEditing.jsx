@@ -5,6 +5,7 @@ import ImageEditor from "../features/product/ImageEditor";
 import { UpdateProductHook } from "../Services/apiProducts";
 import ProductVerification from "../features/product/ProductVerification";
 import DeleteProduct from "../features/product/DeleteProduct";
+import ProductPending from "../features/product/ProductPending";
 
 function ProductEditing() {
   const [model, setModel] = useState(false);
@@ -33,6 +34,7 @@ function ProductEditing() {
 
   // Manage Catagories Checkbox
   const categories = [
+    "Discount",
     "Diagnostic Tools",
     "Imagings",
     "Laboratory equipments",
@@ -40,6 +42,7 @@ function ProductEditing() {
     "Supportive and physiotherapy",
     "Homecare",
     "Furnitures",
+    "Popular",
   ];
 
   const [checkedCategories, setCheckedCategories] = useState(
@@ -293,6 +296,8 @@ function ProductEditing() {
           </div>
         </Form>
       </div>
+
+      {product.status == "Verified" && <ProductPending />}
       <DeleteProduct
         product_ID={product._id}
         model={model}
@@ -319,7 +324,9 @@ export async function action({ request }) {
   // console.log("productData", productData);
 
   const updatedData = await UpdateProductHook(data.productId, productData);
-  console.log(updatedData);
+  // console.log(updatedData);
+
+  location.replace("/");
   return null;
 }
 

@@ -4,11 +4,15 @@ import secureLocalStorage from "react-secure-storage";
 
 export const CreateOrderHook = async (orderData) => {
   try {
-    const res = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ ...orderData }),
-    });
+    const res = await fetch(
+      "https://apidoctera.yeshisolutions.com/api/orders",
+      {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...orderData }),
+        credentials: "include",
+      },
+    );
 
     const CreateOrderdata = await res.json();
 
@@ -24,9 +28,14 @@ export const CreateOrderHook = async (orderData) => {
 };
 
 export const GetOrderHook = async (orderId) => {
-  console.log("get hook runned");
-  const res = await fetch(`/api/orders/${orderId}`);
-  console.log("get hook finished");
+  // console.log("get hook runned");
+  const res = await fetch(
+    `https://apidoctera.yeshisolutions.com/api/orders/${orderId}`,
+    {
+      credentials: "include",
+    },
+  );
+  // console.log("get hook finished");
 
   if (!res.ok) throw Error("Failed to get Order with this ID");
 
@@ -36,7 +45,12 @@ export const GetOrderHook = async (orderId) => {
 };
 
 export const GetMineOrderHook = async (username) => {
-  const res = await fetch(`/api/start/${username}`);
+  const res = await fetch(
+    `https://apidoctera.yeshisolutions.com/api/start/${username}`,
+    {
+      credentials: "include",
+    },
+  );
 
   if (!res.ok) throw Error("Failed to get your Orders");
 

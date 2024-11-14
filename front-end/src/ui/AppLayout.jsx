@@ -44,7 +44,7 @@ export async function loader() {
       (Date.now() - secureLocalStorage.getItem("lastTime")) / (1000 * 60),
     ) < 20
   ) {
-    console.log("updated");
+    // console.log("updated");
     return secureLocalStorage.getItem("products");
   }
   const AllProducts = await GetAllProducts();

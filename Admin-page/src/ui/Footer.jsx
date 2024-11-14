@@ -6,7 +6,7 @@ function Footer() {
   // console.log(allproducts);
   return (
     <div>
-      <p>footer</p>
+      <p></p>
     </div>
   );
 }

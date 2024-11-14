@@ -8,10 +8,11 @@ function NewCollections({ allproducts }) {
         New Arrival
       </p>
       <div className="mx-auto grid grid-cols-2 gap-x-2 gap-y-4 min-[480px]:grid-cols-3 md:grid-cols-4 xl:grid-cols-5">
-        {allproducts.map((product) => {
-          if (product.category.includes("New-Arrival"))
-            return <Item key={product.name} item={product} />;
-        })}
+        {allproducts
+          .sort((a, b) => (a.productId > b.productId ? -1 : 1))
+          .map((product, i) => {
+            if (i < 8) return <Item key={product.name} item={product} />;
+          })}
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ function ProductList() {
 
   if (filtered == "Pending")
     filteredData = allproducts.filter((product) => product.status == "Pending");
-  else if (filtered == "Verifed")
+  else if (filtered == "Verified")
     filteredData = allproducts.filter(
       (product) => product.status == "Verified",
     );
@@ -119,7 +119,11 @@ function ProductList() {
       label: "Price",
       options: {
         filter: false,
-        customBodyRender: (value) => <p className="pl-3">{value}</p>,
+        customBodyRender: (value) => (
+          <p className="pl-3">
+            {value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+          </p>
+        ),
       },
     },
     {

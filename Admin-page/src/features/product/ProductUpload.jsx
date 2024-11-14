@@ -18,7 +18,7 @@ function ProductUpload() {
 
   const [selectedImage, setSelectedImage] = useState("");
   const [allImages, setAllImages] = useState([]);
-  console.log(allImages, selectedImage);
+  // console.log(allImages, selectedImage);
 
   // Manage Condition
   const [condition, setCondition] = useState("Brand New");
@@ -28,6 +28,7 @@ function ProductUpload() {
 
   // Manage Catagories Checkbox
   const categories = [
+    "Discount",
     "Diagnostic Tools",
     "Imagings",
     "Laboratory equipments",
@@ -35,6 +36,7 @@ function ProductUpload() {
     "Supportive and physiotherapy",
     "Homecare",
     "Furnitures",
+    "Popular",
   ];
 
   const [checkedCategories, setCheckedCategories] = useState(
@@ -52,11 +54,11 @@ function ProductUpload() {
 
     setCheckedCategories(updatedCatetoriesState);
 
-    console.log(updatedCatetoriesState);
+    // console.log(updatedCatetoriesState);
   };
 
   // Manage Catagory Selection
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
   const handleCategorySelection = (e) => {
     setSelectedCategory(e.target.value);
   };

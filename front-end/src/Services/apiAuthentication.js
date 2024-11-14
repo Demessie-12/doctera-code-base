@@ -15,12 +15,15 @@ export const SignUpApi = () => {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/signup", {
-        method: "POST",
-        Credentials: true,
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...userInputs }),
-      });
+      const res = await fetch(
+        "https://apidoctera.yeshisolutions.com/api/auth/signup",
+        {
+          method: "POST",
+          Credentials: true,
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ...userInputs }),
+        },
+      );
 
       const Signupdata = await res.json();
 
@@ -48,11 +51,15 @@ export const LoginApi = () => {
   const LoginHook = async (userInputs) => {
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...userInputs }),
-      });
+      const res = await fetch(
+        "https://apidoctera.yeshisolutions.com/api/auth/login",
+        {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ ...userInputs }),
+          credentials: "include",
+        },
+      );
 
       const LoginData = await res.json();
 
@@ -80,7 +87,9 @@ export const LogoutApi = () => {
   const logoutHook = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/logout");
+      const res = await fetch(
+        "https://apidoctera.yeshisolutions.com/api/auth/logout",
+      );
 
       secureLocalStorage.removeItem("logged-user");
       setLoggedUser(null);
@@ -97,6 +106,64 @@ export const LogoutApi = () => {
 
   return { loading, logoutHook };
 };
+
+export async function UpdateProfileHook(userData) {
+  // const { loggedUser, setLoggedUser } = useContext(NavbarContext);
+  try {
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/auth/profile/${userData.username}`,
+      {
+        method: "PATCH",
+        Credentials: true,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...userData }),
+        credentials: "include",
+      },
+    );
+
+    const updatedProfile = await res.json();
+
+    if (updatedProfile.error) {
+      throw new Error(updatedProfile.error);
+    }
+
+    secureLocalStorage.setItem("logged-user", updatedProfile.data);
+    // setLoggedUser(updatedProfile.data);
+    toast.success("Profile Updated successfully");
+    location.replace("/profile");
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
+
+export async function UpdatePasswordHook(passwords) {
+  // const { loggedUser, setLoggedUser } = useContext(NavbarContext);
+  try {
+    const res = await fetch(
+      `https://apidoctera.yeshisolutions.com/api/auth/password/${passwords.username}`,
+      {
+        method: "PATCH",
+        Credentials: true,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...passwords }),
+        credentials: "include",
+      },
+    );
+
+    const updatedProfile = await res.json();
+
+    if (updatedProfile.error) {
+      throw new Error(updatedProfile.error);
+    }
+
+    secureLocalStorage.setItem("logged-user", updatedProfile);
+    // setLoggedUser(updatedProfile.data);
+    toast.success("Password Updated successfully");
+    location.replace("/profile");
+  } catch (error) {
+    toast.error(error.message);
+  }
+}
 
 function handleInputErrors({ fullname, username, phoneNumber }) {
   const isValidPhone = (str) =>

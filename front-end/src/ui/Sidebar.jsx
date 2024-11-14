@@ -10,9 +10,9 @@ function Sidebar() {
 
   const navigation = [
     { name: "New", to: "/c/Brand_New" },
-    { name: "Discount", to: "/c/discount" },
+    { name: "Discount", to: "/c/Discount" },
     { name: "Used", to: "/c/Used" },
-    { name: "Popular", to: "/c/popular" },
+    { name: "Popular", to: "/c/Popular" },
   ];
 
   const sideCategories = [
@@ -29,27 +29,27 @@ function Sidebar() {
     {
       name: "Laboratory equipments",
       to: "/c/Laboratory-equipments",
-      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123174/fsdwx9bpbuvh0oaodrqq.jpg",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123174/fsdwx9bpbuvh0oaodrqq.jpg",
     },
     {
       name: "Respiratory care",
       to: "/c/Respiratory-care",
-      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121367/sl25lg225bnd8z4xbdym.jpg",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121367/sl25lg225bnd8z4xbdym.jpg",
     },
     {
       name: "Supportive and physiotherapy",
       to: "/c/Supportive-and-physiotherapy",
-      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123057/ogbsbapahrfooajjykdu.jpg",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123057/ogbsbapahrfooajjykdu.jpg",
     },
     {
       name: "Homecare",
       to: "/c/Homecare",
-      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123068/yzc2sbqyzu3pgk5nkpvr.jpg",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730123068/yzc2sbqyzu3pgk5nkpvr.jpg",
     },
     {
       name: "Furnitures",
       to: "/c/Furnitures",
-      icon: "http://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121357/sf08vvlkutqlnsv91dqo.jpg",
+      icon: "https://res.cloudinary.com/dx1cyrkdk/image/upload/v1730121357/sf08vvlkutqlnsv91dqo.jpg",
     },
   ];
   return (

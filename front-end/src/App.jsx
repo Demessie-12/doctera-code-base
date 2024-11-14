@@ -33,6 +33,12 @@ import SearchResult from "./features/Search/SearchResult.jsx";
 import { action as AddReviewAction } from "./features/Product/AddReview.jsx";
 import Error from "./ui/Error.jsx";
 import History from "./Pages/History.jsx";
+import ProfileEdit, {
+  action as profileEditAction,
+} from "./Pages/ProfileEdit.jsx";
+import PasswordEdit, {
+  action as passwordEditAction,
+} from "./Pages/PasswordEdit.jsx";
 // import SearchResult from "./Pages/SearchResult.jsx";
 
 library.add(faEye, faEyeSlash);
@@ -85,9 +91,20 @@ function App() {
           path: "/search/:searchName",
           element: <SearchResult />,
         },
+
         {
           path: "/profile",
           element: !loggedUser ? <Navigate to="/" /> : <Profile />,
+        },
+        {
+          path: "/profile/edit",
+          element: !loggedUser ? <Navigate to="/" /> : <ProfileEdit />,
+          action: profileEditAction,
+        },
+        {
+          path: "/password/edit",
+          element: !loggedUser ? <Navigate to="/" /> : <PasswordEdit />,
+          action: passwordEditAction,
         },
         {
           path: "/history",

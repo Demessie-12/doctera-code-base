@@ -27,7 +27,7 @@ function Signup() {
   const handlesubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log(inputs);
+      // console.log(inputs);
       await SignupHook(inputs);
     } catch (error) {}
   };
@@ -72,7 +72,7 @@ function Signup() {
                       fullname: e.target.value,
                       username: e.target.value,
                     });
-                  console.log("fullname changed");
+                  // console.log("fullname changed");
                 }}
                 required
                 autoComplete="fullname"
@@ -95,7 +95,7 @@ function Signup() {
                 value={inputs.username}
                 onChange={(e) => {
                   setInputs({ ...inputs, username: e.target.value });
-                  console.log("username changed");
+                  // console.log("username changed");
                 }}
                 className="mt-2 block w-full rounded-md border-0 bg-gray-300 px-1.5 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300"
               />
