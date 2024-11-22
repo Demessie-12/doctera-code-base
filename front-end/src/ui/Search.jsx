@@ -26,10 +26,12 @@ function Search() {
     e.preventDefault();
     setoptiOnvisibility(false);
     if (suggestion) {
-      return navigate(`/search/${suggestion.replaceAll(" ", "_")}`);
+      return navigate(
+        `/search/${suggestion.replaceAll(" ", "_").replaceAll("/", "-")}`,
+      );
     }
     if (inputValue.length === 0) return null;
-    navigate(`/search/${inputValue.replaceAll(" ", "_")}`);
+    navigate(`/search/${inputValue.replaceAll(" ", "_").replaceAll("/", "-")}`);
   };
   return (
     <div className="relative">

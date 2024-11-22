@@ -146,7 +146,23 @@ export default function NavBar() {
                         to="/profile"
                         className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100"
                       >
-                        Your Profile
+                        Profile
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="/control/product"
+                        className={`${secureLocalStorage.getItem("logged-user").role == "contributor" ? "" : "hidden"}block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100`}
+                      >
+                        Your Products
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        to="/control/order"
+                        className={`${secureLocalStorage.getItem("logged-user").role == "contributor" ? "" : "hidden"}block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100`}
+                      >
+                        Orders for you
                       </Link>
                     </MenuItem>
                     <MenuItem>

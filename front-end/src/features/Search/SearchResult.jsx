@@ -9,8 +9,8 @@ import { IoFilterOutline } from "react-icons/io5";
 function SearchResult() {
   const [filterOpened, setFilterOpened] = useState(false);
   const [filterObject, setFilterObject] = useState({
-    condition: ["Brand New", "Used"],
-    priceRange: [100, 50000],
+    condition: ["Brand New", "Slightly Used", "Used"],
+    priceRange: [100, 500000],
   });
   const [selctedSort, setSelectedSort] = useState("A-Z");
   const [filteredProductNo, setFilteredProductNo] = useState(0);
@@ -28,11 +28,19 @@ function SearchResult() {
   };
 
   let { searchName } = useParams();
-  searchName = searchName.replaceAll("_", " ");
+  searchName = searchName.replaceAll("_", " ").replaceAll("-", "/");
   const { allproducts } = useDocteraContext();
 
+  let searchedProduct = [];
   let filteredProduct = [];
   allproducts.map((product) => {
+    if (
+      product.name.toLowerCase().includes(searchName.toLowerCase()) ||
+      product.productId.toLowerCase().includes(searchName.toLowerCase())
+    ) {
+      searchedProduct.push(product);
+    }
+
     if (
       (product.name.toLowerCase().includes(searchName.toLowerCase()) ||
         product.productId.toLowerCase().includes(searchName.toLowerCase())) &
@@ -55,7 +63,7 @@ function SearchResult() {
   return (
     <div className="mx-auto flex flex-col gap-2 px-2 sm:px-3 xl:max-w-7xl">
       <div
-        className={`flex justify-between ${filteredProduct.length == 0 && "hidden"}`}
+        className={`flex justify-between ${searchedProduct.length == 0 && "hidden"}`}
       >
         <h2 className="flex text-lg font-bold text-gray-900">
           Filltered By{" "}
@@ -71,7 +79,7 @@ function SearchResult() {
         </h2>
         <SortBy selctedSort={selctedSort} setSelectedSort={setSelectedSort} />
       </div>
-      <div className={`flex gap-3 ${filteredProduct.length == 0 && "hidden"}`}>
+      <div className={`flex gap-3 ${searchedProduct.length == 0 && "hidden"}`}>
         <FillterSection
           filterObject={filterObject}
           setFilterObject={setFilterObject}
@@ -87,9 +95,9 @@ function SearchResult() {
 
       {/* if no product found */}
       <div
-        className={`${filteredProduct.length > 0 && "hidden"} mt-5 text-center font-semibold md:text-xl`}
+        className={`${filteredProduct.length > 0 && "hidden"} mt-5 text-center font-semibold text-DocOrange md:text-xl`}
       >
-        No product found. Please search with other key
+        {`No product found. Please ${searchedProduct.length > 0 ? "check your filter" : " search with other key"}`}
       </div>
     </div>
   );

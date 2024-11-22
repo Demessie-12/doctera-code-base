@@ -65,6 +65,18 @@ function FillterSection({
               />
               &nbsp;Used
             </label>
+            <label>
+              <input
+                type="checkBox"
+                onChange={() => handleConditionChange("Slightly Used")}
+                value="Slightly Used"
+                checked={
+                  filterObject.condition.length > 0 &&
+                  filterObject.condition.includes("Slightly Used")
+                }
+              />
+              &nbsp;Slightly Used
+            </label>
           </div>
         </div>
         <div className="Price-range flex flex-col">

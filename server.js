@@ -69,6 +69,7 @@ app.use(
   restrictTo("admin", "super admin"),
   adminRoutes
 );
+app.use("/api/contributor", checkLogin, restrictTo("contributor"), contri);
 
 app.listen(5005, () => {
   connectToMongoDB();

@@ -40,6 +40,7 @@ function Profile() {
           Email :{" "}
           <span className="text-lg font-semibold text-DocOrange">
             {userData.email}
+            {console.log(userData)}
           </span>
         </p>
         <p>

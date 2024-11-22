@@ -87,6 +87,22 @@ function UserDetail() {
         >
           Admin
         </label>
+        <input
+          type="checkbox"
+          name="delivered"
+          id="delivered"
+          checked={role === "contributor"}
+          onChange={() =>
+            role === "contributor" ? setRole() : setRole("contributor")
+          }
+          className={`ml-5 ${userData.role == "contributor" && "hidden"}`}
+        />
+        <label
+          htmlFor="delivered"
+          className={`ml-1 mr-5 inline text-DocOrange md:text-xl ${userData.role == "contributor" && "hidden"}`}
+        >
+          Contributor
+        </label>
         {role && (
           <button className="rounded-2xl bg-white px-3 py-1 font-semibold text-black">
             Update

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate, useRouteError } from "react-router-dom";
+import { Link, useNavigate, useRouteError } from "react-router-dom";
 import { IoArrowBackCircle } from "react-icons/io5";
 
 function Error() {
@@ -20,6 +20,12 @@ function Error() {
           </span>
           Go Back
         </button>
+        <Link
+          to="/"
+          className="ml-2 flex rounded-full bg-DocBlue px-3 py-3 font-semibold text-DocOrange md:px-5"
+        >
+          Back To Home
+        </Link>
       </div>
     </div>
   );

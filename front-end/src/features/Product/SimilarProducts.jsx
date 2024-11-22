@@ -23,7 +23,10 @@ function SimilarProducts(props) {
             "and",
             selectedProduct.mainCategory,
           );
-          if (product.mainCategory === selectedProduct.mainCategory)
+          if (
+            product.category.includes(selectedProduct.mainCategory) &&
+            product.productId != selectedProduct.productId
+          )
             return <Item item={product} key={product.productId} />;
         })}
       </div>

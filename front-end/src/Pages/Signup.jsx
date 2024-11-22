@@ -171,15 +171,14 @@ function Signup() {
               />
             </div>
 
-            {/* 
             <div>
               <label
                 htmlFor="role"
-                className="block text-sm font-medium text-gray-900"
+                className="block text-sm font-medium text-DocOrange"
               >
                 Role
               </label>
-              <label htmlFor="male" className="inline ml-5">
+              <label htmlFor="male" className="ml-5 inline">
                 Customer
               </label>
               <input
@@ -190,19 +189,19 @@ function Signup() {
                 onChange={() => handleCheckboxChange({ role: "customer" })}
                 className="ml-1"
               />
-              <label htmlFor="merchant" className="inline ml-5">
-                Merchant
+              <label htmlFor="contributor" className="ml-5 inline">
+                Contributor
               </label>
               <input
                 type="checkbox"
-                name="merchant"
-                id="merchant"
-                className="inline ml-1"
-                checked={inputs.role === "merchant"}
-                onChange={() => handleCheckboxChange({ role: "merchant" })}
+                name="contributor"
+                id="contributor"
+                className="ml-1 inline"
+                checked={inputs.role === "contributor"}
+                onChange={() => handleCheckboxChange({ role: "contributor" })}
               />
             </div>
- */}
+
             <div className="relative mt-2 flex">
               <label
                 htmlFor="password"

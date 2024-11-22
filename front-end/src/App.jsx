@@ -110,6 +110,10 @@ function App() {
           path: "/history",
           element: !loggedUser ? <Navigate to="/" /> : <History />,
         },
+        {
+          path: "/control/product",
+          element: !loggedUser?.role ? <Navigate to="/" /> : <History />,
+        },
       ],
     },
   ]);
