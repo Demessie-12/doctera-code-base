@@ -9,7 +9,7 @@ export const LoginApi = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://apidoctera.yeshisolutions.com/api/auth/loginAdmin",
+        "https://api1.docteramarket.com/api/auth/loginAdmin",
         {
           method: "POST",
           headers: { "content-type": "application/json" },
@@ -43,7 +43,7 @@ export const LogoutApi = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://apidoctera.yeshisolutions.com/api/auth/logout",
+        "https://api1.docteramarket.com/api/auth/logout",
         {
           credentials: "include",
         },
@@ -63,7 +63,7 @@ export async function UpdateProfileHook(userData) {
   try {
     // console.log(userData.username);
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/auth/profile/${userData.username}`,
+      `https://api1.docteramarket.com/api/auth/profile/${userData.username}`,
       {
         method: "PATCH",
         Credentials: true,
@@ -92,7 +92,7 @@ export async function UpdatePasswordHook(passwords) {
   // const { loggedUser, setLoggedUser } = useContext(NavbarContext);
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/auth/password/${passwords.username}`,
+      `https://api1.docteramarket.com/api/auth/password/${passwords.username}`,
       {
         method: "PATCH",
         Credentials: true,

@@ -2,12 +2,9 @@ import toast from "react-hot-toast";
 
 export async function GetAllOrders() {
   try {
-    const res = await fetch(
-      "https://apidoctera.yeshisolutions.com/api/admin/orders",
-      {
-        credentials: "include",
-      },
-    );
+    const res = await fetch("https://api1.docteramarket.com/api/admin/orders", {
+      credentials: "include",
+    });
     const updatedData = await res.json();
 
     if (updatedData.error) {
@@ -24,7 +21,7 @@ export async function GetSingleOrderHook(orderId) {
   try {
     // console.log("api reached");
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/orders/${orderId}`,
+      `https://api1.docteramarket.com/api/admin/orders/${orderId}`,
       {
         credentials: "include",
       },
@@ -49,7 +46,7 @@ export async function UpdateOrderStatusHook(orderId, data) {
   try {
     // console.log("api reached");
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/orders/${orderId}`,
+      `https://api1.docteramarket.com/api/admin/orders/${orderId}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },

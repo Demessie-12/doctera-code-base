@@ -2,12 +2,9 @@ import toast from "react-hot-toast";
 
 export async function GetAllUsersHook() {
   try {
-    const res = await fetch(
-      "https://apidoctera.yeshisolutions.com/api/admin/users",
-      {
-        credentials: "include",
-      },
-    );
+    const res = await fetch("https://api1.docteramarket.com/api/admin/users", {
+      credentials: "include",
+    });
 
     if (!res.ok) {
       throw Error(res);
@@ -24,7 +21,7 @@ export async function GetAllUsersHook() {
 export async function GetSingleUserHook(username) {
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/users/${username}`,
+      `https://api1.docteramarket.com/api/admin/users/${username}`,
       {
         credentials: "include",
       },
@@ -46,7 +43,7 @@ export async function UpdateUserRoleHook(username, data) {
   try {
     // console.log("api reached");
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/users/${username}`,
+      `https://api1.docteramarket.com/api/admin/users/${username}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },

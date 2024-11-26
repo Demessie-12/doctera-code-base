@@ -39,6 +39,21 @@ import ProfileEdit, {
 import PasswordEdit, {
   action as passwordEditAction,
 } from "./Pages/PasswordEdit.jsx";
+import Products, {
+  loader as myProductLoader,
+} from "./features/Contributor/Products.jsx";
+import ProductEditing, {
+  action as EditProdcutAction,
+} from "./features/Contributor/ProductEditing.jsx";
+import ProductUpload, {
+  action as UploadProductAction,
+} from "./features/Contributor/ProductUpload.jsx";
+import Orders, { loader } from "./features/Contributor/Orders.jsx";
+import OrderDetailAsOwner, {
+  action as updateStatusAction,
+  loader as singleOrderLoader,
+} from "./features/Contributor/OrderDerailAsOwner.jsx";
+// import MyProducts from "./features/Contributor/MyProducts.jsx";
 // import SearchResult from "./Pages/SearchResult.jsx";
 
 library.add(faEye, faEyeSlash);
@@ -112,7 +127,29 @@ function App() {
         },
         {
           path: "/control/product",
-          element: !loggedUser?.role ? <Navigate to="/" /> : <History />,
+          element: !loggedUser?.role ? <Navigate to="/" /> : <Products />,
+          loader: myProductLoader,
+        },
+        {
+          path: "/control/product/upload",
+          element: <ProductUpload />,
+          action: UploadProductAction,
+        },
+        {
+          path: "/products/edit/:IdWithSlug",
+          element: <ProductEditing />,
+          action: EditProdcutAction,
+        },
+        {
+          path: "/control/order",
+          element: !loggedUser?.role ? <Navigate to="/" /> : <Orders />,
+          loader: loader,
+        },
+        {
+          path: "/control/order/:orderId",
+          element: <OrderDetailAsOwner />,
+          loader: singleOrderLoader,
+          action: updateStatusAction,
         },
       ],
     },

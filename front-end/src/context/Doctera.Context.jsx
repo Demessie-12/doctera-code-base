@@ -20,6 +20,9 @@ const DocteraContextProvider = (props) => {
     secureLocalStorage.getItem("logged-user") || null,
   );
 
+  const [myproducts, setMyproducts] = useState([]);
+  const [myorders, setMyorders] = useState([]);
+
   const contextValue = {
     allproducts,
     setAllproducts,
@@ -31,6 +34,10 @@ const DocteraContextProvider = (props) => {
     setLoggedUser,
     sideBar,
     setSideBar,
+    myproducts,
+    setMyproducts,
+    myorders,
+    setMyorders,
   };
 
   return (

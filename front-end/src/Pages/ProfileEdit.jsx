@@ -6,6 +6,7 @@ import { UpdateProfileHook } from "../Services/apiAuthentication";
 function ProfileEdit() {
   const userData = secureLocalStorage.getItem("logged-user");
   const [gender, setGender] = useState(userData.gender);
+  const [role, setRole] = useState(userData.role);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -90,12 +91,39 @@ function ProfileEdit() {
               />
             </div>
           </div>
+
+          <div className="mb-5 flex flex-row items-center gap-2">
+            <label className="text-DocOrange sm:basis-32">Role</label>
+            <input
+              type="checkbox"
+              id="customer"
+              checked={role === "customer"}
+              onChange={() => setRole("customer")}
+              className="ml-1"
+            />{" "}
+            <label htmlFor="customer" className="mr-5 inline text-white">
+              Customer
+            </label>
+            <input
+              type="checkbox"
+              id="contributor"
+              checked={role === "contributor"}
+              onChange={() => setRole("contributor")}
+              className="ml-1"
+            />
+            <label htmlFor="contributor" className="mr-5 inline text-white">
+              Contributor
+            </label>
+          </div>
         </div>
         <div>
           <input type="hidden" name="gender" value={gender} />
+          <input type="hidden" name="role" value={role} />
         </div>
 
-        <button className="mx-auto mt-5 w-fit rounded-full bg-black px-3 py-1.5 text-DocOrange">
+        <button
+          className={`mx-auto mt-5 w-fit rounded-full bg-black px-3 py-1.5 text-DocOrange ${isSubmitting && "cursor-not-allowed"}`}
+        >
           {isSubmitting ? "Updating" : "Update User"}
         </button>
       </Form>

@@ -2,12 +2,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 export async function GetAllProductsHook() {
-  const res = await fetch(
-    "https://apidoctera.yeshisolutions.com/api/admin/products",
-    {
-      credentials: "include",
-    },
-  );
+  const res = await fetch("https://api1.docteramarket.com/api/admin/products", {
+    credentials: "include",
+  });
   // console.log(res);
   if (!res.ok) {
     location.replace("/login");
@@ -22,7 +19,7 @@ export async function GetAllProductsHook() {
 export async function UpdateProductHook(productId, data) {
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/products/${productId}`,
+      `https://api1.docteramarket.com/api/products/${productId}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
@@ -47,7 +44,7 @@ export async function UpdateProductHook(productId, data) {
 export async function UpdateProductStatusHook(productId, data, IdWithSlug) {
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/products/status/${productId}`,
+      `https://api1.docteramarket.com/api/admin/products/status/${productId}`,
       {
         method: "PATCH",
         headers: { "content-type": "application/json" },
@@ -72,7 +69,7 @@ export async function UpdateProductStatusHook(productId, data, IdWithSlug) {
 export async function DeleteProductHook(product_ID) {
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/admin/products/delete/${product_ID}`,
+      `https://api1.docteramarket.com/api/admin/products/delete/${product_ID}`,
       {
         method: "DELETE",
         headers: { "content-type": "application/json" },
@@ -94,15 +91,12 @@ export async function DeleteProductHook(product_ID) {
 
 export async function UploadProductHook(data) {
   try {
-    const res = await fetch(
-      "https://apidoctera.yeshisolutions.com/api/products/new",
-      {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...data }),
-        credentials: "include",
-      },
-    );
+    const res = await fetch("https://api1.docteramarket.com/api/products/new", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ ...data }),
+      credentials: "include",
+    });
 
     const newData = await res.json();
 

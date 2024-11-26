@@ -1,6 +1,6 @@
 export async function GetDashboardDataHook() {
   const res = await fetch(
-    "https://apidoctera.yeshisolutions.com/api/admin/dashboard",
+    "https://api1.docteramarket.com/api/admin/dashboard",
     {
       credentials: "include",
     },

@@ -2,7 +2,7 @@ import { useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 export async function GetAllProducts() {
-  const res = await fetch("https://apidoctera.yeshisolutions.com/api/products");
+  const res = await fetch("https://api1.docteramarket.com/api/products");
 
   if (!res.ok) throw Error("Failed to get products");
 

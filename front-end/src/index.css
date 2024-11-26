@@ -54,3 +54,23 @@
   animation-timeline: view();
   animation-range: entry 30% cover 70%;
 }
+
+// hide name of column in rows of table
+.tss-1ej321f-MUIDataTableBodyCell-cellHide {
+  visibility: hidden;
+  display: flex;
+  width: 0px;
+}
+
+.tss-1t2q2nr-MUIDataTableBodyCell-stackedHeader {
+  visibility: hidden;
+  width: 0px;
+}
+.css-10odgc5-MuiButtonBase-root-MuiButton-root {
+  padding: none;
+}
+
+.tss-1vd39vz-MUIDataTableBodyCell-stackedCommon:nth-last-of-type(2) {
+  visibility: hidden;
+  width: 0px;
+}

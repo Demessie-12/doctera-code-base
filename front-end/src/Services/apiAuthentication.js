@@ -16,7 +16,7 @@ export const SignUpApi = () => {
     setLoading(true);
     try {
       const res = await fetch(
-        "https://apidoctera.yeshisolutions.com/api/auth/signup",
+        "https://api1.docteramarket.com/api/auth/signup",
         {
           method: "POST",
           Credentials: true,
@@ -51,15 +51,12 @@ export const LoginApi = () => {
   const LoginHook = async (userInputs) => {
     setLoading(true);
     try {
-      const res = await fetch(
-        "https://apidoctera.yeshisolutions.com/api/auth/login",
-        {
-          method: "POST",
-          headers: { "content-type": "application/json" },
-          body: JSON.stringify({ ...userInputs }),
-          credentials: "include",
-        },
-      );
+      const res = await fetch("https://api1.docteramarket.com/api/auth/login", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ...userInputs }),
+        credentials: "include",
+      });
 
       const LoginData = await res.json();
 
@@ -87,9 +84,7 @@ export const LogoutApi = () => {
   const logoutHook = async () => {
     setLoading(true);
     try {
-      const res = await fetch(
-        "https://apidoctera.yeshisolutions.com/api/auth/logout",
-      );
+      const res = await fetch("https://api1.docteramarket.com/api/auth/logout");
 
       secureLocalStorage.removeItem("logged-user");
       setLoggedUser(null);
@@ -111,7 +106,7 @@ export async function UpdateProfileHook(userData) {
   // const { loggedUser, setLoggedUser } = useContext(NavbarContext);
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/auth/profile/${userData.username}`,
+      `https://api1.docteramarket.com/api/auth/profile/${userData.username}`,
       {
         method: "PATCH",
         Credentials: true,
@@ -140,7 +135,7 @@ export async function UpdatePasswordHook(passwords) {
   // const { loggedUser, setLoggedUser } = useContext(NavbarContext);
   try {
     const res = await fetch(
-      `https://apidoctera.yeshisolutions.com/api/auth/password/${passwords.username}`,
+      `https://api1.docteramarket.com/api/auth/password/${passwords.username}`,
       {
         method: "PATCH",
         Credentials: true,

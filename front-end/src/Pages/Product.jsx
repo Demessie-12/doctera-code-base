@@ -32,6 +32,7 @@ function Product() {
       productId,
       name: product.name,
       coverImage: product.coverImage,
+      creator: product.creator,
       quantity: 1,
       unitPrice: product.newPrice,
       totalPrice: product.newPrice,

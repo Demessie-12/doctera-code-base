@@ -252,7 +252,7 @@ function CreateOrder() {
               />
               <button
                 disabled={isSubmitting || isLoadingAddress}
-                className="text-balck inline-block rounded-full bg-DocOrange/90 px-4 py-3 text-sm font-semibold tracking-wide hover:bg-DocOrange focus:outline-none focus:ring focus:ring-DocOrange focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4"
+                className={`text-balck inline-block rounded-full bg-DocOrange/90 px-4 py-3 text-sm font-semibold tracking-wide hover:bg-DocOrange focus:outline-none focus:ring focus:ring-DocOrange focus:ring-offset-2 disabled:cursor-not-allowed md:px-6 md:py-4 ${isLoadingAddress ? "bg-DocOrange/50" : ""}`}
               >
                 {isSubmitting
                   ? "Placing Order..."
